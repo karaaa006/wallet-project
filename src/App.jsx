@@ -4,6 +4,7 @@ import { mainFontFamily } from "./utils/stylesVars";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import DashboardPage from "./pages/DashboardPage";
 
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before{
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="registration" element={<RegistrationPage />} />
+        <Route path="dashboard" element={<DashboardPage />} />
       </Routes>
     </>
   );
