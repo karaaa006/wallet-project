@@ -17,8 +17,8 @@ const SpinerWrap = styled.div`
 
 const CurrencyWrap = styled.div`
   position: relative;
-  width: 390px;
-  height: 350px;
+  width: ${({ w }) => (w ? w : "390px")};
+  height: ${({ h }) => (h ? h : "350px")};
   border-radius: 30px;
 
   background-color: #4a56e2;
@@ -52,7 +52,7 @@ const Th = styled.th`
   font-weight: inherit;
 `;
 
-export const Currency = () => {
+export const Currency = ({ w, h }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   //   const testData = [
@@ -111,7 +111,7 @@ export const Currency = () => {
   }, []);
 
   return (
-    <CurrencyWrap>
+    <CurrencyWrap w={w} h={h}>
       {isLoading && (
         <SpinerWrap>
           <TailSpin
