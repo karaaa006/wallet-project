@@ -1,4 +1,5 @@
 import "normalize.css";
+import "react-toastify/dist/ReactToastify.css";
 import { createGlobalStyle } from "styled-components";
 import { mainFontFamily } from "./utils/stylesVars";
 import { Route, Routes } from "react-router-dom";

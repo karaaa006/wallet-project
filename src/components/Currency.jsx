@@ -26,6 +26,8 @@ const CurrencyWrap = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom center;
+
+  overflow: hidden;
 `;
 
 const CurrencyTable = styled.table`

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { instance } from "./instance";
 
 const BASE_URL = "https://goit-wallet-api.herokuapp.com/api";
 
@@ -49,7 +48,7 @@ export const api = {
   transactions: {
     getTransactions: async () => {
       try {
-        const { data } = instance.get("/transactions");
+        const { data } = axios.get("/transactions");
 
         return data;
       } catch (e) {
