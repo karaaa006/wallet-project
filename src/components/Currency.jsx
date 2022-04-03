@@ -53,7 +53,7 @@ const Th = styled.th`
 `;
 
 export const Currency = ({ w, h }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   //   const testData = [
   //     {
@@ -88,8 +88,6 @@ export const Currency = ({ w, h }) => {
 
         const data = await res.json();
 
-        console.log(data);
-
         const dataWithExpiration = { data, time: Number(Date.now()) + 3600000 };
 
         localStorage.setItem("currency", JSON.stringify(dataWithExpiration));
@@ -105,7 +103,7 @@ export const Currency = ({ w, h }) => {
 
     const lsCurrency = JSON.parse(localStorage.getItem("currency"));
 
-    if (lsCurrency && lsCurrency?.time < Date.now()) {
+    if (lsCurrency && lsCurrency?.time > Number(Date.now())) {
       setCurrency(lsCurrency.data);
     } else {
       getCurrency();
