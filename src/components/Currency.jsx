@@ -73,7 +73,7 @@ export const Currency = ({ w, h }) => {
   //     },
   //   ];
 
-  const [currency, setCurrency] = useState({});
+  const [currency, setCurrency] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -86,7 +86,9 @@ export const Currency = ({ w, h }) => {
           "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"
         );
 
-        const data = res.json();
+        const data = await res.json();
+
+        console.log(data);
 
         const dataWithExpiration = { data, time: Number(Date.now()) + 3600000 };
 
@@ -133,9 +135,9 @@ export const Currency = ({ w, h }) => {
         </CurrencyHead>
         {!isLoading && !error && (
           <CurrencyBody>
-            {currency.map((item) => {
+            {currency.map((item, idx) => {
               return (
-                <tr>
+                <tr key={idx}>
                   <Th>{item.ccy}</Th>
                   <Th>{item.buy}</Th>
                   <Th>{item.sale}</Th>
