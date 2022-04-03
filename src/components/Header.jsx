@@ -98,10 +98,10 @@ export const Header = () => {
   const handleClick = () => {
     dispatch(fetchLogout());
   };
-  api.user.login({
-    email: "karaulnyi@gmail.com",
-    password: "123456",
-  });
+  //   api.user.login({
+  //     email: "karaulnyi@gmail.com",
+  //     password: "123456",
+  //   });
   return (
     <StyledHeader>
       <Logo>

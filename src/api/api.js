@@ -10,7 +10,7 @@ export const api = {
     login: async (loginData) => {
       try {
         const { data } = await axios.post("/users/login", loginData);
-
+        console.log(data);
         localStorage.setItem("token", data.token);
 
         return data;
