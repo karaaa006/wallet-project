@@ -17,11 +17,11 @@ export const RegistrationForm =() => {
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [name, setName] = useState("");
 
-    const changePasswordConfimation = () => {
+    const changePasswordConfimation = (e) => {
       console.log(password)
-      console.log(passwordConfirmation)
-      if (password !== passwordConfirmation){
-        console.log('дибил, у тебя пароли разные')
+      console.log(e.target.value)
+      if (password !== e.target.value){
+        console.log('у тебя пароли разные')
         return
       }
       console.log('все ок, регистрируйся на здоровье')
@@ -57,7 +57,7 @@ export const RegistrationForm =() => {
                 type="password"
                 value={passwordConfirmation}
                 setValue={setPasswordConfirmation}
-                custom={changePasswordConfimation}
+                customChangeFunction={changePasswordConfimation}
             />
             <Input
                 placeholder={"Ваше имя"}
@@ -66,7 +66,6 @@ export const RegistrationForm =() => {
                 type="text"
                 value={name}
                 setValue={setName}
-                onInput={(event) => {console.log(event)}}
             />
             <ButtonsWrap>
                 <Button
