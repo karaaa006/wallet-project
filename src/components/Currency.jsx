@@ -88,6 +88,11 @@ export const Currency = ({ w, h }) => {
 
         const data = await res.json();
 
+        data.forEach((item) => {
+          item.buy = Number(item.buy).toFixed(2);
+          item.sale = Number(item.sale).toFixed(2);
+        });
+
         const dataWithExpiration = { data, time: Number(Date.now()) + 3600000 };
 
         localStorage.setItem("currency", JSON.stringify(dataWithExpiration));
@@ -103,11 +108,12 @@ export const Currency = ({ w, h }) => {
 
     const lsCurrency = JSON.parse(localStorage.getItem("currency"));
 
-    if (lsCurrency && lsCurrency?.time > Number(Date.now())) {
-      setCurrency(lsCurrency.data);
-    } else {
-      getCurrency();
-    }
+    // if (lsCurrency && lsCurrency?.time > Number(Date.now())) {
+    //   setCurrency(lsCurrency.data);
+    // } else {
+    //   getCurrency();
+    // }
+    getCurrency();
   }, []);
 
   return (
