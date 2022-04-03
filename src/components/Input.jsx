@@ -55,7 +55,8 @@ export const Input = ({
 
   value,
   setValue,
-  custom,
+  customInputFunction,
+  customChangeFunction,
   placeholder,
   type,
   autoComplete = "off",
@@ -68,13 +69,18 @@ export const Input = ({
     const { value } = e.target;
 
     setValue(value);
+
+    if(!customChangeFunction){
+      return
+    }
+    customChangeFunction(e)
   };
   
   const onInput = (e) => {
-    if (!custom){
+    if (!customInputFunction){
       return
     }
-    custom()
+    customInputFunction(e)
   }
 
   //   const handleBlur = (e) => {
