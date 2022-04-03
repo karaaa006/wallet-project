@@ -55,6 +55,7 @@ export const Input = ({
 
   value,
   setValue,
+  custom,
   placeholder,
   type,
   autoComplete = "off",
@@ -68,6 +69,13 @@ export const Input = ({
 
     setValue(value);
   };
+  
+  const onInput = (e) => {
+    if (!custom){
+      return
+    }
+    custom()
+  }
 
   //   const handleBlur = (e) => {
   //     if (validateSchema) {
@@ -80,6 +88,7 @@ export const Input = ({
       <StyledInput
         onChange={handleChange}
         // onBlur={handleBlur}
+        onInput={onInput}
         value={value}
         p={p}
         ta={ta}
