@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLogin, fetchLogout } from "../operations/userOperations";
+import {
+  fetchCurrentUser,
+  fetchLogin,
+  fetchLogout,
+} from "../operations/userOperations";
 
 const initialState = {
   name: "",
@@ -19,6 +23,10 @@ export const userSlice = createSlice({
     [fetchLogin.fulfilled]: (state, action) => {
       state.name = action.payload.user.name;
       state.token = action.payload.token;
+      state.isAuth = true;
+    },
+    [fetchCurrentUser.fulfilled]: (state, action) => {
+      state.name = action.payload.name;
       state.isAuth = true;
     },
   },

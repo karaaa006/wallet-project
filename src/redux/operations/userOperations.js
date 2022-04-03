@@ -24,3 +24,16 @@ export const fetchLogout = createAsyncThunk(
     }
   }
 );
+
+export const fetchCurrentUser = createAsyncThunk(
+  "user/fetchCurrentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await api.user.getUserData();
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);

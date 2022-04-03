@@ -5,13 +5,22 @@ const BASE_URL = "https://goit-wallet-api.herokuapp.com/api";
 
 axios.defaults.baseURL = BASE_URL;
 
+export const apiTokenConfig = {
+  set(token) {
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+  },
+  unset() {
+    axios.defaults.headers.common["Authorization"] = "";
+  },
+};
+
 export const api = {
   user: {
     login: async (loginData) => {
       try {
         const { data } = await axios.post("/users/login", loginData);
-        console.log(data);
-        localStorage.setItem("token", data.token);
+
+        apiTokenConfig.set(data.token);
 
         return data;
       } catch (e) {
@@ -20,7 +29,18 @@ export const api = {
     },
     logout: async () => {
       try {
-        await instance.get("/users/logout");
+        await axios.get("/users/logout");
+
+        apiTokenConfig.unset();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    getUserData: async () => {
+      try {
+        const { data } = await axios.get("/users/current");
+
+        return data;
       } catch (e) {
         console.log(e);
       }
