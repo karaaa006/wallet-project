@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchLogout } from "../operations/userOperations";
 
 const initialState = {
-  name: "",
+  name: "Имя",
   token: "",
-  isAuth: false,
+  isAuth: true,
 };
 
 export const userSlice = createSlice({
@@ -12,6 +13,13 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state = action.payload;
+    },
+  },
+  extraReducers: {
+    [fetchLogout.fulfilled]: (state, action) => {
+      state.name = "";
+      state.token = "";
+      state.isAuth = false;
     },
   },
 });

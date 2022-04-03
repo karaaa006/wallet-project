@@ -5,6 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import DashboardPage from "./pages/DashboardPage";
+import PublicRoute from "./pages/PublicRoute";
+import PrivateRoute from "./pages/PrivateRoute";
 
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before{
@@ -27,9 +29,30 @@ function App() {
       <GlobalStyle />
 
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="registration" element={<RegistrationPage />} />
-        <Route path="dashboard" element={<DashboardPage />} />
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="registration"
+          element={
+            <PublicRoute>
+              <RegistrationPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <PrivateRoute>
+              <DashboardPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

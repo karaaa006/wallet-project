@@ -54,25 +54,6 @@ const Th = styled.th`
 
 export const Currency = ({ w, h }) => {
   const [isLoading, setIsLoading] = useState(false);
-
-  //   const testData = [
-  //     {
-  //       curr: "USD",
-  //       buy: 28.99,
-  //       sell: 30.21,
-  //     },
-  //     {
-  //       curr: "EUR",
-  //       buy: 30.33,
-  //       sell: 32.25,
-  //     },
-  //     {
-  //       curr: "RUR",
-  //       buy: 0.11,
-  //       sell: 0.2,
-  //     },
-  //   ];
-
   const [currency, setCurrency] = useState([]);
   const [error, setError] = useState(null);
 
@@ -108,12 +89,11 @@ export const Currency = ({ w, h }) => {
 
     const lsCurrency = JSON.parse(localStorage.getItem("currency"));
 
-    // if (lsCurrency && lsCurrency?.time > Number(Date.now())) {
-    //   setCurrency(lsCurrency.data);
-    // } else {
-    //   getCurrency();
-    // }
-    getCurrency();
+    if (lsCurrency && lsCurrency?.time > Number(Date.now())) {
+      setCurrency(lsCurrency.data);
+    } else {
+      getCurrency();
+    }
   }, []);
 
   return (
