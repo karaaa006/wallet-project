@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 
 import close from "../images/icons/close.svg";

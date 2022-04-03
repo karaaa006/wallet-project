@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { secondFontFamily } from "../utils/stylesVars";
-
-import logo from "../images/logo.svg";
-import exit from "../images/icons/exit.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLogout } from "../redux/operations/userOperations";
-import { api } from "../api/api";
 import { Modal } from "./Modal";
 import { useState } from "react";
 import { Button } from "./Button";
+
+import logo from "../images/logo.svg";
+import exit from "../images/icons/exit.svg";
 
 const StyledHeader = styled.header`
   display: flex;

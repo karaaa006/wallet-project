@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const InputWrap = styled.div`
@@ -70,18 +69,18 @@ export const Input = ({
 
     setValue(value);
 
-    if(!customChangeFunction){
-      return
+    if (!customChangeFunction) {
+      return;
     }
-    customChangeFunction(e)
+    customChangeFunction(e);
   };
-  
+
   const onInput = (e) => {
-    if (!customInputFunction){
-      return
+    if (!customInputFunction) {
+      return;
     }
-    customInputFunction(e)
-  }
+    customInputFunction(e);
+  };
 
   //   const handleBlur = (e) => {
   //     if (validateSchema) {
