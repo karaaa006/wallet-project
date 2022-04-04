@@ -13,6 +13,7 @@ const StyledButton = styled.button`
   border-radius: 20px;
   font-size: ${({ fz }) => (fz ? fz : "18px")};
   text-transform: uppercase;
+  disabled: ${({disabled}) => (disabled ? disabled : "false")}
 
   cursor: pointer;
 
@@ -21,6 +22,11 @@ const StyledButton = styled.button`
     background-color: ${({ accent }) => (accent ? "#14BE99" : "")};
     border-color: ${({ accent }) => (accent ? "#14BE99" : "#121ea1")};
     color: ${({ accent }) => (accent ? "" : "#121ea1")};
+  }
+
+  :disabled {
+    background-color: #E5F1EF;
+    border-color: #E5F1EF;
   }
 
   transition: border ease 250ms, background-color ease 250ms, color ease 250ms;
@@ -37,6 +43,7 @@ export const Button = ({
   h,
   fz,
   accent,
+  disabled,
   children,
   onClick,
   type = "button",
@@ -52,6 +59,7 @@ export const Button = ({
       accent={accent}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {children}
     </StyledButton>

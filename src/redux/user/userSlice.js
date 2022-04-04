@@ -4,7 +4,7 @@ import { fetchLogout } from "../operations/userOperations";
 const initialState = {
   name: "Имя",
   token: "",
-  isAuth: true,
+  isAuth: false,
 };
 
 export const userSlice = createSlice({

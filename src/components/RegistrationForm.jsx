@@ -4,6 +4,10 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import { StyledForm } from "./StyledForm";
 import { ButtonsWrap } from "./ButtonsWrap";
+import { FormNotificationWrap } from "./FormNotificatinWrap";
+import { FormNotification } from "./FormNotification";
+import { FormStatusbar } from "./FormStatusbar";
+import { TextNotification } from "./TextNotification";
 
 import mail from "../images/icons/mail.svg";
 import lock from "../images/icons/lock.svg";
@@ -16,10 +20,9 @@ export const RegistrationForm =() => {
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [name, setName] = useState("");
+    const [registrationPermission, setRegistrationPermission] = useState(false)
 
     const changePasswordConfimation = (e) => {
-      console.log(password)
-      console.log(e.target.value)
       if (password !== e.target.value){
         console.log('у тебя пароли разные')
         return
@@ -29,6 +32,7 @@ export const RegistrationForm =() => {
 
     const onSubmit = (e) => {
       console.log(e)
+      
     }
 
     return (
@@ -42,23 +46,37 @@ export const RegistrationForm =() => {
                 value={email}
                 setValue={setEmail}
             />
-            <Input
-                placeholder={"Пароль"}
-                icon={lock}
-                mb="40px"
-                type="password"
-                value={password}
-                setValue={setPassword}
-            />
-            <Input
-                placeholder={"Подтвердите пароль"}
-                icon={lock}
-                mb="40px"
-                type="password"
-                value={passwordConfirmation}
-                setValue={setPasswordConfirmation}
-                customChangeFunction={changePasswordConfimation}
-            />
+
+            <FormNotificationWrap>
+              <Input
+                  placeholder={"Пароль"}
+                  icon={lock}
+                  mb="40px"
+                  type="password"
+                  value={password}
+                  setValue={setPassword}
+              />
+              <FormNotification visibility={true}>
+                <FormStatusbar w="50"></FormStatusbar>
+              </FormNotification>
+            </FormNotificationWrap>
+
+            <FormNotificationWrap>
+              <Input
+                  placeholder={"Подтвердите пароль"}
+                  icon={lock}
+                  mb="40px"
+                  type="password"
+                  value={passwordConfirmation}
+                  setValue={setPasswordConfirmation}
+                  customChangeFunction={changePasswordConfimation}
+              />
+              <FormNotification visibility={true}>
+                <TextNotification>Введенные пароли не совпадают</TextNotification>
+              </FormNotification>
+            </FormNotificationWrap>
+
+
             <Input
                 placeholder={"Ваше имя"}
                 icon={account}
@@ -67,6 +85,7 @@ export const RegistrationForm =() => {
                 value={name}
                 setValue={setName}
             />
+
             <ButtonsWrap>
                 <Button
                 type="submit"
@@ -76,6 +95,7 @@ export const RegistrationForm =() => {
                 h="50px"
                 m="0 0 20px 0"
                 p="0"
+                disabled={!registrationPermission}
                 >
                 Регистрация
                 </Button>
@@ -87,7 +107,7 @@ export const RegistrationForm =() => {
                 >
                 Вход
                 </Button>
-                </ButtonsWrap>
+            </ButtonsWrap>
           </StyledForm>
         </>
     )
