@@ -13,7 +13,6 @@ const StyledButton = styled.button`
   border-radius: 20px;
   font-size: ${({ fz }) => (fz ? fz : "18px")};
   text-transform: uppercase;
-  disabled: ${({disabled}) => (disabled ? disabled : "false")}
 
   cursor: pointer;
 
@@ -25,8 +24,10 @@ const StyledButton = styled.button`
   }
 
   :disabled {
-    background-color: #E5F1EF;
-    border-color: #E5F1EF;
+    background-color: #e5f1ef;
+    border-color: #e5f1ef;
+
+    cursor: default;
   }
 
   transition: border ease 250ms, background-color ease 250ms, color ease 250ms;
