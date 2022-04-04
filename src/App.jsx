@@ -1,4 +1,5 @@
 import "normalize.css";
+import "react-toastify/dist/ReactToastify.css";
 import { createGlobalStyle } from "styled-components";
 import { mainFontFamily } from "./utils/stylesVars";
 import { Route, Routes } from "react-router-dom";
@@ -7,6 +8,10 @@ import RegistrationPage from "./pages/RegistrationPage";
 import DashboardPage from "./pages/DashboardPage";
 import PublicRoute from "./pages/PublicRoute";
 import PrivateRoute from "./pages/PrivateRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { apiTokenConfig } from "./api/api";
+import { fetchCurrentUser } from "./redux/operations/userOperations";
 
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before{
@@ -24,6 +29,20 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const dispatch = useDispatch();
+
+  const { token } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const getUser = async () => {
+      apiTokenConfig.set(token);
+
+      dispatch(fetchCurrentUser());
+    };
+    if (token) {
+      getUser();
+    }
+  }, []);
   return (
     <>
       <GlobalStyle />

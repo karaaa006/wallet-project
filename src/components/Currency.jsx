@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
-import { api } from "../api/api";
 
 const SpinerWrap = styled.div`
   position: absolute;
@@ -26,6 +25,8 @@ const CurrencyWrap = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom center;
+
+  overflow: hidden;
 `;
 
 const CurrencyTable = styled.table`

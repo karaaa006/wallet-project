@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { secondFontFamily } from "../utils/stylesVars";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLogout } from "../redux/operations/userOperations";
+import { Modal } from "./Modal";
+import { useState } from "react";
+import { Button } from "./Button";
 
 import logo from "../images/logo.svg";
 import exit from "../images/icons/exit.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLogout } from "../redux/operations/userOperations";
-import { api } from "../api/api";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -90,32 +92,63 @@ const ExitText = styled.div`
   }
 `;
 
+const ModalLogout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-around;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
 export const Header = () => {
   const dispatch = useDispatch();
 
   const { name } = useSelector((state) => state.user);
 
-  const handleClick = () => {
-    dispatch(fetchLogout());
-  };
-  api.user.login({
-    email: "karaulnyi@gmail.com",
-    password: "123456",
-  });
-  return (
-    <StyledHeader>
-      <Logo>
-        <LogoImg src={logo} />
-        <LogoText>Wallet</LogoText>
-      </Logo>
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-      <UserInfo>
-        <Name>{name}</Name>
-        <ExitButton onClick={handleClick}>
-          <ExitIcon src={exit} />
-          <ExitText>Выйти</ExitText>
-        </ExitButton>
-      </UserInfo>
-    </StyledHeader>
+  const handleClick = () => {
+    setModalIsOpen(true);
+  };
+
+  return (
+    <>
+      <StyledHeader>
+        <Logo>
+          <LogoImg src={logo} />
+          <LogoText>Wallet</LogoText>
+        </Logo>
+        <UserInfo>
+          <Name>{name}</Name>
+          <ExitButton onClick={handleClick}>
+            <ExitIcon src={exit} />
+            <ExitText>Выйти</ExitText>
+          </ExitButton>
+        </UserInfo>
+      </StyledHeader>
+      <Modal
+        isOpen={modalIsOpen}
+        setIsOpen={setModalIsOpen}
+        title="Вы действительно хотите выйти?"
+      >
+        <ModalLogout>
+          <Button w="100px" h="100px" onClick={() => dispatch(fetchLogout())}>
+            Да
+          </Button>
+          <Button
+            w="100px"
+            h="100px"
+            accent
+            onClick={() => setModalIsOpen(false)}
+          >
+            Нет
+          </Button>
+        </ModalLogout>
+      </Modal>
+    </>
   );
 };

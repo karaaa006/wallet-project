@@ -9,8 +9,11 @@ import { ButtonsWrap } from "./ButtonsWrap";
 import mail from "../images/icons/mail.svg";
 import lock from "../images/icons/lock.svg";
 import { api } from "../api/api";
+import { useDispatch } from "react-redux";
+import { fetchLogin } from "../redux/operations/userOperations";
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -20,51 +23,52 @@ export const LoginForm = () => {
   //     login: Yap.string().required(),
   //     password: Yap.required(),
   //   });
-  const onSubmit = (e) => {
-    console.log(e)
-  }
+
+  const handleSubmit = () => {
+    dispatch(fetchLogin({ email, password }));
+  };
 
   return (
     <>
-    <StyledForm submitFunction={onSubmit}>
-    <Input
-            placeholder={"E-mail"}
-            icon={mail}
-            mb="40px"
-            type="email"
-            value={email}
-            setValue={setEmail}
-          />
-          <Input
-            placeholder={"Пароль"}
-            icon={lock}
-            mb="40px"
-            type="password"
-            value={password}
-            setValue={setPassword}
-          />
-          <ButtonsWrap>
-            <Button
-              type="submit"
-              accent
-              w="100%"
-              mw="300px"
-              h="50px"
-              m="0 0 20px 0"
-              p="0"
-            >
-              Вход
-            </Button>
-            <Button
-              w="100%"
-              mw="300px"
-              h="50px"
-              onClick={() => navigate("registration")}
-            >
-              Регистрация
-            </Button>
-          </ButtonsWrap>
-    </StyledForm>
-  </>
+      <StyledForm submitFunction={handleSubmit}>
+        <Input
+          placeholder={"E-mail"}
+          icon={mail}
+          mb="40px"
+          type="email"
+          value={email}
+          setValue={setEmail}
+        />
+        <Input
+          placeholder={"Пароль"}
+          icon={lock}
+          mb="40px"
+          type="password"
+          value={password}
+          setValue={setPassword}
+        />
+        <ButtonsWrap>
+          <Button
+            type="submit"
+            accent
+            w="100%"
+            mw="300px"
+            h="50px"
+            m="0 0 20px 0"
+            p="0"
+          >
+            Вход
+          </Button>
+          <Button
+            w="100%"
+            mw="300px"
+            h="50px"
+            onClick={() => navigate("registration")}
+          >
+            Регистрация
+          </Button>
+        </ButtonsWrap>
+      </StyledForm>
+    </>
   );
 };
