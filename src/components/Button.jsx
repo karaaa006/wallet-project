@@ -23,6 +23,13 @@ const StyledButton = styled.button`
     color: ${({ accent }) => (accent ? "" : "#121ea1")};
   }
 
+  :disabled {
+    background-color: #e5f1ef;
+    border-color: #e5f1ef;
+
+    cursor: default;
+  }
+
   transition: border ease 250ms, background-color ease 250ms, color ease 250ms;
 
   @media screen and (max) {
@@ -37,6 +44,7 @@ export const Button = ({
   h,
   fz,
   accent,
+  disabled,
   children,
   onClick,
   type = "button",
@@ -52,6 +60,7 @@ export const Button = ({
       accent={accent}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {children}
     </StyledButton>

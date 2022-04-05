@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { persistor, store } from "./redux/store";
@@ -9,9 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 const container = document.getElementById("root");
 
-const root = ReactDOM.createRoot(container);
-
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -20,5 +18,6 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  container
 );
