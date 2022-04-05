@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import userSelectors from '../redux/userSelectors';
 import { Currency } from "../components/Currency";
 import { Header } from "../components/Header";
+import { Loader } from "../components/Loader";
+
+
 
 const PageWrap = styled.div`
   padding: 0 20px;
@@ -15,12 +20,17 @@ const PageWrap = styled.div`
 `;
 
 export default function DashboardPage() {
+  const isLoading = useSelector(userSelectors.getIsLoading);
+
   return (
-    <>
+     <>
       <Header />
-      <PageWrap>
+
+      {isLoading ? (<Loader />) : (
+        <PageWrap>
         <Currency />
-      </PageWrap>
+        </PageWrap>
+      )}
     </>
   );
 }
