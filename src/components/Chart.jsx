@@ -3,10 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
 
-const Wrap = styled.div``;
 const TitleChart = styled.h2`
-  font-family: "Poppins";
-
   font-size: 30px;
   line-height: 1.5;
 `;
@@ -28,53 +25,23 @@ const ChartWrap = styled.div`
   }
 `;
 
-// const ShadowPlugin = {
-//   beforeDraw: (chart, args, options) => {
-//     console.log(chart);
-//     const { ctx } = chart;
+const Balance = styled.span`
+  top: 50%;
+  left: 50%;
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
 
-//     console.log(ctx);
-//     ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
-//     ctx.shadowBlur = 10;
-//     ctx.shadowOffsetX = 0;
-//     ctx.shadowOffsetY = 4;
-//   },
-// };
-// const Balance = styled.span`
-//   top: 50%;
-//   left: 50%;
-//   position: absolute;
-//   transform: translate(-50%, -50%);
-//   textshadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-//   fontweight: 700;
-//   fontsize: 18px;
-//   lineheight: 27px;
-
-//   @media screen and (min-width: 768px) {
-//   }
-
-//   @media screen and (min-width: 1280px) {
-//   }
-// `;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.5;
+`;
 
 const options = {
   responsive: true,
   aspectRatio: 1,
   maintainAspectRatio: true,
   cutout: 90,
-};
-
-const styles = {
-  title: {
-    top: "50%",
-    left: "50%",
-    position: "absolute",
-    transform: "translate(-50%, -50%)",
-    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    fontWeight: "700",
-    fontSize: "18px",
-    lineHeight: "27px",
-  },
 };
 
 export const Chart = ({ statistics }) => {
@@ -100,14 +67,12 @@ export const Chart = ({ statistics }) => {
   };
 
   return (
-    <Wrap>
+    <>
       <TitleChart>Статистика</TitleChart>
       <ChartWrap>
         <Doughnut data={data} options={options} />
-        <span style={styles.title}>&#8372; {balance}</span>
+        <Balance>&#8372; {balance}</Balance>
       </ChartWrap>
-    </Wrap>
+    </>
   );
 };
-
-// plugins={[ShadowPlugin]}
