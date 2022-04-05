@@ -1,53 +1,113 @@
 import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import styled from "styled-components";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+const Wrap = styled.div``;
+const TitleChart = styled.h2`
+  font-family: "Poppins";
 
-export const data = {
-  //   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+  font-size: 30px;
+  line-height: 1.5;
+`;
+
+const ChartWrap = styled.div`
+  position: relative;
+
+  width: 280px;
+  height: 280px;
+
+  @media screen and (min-width: 768px) {
+    width: 336px;
+    height: 336px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 288px;
+    height: 288px;
+  }
+`;
+
+// const ShadowPlugin = {
+//   beforeDraw: (chart, args, options) => {
+//     console.log(chart);
+//     const { ctx } = chart;
+
+//     console.log(ctx);
+//     ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
+//     ctx.shadowBlur = 10;
+//     ctx.shadowOffsetX = 0;
+//     ctx.shadowOffsetY = 4;
+//   },
+// };
+// const Balance = styled.span`
+//   top: 50%;
+//   left: 50%;
+//   position: absolute;
+//   transform: translate(-50%, -50%);
+//   textshadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+//   fontweight: 700;
+//   fontsize: 18px;
+//   lineheight: 27px;
+
+//   @media screen and (min-width: 768px) {
+//   }
+
+//   @media screen and (min-width: 1280px) {
+//   }
+// `;
 
 const options = {
   responsive: true,
-  maintainAspectRatio: false,
+  aspectRatio: 1,
+  maintainAspectRatio: true,
+  cutout: 90,
 };
 
 const styles = {
-  width: "40%",
-  height: "40%",
-  top: "50%",
-  left: "50%",
-  position: "absolute",
-  transform: "translate(-50%, -50%)",
+  title: {
+    top: "50%",
+    left: "50%",
+    position: "absolute",
+    transform: "translate(-50%, -50%)",
+    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    fontWeight: "700",
+    fontSize: "18px",
+    lineHeight: "27px",
+  },
 };
-export function Chart() {
+
+export const Chart = ({ statistics }) => {
+  const balance = String(statistics.totalSum.toFixed(2));
+  const sums = statistics.categories.map((item) => item.categorySum);
+  const categories = statistics.categories.map((item) => item.category);
+  const colors = statistics.categories.map((item) => item.color);
+
+  Legend.defaults.display = false;
+  ChartJS.register(ArcElement, Tooltip, Legend);
+  const data = {
+    labels: [...categories],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [...sums],
+        backgroundColor: [...colors],
+        borderColor: [...colors],
+        borderWidth: 2,
+        hoverOffset: 2,
+      },
+    ],
+  };
+
   return (
-    <div style={styles}>
-      <Doughnut data={data} options={options} />
-    </div>
+    <Wrap>
+      <TitleChart>Статистика</TitleChart>
+      <ChartWrap>
+        <Doughnut data={data} options={options} />
+        <span style={styles.title}>&#8372; {balance}</span>
+      </ChartWrap>
+    </Wrap>
   );
-}
+};
+
+// plugins={[ShadowPlugin]}
