@@ -32,10 +32,10 @@ export const userSlice = createSlice({
     [fetchCurrentUser.fulfilled]: (state, action) => {
       state.name = action.payload.name;
       state.isAuth = true;
-      // state.isLoading = false;
+      state.isLoading = false;
     },
     [fetchCurrentUser.rejected]: (state, action) => {
-      // state.isLoading = false;
+      state.isLoading = false;
     },
   },
 });
