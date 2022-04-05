@@ -81,7 +81,7 @@ const Slash = styled.div`
   color: #ffffff;
 `;
 const ExchangeValue = styled.input`
-  width: 50px;
+  width: 100%;
   border: none;
   outline: none;
   color: #ffffff;
@@ -97,8 +97,8 @@ export const Currency = ({ w, h }) => {
   const [currency, setCurrency] = useState([]);
   const [error, setError] = useState(null);
   const [activeCcy, setActiveCcy] = useState(currency[0]);
-  const [firstCcy, setFirstCcy] = useState(1);
-  const [secondCcy, setSecondCcy] = useState(null);
+  const [firstCcy, setFirstCcy] = useState(0);
+  const [secondCcy, setSecondCcy] = useState(0);
 
   useEffect(() => {
     const getCurrency = async () => {
@@ -143,7 +143,21 @@ export const Currency = ({ w, h }) => {
 
   const handleClickCurrency = (ccy) => {
     setActiveCcy(ccy);
-    console.log(ccy);
+    setFirstCcy(0);
+    setSecondCcy(0);
+  };
+
+  const handleChangeFirstCcy = (e) => {
+    const result = activeCcy.buy * e.target.value;
+
+    setFirstCcy(e.target.value);
+    setSecondCcy(result.toFixed(2));
+  };
+  const handleChangeSecondCcy = (e) => {
+    const result = e.target.value / activeCcy.buy;
+
+    setSecondCcy(e.target.value);
+    setFirstCcy(result.toFixed(2));
   };
 
   return (
@@ -181,21 +195,21 @@ export const Currency = ({ w, h }) => {
           </CurrencyBody>
         )}
       </CurrencyTable>
-      {/* <ExchangeWrap>
-        <ExchangeCcy>{activeCcy?.base_ccy}</ExchangeCcy>
-        <ExchangeValue
-          type="text"
-          value={firstCcy}
-          onChange={(e) => setFirstCcy(e.target.value)}
-        />
-        <Slash>=</Slash>
+      <ExchangeWrap>
         <ExchangeCcy>{activeCcy?.ccy}</ExchangeCcy>
         <ExchangeValue
           type="text"
-          value={secondCcy}
-          onChange={(e) => setSecondCcy(e.target.value)}
+          value={firstCcy}
+          onChange={handleChangeFirstCcy}
         />
-      </ExchangeWrap> */}
+        <Slash>=</Slash>
+        <ExchangeValue
+          type="text"
+          value={secondCcy}
+          onChange={handleChangeSecondCcy}
+        />
+        <ExchangeCcy>{activeCcy?.base_ccy}</ExchangeCcy>
+      </ExchangeWrap>
     </CurrencyWrap>
   );
 };
