@@ -110,12 +110,17 @@ export const DiagramTab = () => {
   const [m, setM] = useState();
   const [y, setY] = useState();
   const [data, setData] = useState();
-
+  //  data - дістати обєкт і передати пропсами в Chart
   //   const dispatch = useDispatch();
+  //   const expenses = data.slice(1);
+  //   console.log(expenses);
+
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1;
 
   const fetchStatistics = async ({ m, y }) => {
     try {
-      //   console.log(m, y);
       const { data } = await axios.get(
         `/transactions/statistics?month=${m}&year=${y}`
       );
@@ -126,14 +131,13 @@ export const DiagramTab = () => {
     }
   };
 
-  //достати мысяць, рік
-  const date = new Date();
-
   useEffect(() => {
-    // console.log(data);
-    const getStatistics = () => fetchStatistics({ m, y });
+    const getStatistics = () =>
+      fetchStatistics({ m: currentMonth, y: currentYear });
     getStatistics();
   }, []);
+  ////------------------------------------------------------------
+  //   console.log(data);
 
   return (
     <>
