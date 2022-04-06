@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Currency } from "./Currency";
-import { Balance } from "./Balance";
+import Balance from "./Balance";
 import { Navigation } from "./Navigation";
 
 const SideBarWrap = styled.div`
