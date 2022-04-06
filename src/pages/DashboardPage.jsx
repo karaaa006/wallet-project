@@ -26,7 +26,7 @@ export default function DashboardPage() {
     const getData = () => dispatch(fetchTransactions());
 
     getData();
-  }, [dispatch]);
+  }, []);
 
   return (
     <PageWrap>
