@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { BASE_URL } from "../api/api";
+axios.defaults.baseURL = BASE_URL;
 
 const TitleDiagramTab = styled.h2`
   font-size: 30px;
@@ -93,28 +101,79 @@ const SelectYear = styled.select`
   }
 `;
 
+// export const fetchStatistics = createAsyncThunk(
+//   "fetchStatistics",
+
+// );
+
 export const DiagramTab = () => {
+  const [m, setM] = useState();
+  const [y, setY] = useState();
+  const [data, setData] = useState();
+
+  //   const dispatch = useDispatch();
+
+  const fetchStatistics = async ({ m, y }) => {
+    try {
+      //   console.log(m, y);
+      const { data } = await axios.get(
+        `/transactions/statistics?month=${m}&year=${y}`
+      );
+
+      return setData(data);
+    } catch (error) {
+      return console.log(error.response.data);
+    }
+  };
+
+  //достати мысяць, рік
+  const date = new Date();
+
+  useEffect(() => {
+    // console.log(data);
+    const getStatistics = () => fetchStatistics({ m, y });
+    getStatistics();
+  }, []);
+
   return (
     <>
       <DiagramTabWrap>
         <TitleDiagramTab>DiagramTab</TitleDiagramTab>
 
-        <SelectMonth id="month">
+        <SelectMonth
+          id="month"
+          onChange={(e) => {
+            setM(e.target.value);
+            if (e.target.value && y) {
+              fetchStatistics({ m: e.target.value, y });
+              console.log(m);
+            }
+          }}
+        >
           <option value="hide">Месяц</option>
-          <option value="january">Январь</option>
-          <option value="february">Февраль</option>
-          <option value="march">Март</option>
-          <option value="april">Апрель</option>
-          <option value="may">Май</option>
-          <option value="june">Июнь</option>
-          <option value="july">Июль</option>
-          <option value="august">Август</option>
-          <option value="september">Сентябрь</option>
-          <option value="october">Октябрь</option>
-          <option value="november">Ноябрь</option>
-          <option value="december">Декабрь</option>
+          <option value="1">Январь</option>
+          <option value="2">Февраль</option>
+          <option value="3">Март</option>
+          <option value="4">Апрель</option>
+          <option value="5">Май</option>
+          <option value="6">Июнь</option>
+          <option value="7">Июль</option>
+          <option value="8">Август</option>
+          <option value="9">Сентябрь</option>
+          <option value="10">Октябрь</option>
+          <option value="11">Ноябрь</option>
+          <option value="12">Декабрь</option>
         </SelectMonth>
-        <SelectYear id="year">
+        <SelectYear
+          id="year"
+          onChange={(e) => {
+            setY(e.target.value);
+            if (m && e.target.value) {
+              fetchStatistics({ m, y: e.target.value });
+              console.log(y);
+            }
+          }}
+        >
           <option value="hide">Год</option>
           <option value="2022">2022</option>
           <option value="2023">2023</option>
