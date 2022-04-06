@@ -5,6 +5,7 @@ import {fetchTransactions} from "../redux/operations/financeOperations";
 import {getFinance} from "../redux/selectors/financeSelectors";
 import { Currency } from "../components/Currency";
 import { Chart } from "../components/Chart";
+import  Balance  from "../components/Balance";
 
 
 
@@ -39,17 +40,17 @@ const RouteButtons = styled.div`
   height: 75px;
   
 `;
-const Balance = styled.div`
-  width: 100px;
-  height: 75px;
-  background-color: white;
-  margin-bottom: 20px;
-`;
+// const Balance = styled.div`
+//   width: 100px;
+//   height: 75px;
+//   background-color: white;
+//   margin-bottom: 20px;
+// `;
 
-const Amoung = styled.p`
-  font-size: 20px;
+// const Amoung = styled.p`
+//   font-size: 20px;
   
-`;
+// `;
 
 const RoutButton = styled.button`
   font-size: 15px; 
@@ -104,10 +105,10 @@ export default function DashboardPage() {
 
             </RouteButtons>
               
-            <Balance>
-            <Amoung>200$</Amoung>
+          <Balance/>
 
-            </Balance>
+
+
             <Currency /> 
             </SideBar> 
             <MainTab> 
