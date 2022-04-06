@@ -48,7 +48,7 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-export const Modal = ({ children, isOpen, setIsOpen, title, w, h}) => {
+export const Modal = ({ children, isOpen, setIsOpen, title, w, h, justify, align, direction}) => {
    useEffect(() => {
       const close = (e) => {
         if(e.keyCode === 27){
@@ -65,7 +65,7 @@ export const Modal = ({ children, isOpen, setIsOpen, title, w, h}) => {
 
   return (
     <Backdrop onClick={handleClose} isOpen={isOpen}>
-      <ModalWrap onClick={(e) => e.stopPropagation()} tabIndex="0" w={w} h={h}>
+      <ModalWrap onClick={(e) => e.stopPropagation()} tabIndex="0" w={w} h={h} justify={justify} align={align} direction={direction}>
         <CloseButton onClick={handleClose}>
           <CloseIcon src={close} />
         </CloseButton>

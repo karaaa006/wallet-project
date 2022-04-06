@@ -92,7 +92,7 @@ export default function DashboardPage() {
             <Modal
             isOpen={modalIsOpen}
             setIsOpen={setModalIsOpen}
-            justify='top'  
+            justify="start"
             title="Добавить транзакцию"
           ></Modal>
         </PageWrap>
