@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Currency } from "../components/Currency";
+// import { Currency } from "../components/Currency";
 import { Header } from "../components/Header";
+import Navigation from "../components/Navigation";
 
 const PageWrap = styled.div`
   padding: 0 20px;
@@ -19,7 +20,8 @@ export default function DashboardPage() {
     <>
       <Header />
       <PageWrap>
-        <Currency />
+        <Navigation />
+        {/* <Currency /> */}
       </PageWrap>
     </>
   );

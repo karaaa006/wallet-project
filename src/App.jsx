@@ -65,7 +65,7 @@ function App() {
           }
         />
         <Route
-          path="dashboard"
+          path="dashboard/*"
           element={
             <PrivateRoute>
               <DashboardPage />
