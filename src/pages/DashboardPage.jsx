@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import userSelectors from "../redux/userSelectors";
+import userSelectors from "../redux/selectors/userSelectors";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTransactions } from "../redux/operations/financeOperations";
+import { getFinance } from "../redux/selectors/financeSelectors";
 import { Currency } from "../components/Currency";
-import { Header } from "../components/Header";
 import { Chart } from "../components/Chart";
 import { Loader } from "../components/Loader";
 import { accentCl } from "../utils/stylesVars";
@@ -11,6 +13,8 @@ import plus from "../images/icons/plus.svg";
 import { Modal } from "../components/Modal";
 
 const PageWrap = styled.div`
+  display: flex;
+
   padding: 0 20px;
 
   @media screen and (min-width: 768px) {
@@ -20,6 +24,38 @@ const PageWrap = styled.div`
   @media screen and (min-width: 1280px) {
     padding: 0 16px;
   }
+`;
+
+const SideBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  margin-bottom: 20px;
+`;
+
+const MainTab = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const RouteButtons = styled.div`
+  width: 100px;
+  height: 75px;
+`;
+const Balance = styled.div`
+  width: 100px;
+  height: 75px;
+  background-color: white;
+  margin-bottom: 20px;
+`;
+
+const Amoung = styled.p`
+  font-size: 20px;
+`;
+
+const RoutButton = styled.button`
+  font-size: 15px;
+  margin-bottom: 15px;
 `;
 
 //  ______________________Для пропсов диаграммы прокидываем объет такого формата,
@@ -45,8 +81,7 @@ const statistics = {
   totalSum: 10350,
 };
 
-const PlusIcon = styled.img`
-`;
+const PlusIcon = styled.img``;
 
 const AddButton = styled.button`
   position: absolute;
@@ -65,7 +100,7 @@ const AddButton = styled.button`
 
   :hover,
   :focus {
-    background-color: #14BE99;
+    background-color: #14be99;
   }
 `;
 
@@ -75,28 +110,45 @@ export default function DashboardPage() {
   const handleClick = () => {
     setModalIsOpen(true);
   };
+  const dispatch = useDispatch();
+  const data = useSelector(getFinance);
 
+  useEffect(() => {
+    const getData = () => dispatch(fetchTransactions());
+
+    getData();
+  }, [dispatch]);
+
+  const showData = () => {
+    console.log(data);
+  };
   return (
     <>
-      <Header />
+      <PageWrap>
+        <AddButton onClick={handleClick}>
+          <PlusIcon src={plus} />
+        </AddButton>
+        <Modal
+          isOpen={modalIsOpen}
+          setIsOpen={setModalIsOpen}
+          justify="start"
+          title="Добавить транзакцию"
+        ></Modal>
+        <SideBar>
+          <RouteButtons>
+            <RoutButton onClick={showData}>home</RoutButton>
+            <RoutButton>diagrama</RoutButton>
+          </RouteButtons>
 
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <PageWrap>
+          <Balance>
+            <Amoung>200$</Amoung>
+          </Balance>
           <Currency />
+        </SideBar>
+        <MainTab>
           <Chart statistics={statistics} />
-          <AddButton  onClick={handleClick}>
-            <PlusIcon src={plus} />
-          </AddButton>
-            <Modal
-            isOpen={modalIsOpen}
-            setIsOpen={setModalIsOpen}
-            justify="start"
-            title="Добавить транзакцию"
-          ></Modal>
-        </PageWrap>
-      )}
+        </MainTab>
+      </PageWrap>
     </>
   );
 }

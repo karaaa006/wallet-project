@@ -3,6 +3,7 @@ import {
   fetchCurrentUser,
   fetchLogin,
   fetchLogout,
+  fetchRegistration,
 } from "../operations/userOperations";
 
 const initialState = {
@@ -36,6 +37,11 @@ export const userSlice = createSlice({
     },
     [fetchCurrentUser.rejected]: (state, action) => {
       state.isLoading = false;
+    },
+    [fetchRegistration.fulfilled]: (state, action) => {
+      state.name = action.payload.user.name;
+      state.token = action.payload.token;
+      state.isAuth = true;
     },
   },
 });

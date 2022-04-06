@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://goit-wallet-api.herokuapp.com/api";
+export const BASE_URL = "https://goit-wallet-api.herokuapp.com/api";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -44,16 +44,27 @@ export const api = {
         console.log(e);
       }
     },
-  },
-  transactions: {
-    getTransactions: async () => {
+    registration: async (registrationData) => {
       try {
-        const { data } = axios.get("/transactions");
+        const { data } = await axios.post("/users", registrationData)
 
-        return data;
+        apiTokenConfig.set(data.token)
+
+        return data
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
     },
   },
+  // transactions: {
+  //   getTransactions: async () => {
+  //     try {
+  //       const {data} = axios.get("/transactions");
+  //       // console.log("api: ", response);
+  //       return data;
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   },
+  // },
 };
