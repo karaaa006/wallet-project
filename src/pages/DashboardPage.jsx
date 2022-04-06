@@ -7,8 +7,12 @@ import { SideBar } from "../components/Dashboard/SideBar/SideBar";
 
 const PageWrap = styled.div`
   display: flex;
+  height: 100%;
 
   padding: 0 20px;
+
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(50px);
 
   @media screen and (min-width: 768px) {
     padding: 0 32px;

@@ -8,7 +8,6 @@ import { ButtonsWrap } from "./ButtonsWrap";
 
 import mail from "../images/icons/mail.svg";
 import lock from "../images/icons/lock.svg";
-import { api } from "../api/api";
 import { useDispatch } from "react-redux";
 import { fetchLogin } from "../redux/operations/userOperations";
 

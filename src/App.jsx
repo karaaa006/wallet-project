@@ -16,6 +16,9 @@ import { Header } from "./components/Header";
 import { DiagramTab } from "./components/Dashboard/DiagramTab/DiagramTab";
 import { HomeTab } from "./components/Dashboard/HomeTab/HomeTab";
 
+import figure1 from "./images/bg-figure-1.svg";
+import figure2 from "./images/bg-figure-2.svg";
+
 const Login = lazy(() => import("./pages/LoginPage.jsx"));
 const Registration = lazy(() => import("./pages/RegistrationPage.jsx"));
 const Dashboard = lazy(() => import("./pages/DashboardPage.jsx"));
@@ -29,9 +32,13 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-family: ${mainFontFamily};
     background-color: #E7EAF2;
-    background-image: url('./bg-figure-2.svg'), url('./bg-figure-1.svg');
+    background-image: url(${figure2}), url(${figure1});
     background-repeat: no-repeat;
     background-position: top -200px right -200px, bottom -200px left -200px;
+  }
+
+  #root{
+    height: 100%;
   }
 `;
 

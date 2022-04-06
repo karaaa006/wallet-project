@@ -1,5 +1,5 @@
 import { Chart } from "./Chart";
-import { Table } from "./Table";
+import { StatisticsTable } from "./StatisticsTable";
 
 //  ______________________Для пропсов диаграммы прокидываем объет такого формата,
 //  в котором обязательно должны быть category, categorySum, color, totalSum__________________
@@ -27,7 +27,7 @@ export const DiagramTab = () => {
   return (
     <>
       <Chart statistics={statistics} />
-      <Table />
+      <StatisticsTable />
     </>
   );
 };

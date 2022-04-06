@@ -93,7 +93,7 @@ const TableTdR = styled.td`
   padding-right: 20px;
 `;
 
-export const Table = ({ mb }) => {
+export const TransactionsTable = ({ mb }) => {
   const transactions = [
     {
       _id: "624d538082620522a63e5389",
@@ -182,34 +182,36 @@ export const Table = ({ mb }) => {
       {transactions.map((item) => {
         return (
           <MobileTable key={item._id}>
-            <MobileTr mb={item.isExpense}>
-              <MobileTh>Дата</MobileTh>
-              <MobileTd>{parseDate(item.createdAt)}</MobileTd>
-            </MobileTr>
-            <MobileTr mb={item.isExpense}>
-              <MobileTh>Тип</MobileTh>
-              <MobileTd>{item.isExpense ? "+" : "-"}</MobileTd>
-            </MobileTr>
-            <MobileTr mb={item.isExpense}>
-              <MobileTh>Категория</MobileTh>
-              <MobileTd>{item.category.category}</MobileTd>
-            </MobileTr>
-            <MobileTr mb={item.isExpense}>
-              <MobileTh>Комментарий</MobileTh>
-              <MobileTd>{item.comment}</MobileTd>
-            </MobileTr>
-            <MobileTr mb={item.isExpense}>
-              <MobileTh>Сумма</MobileTh>
-              <MobileTd>{item.amount}</MobileTd>
-            </MobileTr>
-            <MobileTr mb={item.isExpense}>
-              <MobileTh>Баланс</MobileTh>
-              <MobileTd
-                style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
-              >
-                {item.balance}
-              </MobileTd>
-            </MobileTr>
+            <tbody>
+              <MobileTr mb={item.isExpense}>
+                <MobileTh>Дата</MobileTh>
+                <MobileTd>{parseDate(item.createdAt)}</MobileTd>
+              </MobileTr>
+              <MobileTr mb={item.isExpense}>
+                <MobileTh>Тип</MobileTh>
+                <MobileTd>{item.isExpense ? "+" : "-"}</MobileTd>
+              </MobileTr>
+              <MobileTr mb={item.isExpense}>
+                <MobileTh>Категория</MobileTh>
+                <MobileTd>{item.category.category}</MobileTd>
+              </MobileTr>
+              <MobileTr mb={item.isExpense}>
+                <MobileTh>Комментарий</MobileTh>
+                <MobileTd>{item.comment}</MobileTd>
+              </MobileTr>
+              <MobileTr mb={item.isExpense}>
+                <MobileTh>Сумма</MobileTh>
+                <MobileTd>{item.amount}</MobileTd>
+              </MobileTr>
+              <MobileTr mb={item.isExpense}>
+                <MobileTh>Баланс</MobileTh>
+                <MobileTd
+                  style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
+                >
+                  {item.balance}
+                </MobileTd>
+              </MobileTr>
+            </tbody>
           </MobileTable>
         );
       })}

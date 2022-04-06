@@ -21,11 +21,11 @@ const ModalWrap = styled.div`
   padding: 40px 80px;
   border-radius: 20px;
   display: flex;
-  flex-direction: ${({ direction }) => direction || 'column'};
-  flex-direction: ${({ align }) => align || 'center'};
-  justify-content: ${({ justify }) => justify || 'center'};
-  width: ${({ w }) => w || '540px'};
-  height: ${({ h }) => h || '605px'};
+  flex-direction: ${({ direction }) => direction || "column"};
+  flex-direction: ${({ align }) => align || "center"};
+  justify-content: ${({ justify }) => justify || "center"};
+  width: ${({ w }) => w || "auto"};
+  height: ${({ h }) => h || "auto"};
   background-color: #ffffff;
 `;
 
@@ -48,24 +48,42 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-export const Modal = ({ children, isOpen, setIsOpen, title, w, h, justify, align, direction}) => {
-   useEffect(() => {
-      const close = (e) => {
-        if(e.keyCode === 27){
-          handleClose()
-        }
+export const Modal = ({
+  children,
+  isOpen,
+  setIsOpen,
+  title,
+  w,
+  h,
+  justify,
+  align,
+  direction,
+}) => {
+  useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        handleClose();
       }
-      window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
-  },[])
-  
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   return (
     <Backdrop onClick={handleClose} isOpen={isOpen}>
-      <ModalWrap onClick={(e) => e.stopPropagation()} tabIndex="0" w={w} h={h} justify={justify} align={align} direction={direction}>
+      <ModalWrap
+        onClick={(e) => e.stopPropagation()}
+        tabIndex="0"
+        w={w}
+        h={h}
+        justify={justify}
+        align={align}
+        direction={direction}
+      >
         <CloseButton onClick={handleClose}>
           <CloseIcon src={close} />
         </CloseButton>
