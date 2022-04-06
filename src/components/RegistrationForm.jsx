@@ -1,5 +1,8 @@
 import { useState } from "react";
+import {useEffect} from "react"
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { StyledForm } from "./StyledForm";
@@ -12,8 +15,10 @@ import { TextNotification } from "./TextNotification";
 import mail from "../images/icons/mail.svg";
 import lock from "../images/icons/lock.svg";
 import account from "../images/icons/account.svg";
+import { fetchRegistration } from "../redux/operations/userOperations";
 
 export const RegistrationForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -21,17 +26,71 @@ export const RegistrationForm = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [name, setName] = useState("");
   const [registrationPermission, setRegistrationPermission] = useState(false);
+  const [passwordConfirmationNotification, setPasswordConfirmationNotification] = useState("")
+  const [statusbarVisibility, setStatusbarVisibility] = useState("")
+  const [passwordNotificationVisibility, setPasswordNotificationVisibility] = useState("")
+  const [nameNotification, setNameNotification] = useState("")
 
-  const changePasswordConfimation = (e) => {
-    if (password !== e.target.value) {
-      console.log("у тебя пароли разные");
-      return;
+  useEffect(() => {
+    if (password.length === 0){
+      setStatusbarVisibility("hidden")
+      setPasswordNotificationVisibility("hidden")
+      return
     }
-    console.log("все ок, регистрируйся на здоровье");
-  };
+    if (password.length <6 || password.length >12){
+      setStatusbarVisibility("hidden")
+      setPasswordNotificationVisibility("visible")
+      return
+    }
+    if (password.length >=6 && password.length <= 12 ){
+      setStatusbarVisibility("visible")
+      setPasswordNotificationVisibility("hidden")
+      return
+    }
+  }, [password])
 
-  const onSubmit = (e) => {
-    console.log(e);
+  useEffect(() => {
+    if (password.length === 0 || passwordConfirmation.length === 0){
+      setPasswordConfirmationNotification("hidden")
+      return
+    }
+    if (password !== passwordConfirmation){
+      setPasswordConfirmationNotification("visible")
+      return
+    }
+    setPasswordConfirmationNotification("hidden")
+  }, [password,passwordConfirmation])
+
+  useEffect(() => {
+    if (name.length === 0){
+      setNameNotification("hidden")
+      return
+    }
+    if (name.length > 12){
+      setNameNotification("visible")
+      return
+    }
+    setNameNotification("hidden")
+  }, [name])
+
+  useEffect(() => {
+    if (
+      email.length !== 0 &&
+      name.length >= 1 &&
+      nameNotification === "hidden" &&
+      passwordConfirmationNotification === "hidden" &&
+      passwordNotificationVisibility ==="hidden" &&
+      passwordConfirmationNotification === "hidden"
+    ) {
+      setRegistrationPermission(true)
+      return
+    }
+    setRegistrationPermission(false)
+  })
+
+
+  const onSubmit = () => {
+    dispatch(fetchRegistration({ name, email, password }))
   };
 
   return (
@@ -55,8 +114,9 @@ export const RegistrationForm = () => {
             value={password}
             setValue={setPassword}
           />
-          <FormNotification visibility={true}>
-            <FormStatusbar w="50"></FormStatusbar>
+          <FormNotification>
+            <TextNotification visibility={passwordNotificationVisibility}>Пароль должен содержать от 6 до 12 символов</TextNotification>
+            <FormStatusbar w="50" visibility={statusbarVisibility}></FormStatusbar>
           </FormNotification>
         </FormNotificationWrap>
 
@@ -68,21 +128,25 @@ export const RegistrationForm = () => {
             type="password"
             value={passwordConfirmation}
             setValue={setPasswordConfirmation}
-            customChangeFunction={changePasswordConfimation}
           />
-          <FormNotification visibility={true}>
-            <TextNotification>Введенные пароли не совпадают</TextNotification>
+          <FormNotification>
+            <TextNotification visibility={passwordConfirmationNotification}>Введенные пароли не совпадают</TextNotification>
           </FormNotification>
         </FormNotificationWrap>
-
-        <Input
-          placeholder={"Ваше имя"}
-          icon={account}
-          mb="40px"
-          type="text"
-          value={name}
-          setValue={setName}
-        />
+        
+        <FormNotificationWrap>
+          <Input
+            placeholder={"Ваше имя"}
+            icon={account}
+            mb="40px"
+            type="text"
+            value={name}
+            setValue={setName}
+          />
+          <FormNotification>
+              <TextNotification visibility={nameNotification}>Имя должно быть короче 12 символов</TextNotification>
+            </FormNotification>
+        </FormNotificationWrap>
 
         <ButtonsWrap>
           <Button
