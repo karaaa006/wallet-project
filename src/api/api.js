@@ -44,16 +44,26 @@ export const api = {
         console.log(e);
       }
     },
+    registration: async (registrationData) => {
+      try {
+        const { data } = await axios.post("/users", registrationData)
+
+        apiTokenConfig.set(data.token)
+
+        return data
+      } catch (e) {
+        console.log(e)
+      }
+    },
   },
-  // transactions: {
-  //   getTransactions: async () => {
-  //     try {
-  //       const {data} = axios.get("/transactions");
-  //       // console.log("api: ", response);
-  //       return data;
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   },
-  // },
+  transactions: {
+    getTransactions: async () => {
+      try {
+        const { data } = await axios.get("/transactions");
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };

@@ -6,6 +6,7 @@ const Background = styled.div`
     heigth: 0px;
     border: 4px solid #E5F1EF;
     border-radius: 4px;
+    visibility: ${({ visibility }) => (visibility ? visibility : "hidden")};
 `
 
 const StyledLine = styled.div`
@@ -15,13 +16,14 @@ const StyledLine = styled.div`
     border: 4px solid #24CCA7;
     box-shadow: 0px 1px 8px rgba(36, 204, 167, 0.5);
     border-radius: 4px;
+    visibility: ${({ visibility }) => (visibility ? visibility : "hidden")};
 `
 
-export const FormStatusbar = ({w}) => {
+export const FormStatusbar = (visibility, {w}) => {
     return (
         <>
-            <Background></Background>
-            <StyledLine w={w}></StyledLine>
+            <Background visibility={visibility}></Background>
+            <StyledLine w={w} visibility={visibility}></StyledLine>
         </>
     )
 }
