@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { useEffect } from "react";
 import close from "../images/icons/close.svg";
 
 const Backdrop = styled.div`
@@ -20,7 +20,12 @@ const ModalWrap = styled.div`
   transform: translate(-50%, -50%);
   padding: 40px 80px;
   border-radius: 20px;
-
+  display: flex;
+  flex-direction: ${({ direction }) => direction || 'column'};
+  flex-direction: ${({ align }) => align || 'center'};
+  justify-content: ${({ justify }) => justify || 'center'};
+  width: ${({ w }) => w || '540px'};
+  height: ${({ h }) => h || '605px'};
   background-color: #ffffff;
 `;
 
@@ -40,18 +45,27 @@ const Title = styled.h2`
   font-size: 30px;
   font-weight: 400;
   margin: 0 0 40px 0;
-
   text-align: center;
 `;
 
-export const Modal = ({ children, isOpen, setIsOpen, title }) => {
+export const Modal = ({ children, isOpen, setIsOpen, title, w, h}) => {
+   useEffect(() => {
+      const close = (e) => {
+        if(e.keyCode === 27){
+          handleClose()
+        }
+      }
+      window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  },[])
+  
   const handleClose = () => {
     setIsOpen(false);
   };
 
   return (
     <Backdrop onClick={handleClose} isOpen={isOpen}>
-      <ModalWrap onClick={(e) => e.stopPropagation()} tabIndex="0">
+      <ModalWrap onClick={(e) => e.stopPropagation()} tabIndex="0" w={w} h={h}>
         <CloseButton onClick={handleClose}>
           <CloseIcon src={close} />
         </CloseButton>

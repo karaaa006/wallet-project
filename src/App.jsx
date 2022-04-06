@@ -67,9 +67,12 @@ function App() {
         <Route
           path="dashboard"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
+            //   <DashboardPage />
+            // </PrivateRoute>
+            <PublicRoute>
               <DashboardPage />
-            </PrivateRoute>
+            </PublicRoute>
           }
         />
       </Routes>
