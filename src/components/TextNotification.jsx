@@ -5,11 +5,11 @@ const Text = styled.span`
     color: red;
     font-size: 12px;
     margin-left: 10px;
-
+    visibility: ${({ visibility }) => (visibility ? visibility : "hidden")};
 `
-export const TextNotification =({children}) => {
+export const TextNotification =({visibility, children}) => {
     return (
-        <Text>
+        <Text visibility={visibility}>
             {children}
         </Text>
     )
