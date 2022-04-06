@@ -2,12 +2,10 @@ import "normalize.css";
 import "react-toastify/dist/ReactToastify.css";
 import { createGlobalStyle } from "styled-components";
 import { mainFontFamily } from "./utils/stylesVars";
-import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
-import DashboardPage from "./pages/DashboardPage";
+import { Route, Routes, Navigate } from "react-router-dom";
 import PublicRoute from "./pages/PublicRoute";
 import PrivateRoute from "./pages/PrivateRoute";
+import { lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { apiTokenConfig } from "./api/api";
@@ -15,6 +13,12 @@ import { fetchCurrentUser } from "./redux/operations/userOperations";
 import { Loader } from "./components/Loader";
 import userSelectors from "./redux/selectors/userSelectors";
 import { Header } from "./components/Header";
+import { DiagramTab } from "./components/Dashboard/DiagramTab/DiagramTab";
+import { HomeTab } from "./components/Dashboard/HomeTab/HomeTab";
+
+const Login = lazy(() => import("./pages/LoginPage.jsx"));
+const Registration = lazy(() => import("./pages/RegistrationPage.jsx"));
+const Dashboard = lazy(() => import("./pages/DashboardPage.jsx"));
 
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before{
@@ -47,38 +51,43 @@ function App() {
       getUser();
     }
   }, [token, dispatch]);
+
   return (
     <>
       <GlobalStyle />
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="registration"
-          element={
-            <PublicRoute>
-              <RegistrationPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="dashboard"
-          element={
-
-            <PrivateRoute>
-              <Header />
-              {!isLoading ? <DashboardPage /> : <Loader /> }              
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="registration"
+            element={
+              <PublicRoute>
+                <Registration />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoute>
+                <Header />
+                {!isLoading ? <Dashboard /> : <Loader />}
+              </PrivateRoute>
+            }
+          >
+            <Route path="home" element={<HomeTab />} />
+            <Route path="diagram" element={<DiagramTab />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

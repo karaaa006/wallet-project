@@ -1,14 +1,11 @@
-import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { BASE_URL } from "../../api/api";
-
-axios.defaults.baseURL = BASE_URL;
+import { api } from "../../api/api";
 
 export const fetchTransactions = createAsyncThunk(
   "finance/fetchTransactions",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/transactions");
+      const data = await api.transactions.getTransactions();
 
       return data;
     } catch (error) {

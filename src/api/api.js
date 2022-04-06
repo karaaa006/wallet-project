@@ -56,15 +56,14 @@ export const api = {
       }
     },
   },
-  // transactions: {
-  //   getTransactions: async () => {
-  //     try {
-  //       const {data} = axios.get("/transactions");
-  //       // console.log("api: ", response);
-  //       return data;
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   },
-  // },
+  transactions: {
+    getTransactions: async () => {
+      try {
+        const { data } = await axios.get("/transactions");
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };
