@@ -4,6 +4,7 @@ import { useState } from "react";
 import { accentCl } from "../../../utils/stylesVars";
 import plus from "../../../images/icons/plus.svg";
 import { Modal } from "../../../components/Modal";
+import { Table } from "./Table";
 
 const MainTab = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ export const HomeTab = () => {
         justify="start"
         title="Добавить транзакцию"
       ></Modal>
-      <h2>ТУТ ТАБЛИЦЯ З ТРАНЗАКЦіЯМИ</h2>
+      <Table />
     </MainTab>
   );
 };
