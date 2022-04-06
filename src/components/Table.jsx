@@ -9,11 +9,14 @@ const MobileTable = styled.table`
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 8px;  
+  border-collapse:collapse;
+  overflow:hidden;
 `;
 const MobileTr = styled.tr`
   height: 47px;
+  border-left:${({ mb }) => (!mb ? `5px solid #FF6596` : `5px solid #24CCA7`)};
 `;
-
+// style = {{borderLeft: (item.isExpense) ? `5px solid #FF6596` : `5px solid #24CCA7`}}
 const MobileTh = styled.th`
 text-align: start;
 padding-left: 20px;
@@ -26,10 +29,19 @@ padding-right: 20px;
 border-bottom: 1px solid #dcdcdf;
 `;
 
-
+const ConteinerTable = styled.div`
+max-height: 320px;
+    overflow: scroll;
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: rgba(255, 255, 255, 0.0);
+    }
+    `;
 const TableTransactions = styled.table`
   width: 704px;
   border-collapse: collapse;
+  padding-left: 20px;
+  padding-right: 20px;
 
   @media screen and (min-width:1280px) {
     width: 715px;
@@ -41,6 +53,9 @@ const TableHead = styled.thead`
   font-weight: 700;
   font-size: 18px;
   line-height: 1.5;
+  background: #FFFFFF;
+  position: sticky;
+  top: 0;
 `;
 
 const TableBody = styled.tbody`
@@ -50,26 +65,34 @@ const TableBody = styled.tbody`
 `;
 
 const TableTr = styled.tr`
-border-bottom: 1px solid #dcdcdf;
-  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
-  height: 52px`; 
+  height: 52px;
+  :not(:last-child) {border-bottom: 1px solid #dcdcdf;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6)}`; 
 
 const TableTh = styled.th`
   background: white;
+  text-align: left;
+  padding-left: 20px;
 `;
 
-export const Table = () => {
+const TableTdl = styled.td`
+text-align: left;
+padding-left: 20px;`
+
+const TableTdR = styled.td`
+text-align: right;
+padding-right: 20px;`
+
+export const Table = ({mb, }) => {
   const [isTable, setIstable] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.screen.width > 767) {
+      if (window.screen.width < 767) {
         setIstable(true);
       } else {
         setIstable(false);
       }
-      console.log(isTable);
-      console.log(window.screen.width);
     };
 
     window.addEventListener("resize", handleResize);
@@ -78,39 +101,22 @@ export const Table = () => {
     };
   }, []);
 const transactions = [
+  
   {
-    "_id": "624c5bd8abee22d653d9c9e9",
-    "isExpense": false,
-    "category": "різне",
-    "amount": 500,
-    "comment": "подарунок",
-    "balance": 500,
-    "owner": "624beb32abee22d653d9c65f",
-    "createdAt": "2022-04-05T15:10:16.702Z",
-    "updatedAt": "2022-04-05T15:10:16.702Z"
-  },
-  {
-    "_id": "624c5bf8abee22d653d9c9f5",
+    "_id": "624d538082620522a63e5389",
     "isExpense": true,
-    "category": "різне",
-    "amount": 100,
-    "comment": "подарунок",
-    "balance": 400,
+    "category": {
+      "_id": "624c80387f49cd7760991931",
+      "category": "Нерегулярный доход"
+    },
+    "amount": 50,
+    "comment": "sdfsafd",
+    "balance": 4650,
     "owner": "624beb32abee22d653d9c65f",
-    "createdAt": "2022-04-05T15:10:48.163Z",
-    "updatedAt": "2022-04-05T15:10:48.163Z"
+    "createdAt": "2022-04-06T08:46:56.420Z",
+    "updatedAt": "2022-04-06T08:46:56.420Z"
   },
-  {
-    "_id": "624c5ca5abee22d653d9ca07",
-    "isExpense": false,
-    "category": "регулярний дохід",
-    "amount": 5000,
-    "comment": "зарплата",
-    "balance": 5400,
-    "owner": "624beb32abee22d653d9c65f",
-    "createdAt": "2022-10-25T15:13:41.399Z",
-    "updatedAt": "2022-10-25T15:13:41.399Z"
-  }
+  
 ]
 const parseDate = (date) =>{
   const newDate =new Date(date)
@@ -119,11 +125,18 @@ const parseDate = (date) =>{
   + ((newDate.getMonth() < 9 ? "0"+ (newDate.getMonth() +1): newDate.getMonth() + 1) ).toString().padStart('0', 2) + '.' 
   + newDate.getFullYear().toString().slice(-2)
    
+//   position: sticky;
+//   top: 0;
+  
+// element.style {
+//   height: 250px;
+//   overflow: scroll;
+
   return finalDate}
 
-  return (
-    <div>
-      {isTable && (
+  return (<div>
+    <ConteinerTable>
+      {!isTable && (
         <TableTransactions>
           <TableHead>
             <tr>
@@ -151,42 +164,42 @@ const parseDate = (date) =>{
           { transactions.map((item) => {
             return (
             <TableTr key={item._id}>
-              <td>{parseDate(item.createdAt)}</td>
-              <td>{item.isExpense ? '-' : '+' }</td>
-              <td>{item.category}</td>
-              <td>{item.comment}</td>
+              <TableTdl>{parseDate(item.createdAt)}</TableTdl>
+              <TableTdl style = {{textAlign: "center"}}>{item.isExpense ? '-' : '+' }</TableTdl>
+              <TableTdl>{item.category.category}</TableTdl>
+              <TableTdl>{item.comment}</TableTdl>
              
-              <td style = {{color: (item.isExpense) ? `#FF6596` : `#24CCA7`}}>{item.amount}</td>
-              <td>{item.balance}</td>
+              <TableTdR style = {{color: (item.isExpense) ? `#FF6596` : `#24CCA7`}}>{item.amount}</TableTdR>
+              <TableTdR>{item.balance}</TableTdR>
             </TableTr>)})}
           </TableBody>
         </TableTransactions>
-      )}
-      {!isTable && (<>
+      )}</ConteinerTable>
+      {isTable && (<>
        { transactions.map((item) => { 
         return ( 
-        <MobileTable key={item._id} style = {{borderLeft: (item.isExpense) ? `5px solid #FF6596` : `5px solid #24CCA7`}}>
-          <MobileTr>
+        <MobileTable key={item._id} >
+          <MobileTr mb={item.isExpense}>
             <MobileTh>Дата</MobileTh>
             <MobileTd>{parseDate(item.createdAt)}</MobileTd>
           </MobileTr>
-          <MobileTr>
+          <MobileTr mb={item.isExpense}>
             <MobileTh>Тип</MobileTh>
             <MobileTd>{item.isExpense ? '+' : '-' }</MobileTd>
           </MobileTr>
-          <MobileTr>
+          <MobileTr mb={item.isExpense}>
             <MobileTh>Категория</MobileTh>
-            <MobileTd>{item.category}</MobileTd>
+            <MobileTd>{item.category.category}</MobileTd>
           </MobileTr>
-          <MobileTr>
+          <MobileTr mb={item.isExpense}>
             <MobileTh>Комментарий</MobileTh>
             <MobileTd>{item.comment}</MobileTd>
           </MobileTr>
-          <MobileTr>
+          <MobileTr mb={item.isExpense}>
             <MobileTh>Сумма</MobileTh>
             <MobileTd>{item.amount}</MobileTd>
           </MobileTr>
-          <MobileTr>
+          <MobileTr mb={item.isExpense}>
             <MobileTh>Баланс</MobileTh>
             <MobileTd style = {{color: (item.isExpense) ? `#FF6596` : `#24CCA7`}}>{item.balance}</MobileTd>
           </MobileTr>
