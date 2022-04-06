@@ -44,6 +44,17 @@ export const api = {
         console.log(e);
       }
     },
+    registration: async (registrationData) => {
+      try {
+        const { data } = await axios.post("/users", registrationData)
+
+        apiTokenConfig.set(data.token)
+
+        return data
+      } catch (e) {
+        console.log(e)
+      }
+    },
   },
   transactions: {
     getTransactions: async () => {
