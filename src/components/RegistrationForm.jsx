@@ -72,7 +72,7 @@ export const RegistrationForm = () => {
       return
     }
     if (password !== passwordConfirmation){
-      setPasswordConfirmationNotification("none")
+      setPasswordConfirmationNotification("block")
       return
     }
     setPasswordConfirmationNotification("none")
@@ -83,7 +83,7 @@ export const RegistrationForm = () => {
       setNameNotification("none")
       return
     }
-    if (name.length > 12 || name.length < 2){
+    if (name.length > 12){
       setNameNotification("block")
       return
     }
@@ -173,7 +173,8 @@ export const RegistrationForm = () => {
   }
 
   const onSubmit = () => {
-    dispatch(fetchRegistration({ name, email, password }))
+    // dispatch(fetchRegistration({ name, email, password }))
+
   };
 
   return (

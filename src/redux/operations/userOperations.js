@@ -39,7 +39,7 @@ export const fetchCurrentUser = createAsyncThunk(
 );
 
 export const fetchRegistration = createAsyncThunk(
-  "user/registration",
+  "user/fetchRegistration",
   async(registrationData, {rejectWithValue}) => {
     try {
       const data = await api.user.registration(registrationData)

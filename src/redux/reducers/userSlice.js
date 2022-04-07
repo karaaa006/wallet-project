@@ -43,6 +43,11 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
       state.isAuth = true;
     },
+    [fetchRegistration.rejected]: (state, action) => {
+      state.name = "";
+      state.token = "";
+      state.isAuth = false;
+    },
   },
 });
 
