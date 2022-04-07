@@ -28,19 +28,7 @@ export const HomeTab = () => {
   return (
     <>
       <MainTab>
-        <DropDown
-          options={options}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-          placeholder="Выберите категорию"
-        />
         <TransactionsTable />
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat iure
-          quis, molestias assumenda commodi facere? Qui, sed? Quibusdam adipisci
-          eos assumenda voluptas, hic illo. Laborum labore voluptates neque quae
-          a.
-        </p>
         <AddBtn onClick={handleClick} />
       </MainTab>
       <Modal
@@ -48,7 +36,15 @@ export const HomeTab = () => {
         setIsOpen={setModalIsOpen}
         justify="start"
         title="Добавить транзакцию"
-      ></Modal>
+      >
+        <DropDown
+          options={options}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          placeholder="Выберите категорию"
+          underline
+        />
+      </Modal>
     </>
   );
 };
