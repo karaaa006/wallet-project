@@ -3,6 +3,7 @@ import { StatisticsTable } from "./StatisticsTable";
 
 import React, { useState } from "react";
 import styled from "styled-components";
+import { generateColor } from "../../../utils/generateColor";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -127,6 +128,16 @@ const statistics = {
   totalSum: 10350,
 };
 
+// Основные расходы-- #FED057
+// Продукты-- #FFD8D0
+// Машина-- #FD9498
+// Забота о себе-- #C5BAFF
+// Забота о детях-- #6E78E8
+// Товары для дома-- #4A56E2
+// Образование-- #81E1FF
+// Досуг-- #24CCA7
+// Другие расходы-- #00AD84
+
 // export const fetchStatistics = createAsyncThunk(
 //   "fetchStatistics",
 
@@ -136,10 +147,10 @@ export const DiagramTab = () => {
   const [m, setM] = useState();
   const [y, setY] = useState();
   const [data, setData] = useState();
-  //  data - дістати обєкт і передати пропсами в Chart
+  const [categ, setCateg] = useState([]);
+  const [totalExp, setTotalExp] = useState(0);
+
   //   const dispatch = useDispatch();
-  //   const expenses = data.slice(1);
-  //   console.log(expenses);
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -163,19 +174,58 @@ export const DiagramTab = () => {
     getStatistics();
   }, []);
   ////------------------------------------------------------------
+  if (Array.isArray(data)) {
+    // console.log(data);
 
-  console.log(data);
-  console.log(data[0].categories);
-  const expensesCategories = data[1].categories;
-  const revenueCategories = data[0].categories;
-  const totalExpenses = data[1].totalSum;
-  const totalRevenue = data[0].totalSum;
-  const balance = totalRevenue - totalExpenses;
-  console.log(balance);
+    const revenueCategories = data[0]?.categories;
+    const expensesCategories = data[1]?.categories;
 
+    // console.log(expensesCategories);
+    const totalRevenue = data[0]?.totalSum;
+    const totalExpenses = data[1]?.totalSum;
+    setTotalExp(totalExpenses);
+    // const balance = totalRevenue - totalExpenses;
+    // console.log(totalRevenue, totalExpenses, balance);
+
+    const resultCategories = expensesCategories.map(function (elem) {
+      switch (elem.category) {
+        case "Основные расходы":
+          return { ...elem, color: "#FED057" };
+        case "Еда":
+          return { ...elem, color: "#FFD8D0" };
+        case "Машина":
+          return { ...elem, color: "#FD9498" };
+        case "Развитие":
+          return { ...elem, color: "#C5BAFF" };
+        case "Забота о детях":
+          return { ...elem, color: "#6E78E8" };
+        case "Товары для дома":
+          return { ...elem, color: "#4A56E2" };
+        case "Образование":
+          return { ...elem, color: "#81E1FF" };
+        case "Досуг":
+          return { ...elem, color: "#24CCA7" };
+        case "Остальные":
+          return { ...elem, color: "#00AD84" };
+        default:
+          return { ...elem, color: generateColor() };
+      }
+    });
+
+    return setCateg(resultCategories);
+  }
+
+  const stat = {
+    categories: [...categ],
+    totalSum: totalExp,
+  };
+  console.log("обэкт статистики", stat);
+
+  // console.log("Статистика в стейті", statistic);
   return (
     <>
-      <Chart statistics={statistics} />
+      <Chart statistics={stat ?? statistics} />
+
       <StatisticsTable />
       <DiagramTabWrap>
         <TitleDiagramTab>DiagramTab</TitleDiagramTab>
