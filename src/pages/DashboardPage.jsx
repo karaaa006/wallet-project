@@ -1,7 +1,4 @@
 import styled from "styled-components";
-// import { Currency } from "../components/Currency";
-import { Header } from "../components/Header";
-import Navigation from "../components/Navigation";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -37,12 +34,9 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Header />
       <PageWrap>
-        <Navigation />
-        {/* <Currency /> */}
       <SideBar />
-      <Outlet />
+      <Outlet /> 
       </PageWrap>
       </>
   );
