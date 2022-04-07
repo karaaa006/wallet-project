@@ -3,11 +3,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
 
-const TitleChart = styled.h2`
-  font-size: 30px;
-  line-height: 1.5;
-`;
-
 const ChartWrap = styled.div`
   position: relative;
 
@@ -67,12 +62,9 @@ export const Chart = ({ statistics }) => {
   };
 
   return (
-    <>
-      <TitleChart>Статистика</TitleChart>
-      <ChartWrap>
-        <Doughnut data={data} options={options} />
-        <Balance>&#8372; {balance}</Balance>
-      </ChartWrap>
-    </>
+    <ChartWrap>
+      <Doughnut data={data} options={options} />
+      <Balance>&#8372; {balance}</Balance>
+    </ChartWrap>
   );
 };

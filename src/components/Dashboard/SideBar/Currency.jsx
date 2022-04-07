@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
+import illustration from "../../../images/currency-illustration.svg";
 
 const SpinerWrap = styled.div`
   position: absolute;
@@ -24,7 +25,7 @@ const CurrencyWrap = styled.div`
   border-radius: 30px;
 
   background-color: #4a56e2;
-  background-image: url("./currency-illustration.svg");
+  background-image: url(${illustration});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom center;
