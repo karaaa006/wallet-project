@@ -15,6 +15,7 @@ import userSelectors from "./redux/selectors/userSelectors";
 import { Header } from "./components/Header";
 import { DiagramTab } from "./components/Dashboard/DiagramTab/DiagramTab";
 import { HomeTab } from "./components/Dashboard/HomeTab/HomeTab";
+import { Currency } from "../src/components/Dashboard/SideBar/Currency";
 
 import figure1 from "./images/bg-figure-1.svg";
 import figure2 from "./images/bg-figure-2.svg";
@@ -91,6 +92,7 @@ function App() {
           >
             <Route path="home" element={<HomeTab />} />
             <Route path="diagram" element={<DiagramTab />} />
+            <Route path="currency" element={<Currency />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

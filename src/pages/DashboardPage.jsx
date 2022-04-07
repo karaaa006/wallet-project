@@ -33,9 +33,11 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <PageWrap>
+    <>
+      <PageWrap>
       <SideBar />
-      <Outlet />
-    </PageWrap>
+      <Outlet /> 
+      </PageWrap>
+      </>
   );
 }
