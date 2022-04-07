@@ -38,7 +38,7 @@ const OptionList = styled.ul`
 
   border-radius: 20px;
 
-  backdrop-filter: blur(100px);
+  backdrop-filter: blur(50px);
   box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.7);
 `;
