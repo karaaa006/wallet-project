@@ -18,6 +18,8 @@ import { HomeTab } from "./components/Dashboard/HomeTab/HomeTab";
 
 import figure1 from "./images/bg-figure-1.svg";
 import figure2 from "./images/bg-figure-2.svg";
+import { Currency } from "./components/Dashboard/SideBar/Currency";
+import Media from "react-media";
 
 const Login = lazy(() => import("./pages/LoginPage.jsx"));
 const Registration = lazy(() => import("./pages/RegistrationPage.jsx"));
@@ -92,6 +94,7 @@ function App() {
             <Route path="home" element={<HomeTab />} />
             <Route path="diagram" element={<DiagramTab />} />
           </Route>
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

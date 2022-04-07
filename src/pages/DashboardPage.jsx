@@ -7,6 +7,7 @@ import { SideBar } from "../components/Dashboard/SideBar/SideBar";
 
 const PageWrap = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100%;
 
   padding: 0 20px;
@@ -16,10 +17,12 @@ const PageWrap = styled.div`
 
   @media screen and (min-width: 768px) {
     padding: 0 32px;
+    flex-direction: row;
   }
 
   @media screen and (min-width: 1280px) {
     padding: 0 16px;
+    flex-direction: row;
   }
 `;
 

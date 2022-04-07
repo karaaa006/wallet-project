@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Currency } from "./Currency";
 import Balance from "./Balance";
 import { Navigation } from "./Navigation";
+import Media from "react-media";
 
 const SideBarWrap = styled.div`
   display: flex;
@@ -12,12 +13,23 @@ const SideBarWrap = styled.div`
 
 export const SideBar = () => {
   return (
-    <SideBarWrap>
-      <Navigation />
+    <Media query="(max-width: 767px)">
+      {(matches) =>
+        matches ? (
+          <SideBarWrap>
+            <Navigation />
+            <Balance />
+          </SideBarWrap>
+        ) : (
+          <SideBarWrap>
+            <Navigation />
 
-      <Balance />
+            <Balance />
 
-      <Currency />
-    </SideBarWrap>
+            <Currency />
+          </SideBarWrap>
+        )
+      }
+    </Media>
   );
 };
