@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchTransactions } from "../redux/operations/financeOperations";
 import { SideBar } from "../components/Dashboard/SideBar/SideBar";
 import { Header } from "../components/Header";
@@ -10,6 +10,7 @@ import { Currency } from "../components/Dashboard/SideBar/Currency";
 import { DiagramTab } from "../components/Dashboard/DiagramTab/DiagramTab";
 
 import useMediaQuery from "../Hooks/useMediaQuery";
+import { getBalance } from "../redux/selectors/financeSelectors";
 
 const PageWrap = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ export default function DashboardPage() {
     <>
       <Header />
       <PageWrap>
-        <SideBar balance={"0"} />
+        <SideBar />
         <Routes>
           <Route index element={<HomeTab />} />
           <Route path="home" element={<HomeTab />} />

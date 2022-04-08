@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 
 import arrow from "../images/icons/downArrow.svg";
-import { useOutsideClick } from "../utils/useOutsideClick";
+import { useOutsiteClick } from "../Hooks/useOutsideClick";
 
 const DropDownWrap = styled.div`
   position: relative;
@@ -102,7 +102,7 @@ export const DropDown = ({
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  useOutsideClick(wrapperRef, () => setIsOpen(false));
+  useOutsiteClick(wrapperRef, () => setIsOpen(false));
 
   const handleSelect = (option) => {
     setSelectedOption(option);

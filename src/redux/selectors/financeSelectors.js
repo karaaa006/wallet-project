@@ -4,10 +4,14 @@ const getFinanceHasError = (state) => state.finance.hasError;
 const getFinanceError = (state) => state.finance.error;
 
 const getBalance = (state) => {
-  const transactions = getFinance(state);
-  const lastTransaction = transactions[transactions.length - 1];
-  const balance = lastTransaction.balance;
-  return balance;
+  if (state?.finance?.financeData?.length > 0) {
+    const transactions = getFinance(state);
+    const lastTransaction = transactions[transactions.length - 1];
+    const balance = lastTransaction.balance;
+    return balance;
+  }
+
+  return "0";
 };
 
 export {

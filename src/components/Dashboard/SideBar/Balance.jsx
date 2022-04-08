@@ -1,5 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { getBalance } from "../../../redux/selectors/financeSelectors";
 import { mainFontFamily } from "../../../utils/stylesVars";
 import { secondFontFamily } from "../../../utils/stylesVars";
 
@@ -65,10 +67,12 @@ const BalanceValue = styled.p`
 `;
 
 const Balance = () => {
+  const balance = useSelector(getBalance);
+
   return (
     <BalanceWrapper>
       <BalanceName>ваш баланс</BalanceName>
-      <BalanceValue>{`₴ ${"24 000.00"} `}</BalanceValue>
+      <BalanceValue>{`₴ ${balance}`}</BalanceValue>
     </BalanceWrapper>
   );
 };

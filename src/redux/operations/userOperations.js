@@ -9,7 +9,7 @@ export const fetchLogin = createAsyncThunk(
       console.log(data);
       return data;
     } catch (err) {
-      alert(err.response.data.message);
+      // alert(err.response.data.message);
       return rejectWithValue(err.response.data);
     }
   }
@@ -44,6 +44,7 @@ export const fetchRegistration = createAsyncThunk(
   async (registrationData, { rejectWithValue }) => {
     try {
       const data = await api.user.registration(registrationData);
+
       return data;
     } catch (err) {
       return rejectWithValue(err);
