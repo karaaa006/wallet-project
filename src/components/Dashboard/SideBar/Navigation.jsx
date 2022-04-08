@@ -8,8 +8,9 @@ import styled from "styled-components";
 const HomeSvg = styled(NavHome)`
   width: 38px;
   height: 38px;
+  border-radius: 3px;
   & path {
-    fill: #4A56E2;
+    fill: #6E78E8;
   }
 
   margin-right: 36px;
@@ -44,8 +45,9 @@ const PageText = styled.span`
 const DiagramSvg = styled(NavDiagram)`
   width: 38px;
   height: 38px;
+  border-radius: 3px;
   & path {
-    fill: #6e78e8;
+    fill: #6E78E8;
   }
 
   margin-right: 36px;
@@ -65,8 +67,9 @@ const DiagramLink = styled.div`
 const CurrencySvg = styled(NavCurrency)`
   width: 38px;
   height: 38px;
+  border-radius: 3px;
   & path {
-    fill: #6e78e8;
+    fill: #6E78E8;
   }
 
   @media screen and (min-width: 480px) {
@@ -89,8 +92,33 @@ const NavList = styled.div`
 `;
 
 const StyledNavLink = styled(NavLink)`  
+// &.active ${HomeSvg} path {
+//   fill: #4A56E2;
+// }
+
 &.active ${HomeSvg} {
-  fill: red;
+  box-shadow: 0px 3px 10px #4A56E2;
+  path {
+  fill: #4A56E2;
+}
+}
+
+&.active ${DiagramSvg} {
+  box-shadow: 0px 3px 10px #4A56E2;
+  path {
+  fill: #4A56E2;
+}
+}
+
+&.active ${CurrencySvg} {
+  box-shadow: 0px 3px 10px #4A56E2;
+  path {
+  fill: #4A56E2;
+}
+}
+
+&.active ${PageText} {
+  font-weight: 700;
 }
 `;
 
