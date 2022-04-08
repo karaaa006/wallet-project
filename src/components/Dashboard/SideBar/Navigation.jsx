@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { secondFontFamily } from "../../../utils/stylesVars";
 import { ReactComponent as NavCurrency } from "../../../images/icons/NavCurrency.svg";
 import { ReactComponent as NavDiagram } from "../../../images/icons/NavDiagram.svg";
 import { ReactComponent as NavHome } from "../../../images/icons/NavHome.svg";
@@ -8,7 +9,7 @@ const HomeSvg = styled(NavHome)`
   width: 38px;
   height: 38px;
   & path {
-    fill: #6e78e8;
+    fill: #4A56E2;
   }
 
   margin-right: 36px;
@@ -28,11 +29,11 @@ const HomeLink = styled.div`
 
 const PageText = styled.span`
   display: none;
-  font-family: "Poppins";
+  font-family: ${secondFontFamily};
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 1, 5;
+  line-height: 1.5;
   color: #000000;
 
   @media screen and (min-width: 480px) {
@@ -87,25 +88,31 @@ const NavList = styled.div`
   }
 `;
 
+const StyledNavLink = styled(NavLink)`  
+&.active ${HomeSvg} {
+  fill: red;
+}
+`;
+
 export default function Navigation() {
   return (
     <>
       <NavList>
-        <NavLink to="home">
+        <StyledNavLink to="home">
           <HomeLink>
             <HomeSvg src={NavHome} />
             <PageText>Главная</PageText>
           </HomeLink>
-        </NavLink>
-        <NavLink to="diagram">
+        </StyledNavLink>
+        <StyledNavLink to="diagram">
           <DiagramLink>
             <DiagramSvg src={NavDiagram} />
             <PageText>Статистика</PageText>
           </DiagramLink>
-        </NavLink>
-        <NavLink to="currency">
+        </StyledNavLink>
+        <StyledNavLink to="currency">
           <CurrencySvg src={NavCurrency} />
-        </NavLink>
+        </StyledNavLink>
       </NavList>
     </>
   );
