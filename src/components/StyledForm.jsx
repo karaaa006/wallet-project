@@ -20,7 +20,9 @@ const FormWrap = styled.div`
   }
 `;
 
-const Form = styled.form`
+const Form = styled.form.attrs(() => {
+  return { novalidate: true };
+})`
   width: 100%;
 `;
 
@@ -53,29 +55,27 @@ const LogoText = styled.div`
   }
 `;
 
+export const StyledForm = ({ children, submitFunction }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-export const StyledForm = ({children, submitFunction}) => {
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!submitFunction){
-          return
-        }
-        submitFunction(e)
+    if (!submitFunction) {
+      return;
     }
+    submitFunction(e);
+  };
 
-    return (
-        <>
-            <FormWrap>
-                <Form onSubmit={handleSubmit}>
-                    <Logo>
-                        <LogoImg src={LogoSVG} />
-                        <LogoText>Wallet</LogoText>
-                    </Logo>
-                    {children}
-                </Form>
-            </FormWrap>
-        </>
-    )
-}
+  return (
+    <>
+      <FormWrap>
+        <Form onSubmit={handleSubmit} noValidate>
+          <Logo>
+            <LogoImg src={LogoSVG} />
+            <LogoText>Wallet</LogoText>
+          </Logo>
+          {children}
+        </Form>
+      </FormWrap>
+    </>
+  );
+};
