@@ -11,15 +11,8 @@ import { useEffect } from "react";
 import { apiTokenConfig } from "./api/api";
 import { fetchCurrentUser } from "./redux/operations/userOperations";
 import { Loader } from "./components/Loader";
-import userSelectors from "./redux/selectors/userSelectors";
-import { Header } from "./components/Header";
-import { DiagramTab } from "./components/Dashboard/DiagramTab/DiagramTab";
-import { HomeTab } from "./components/Dashboard/HomeTab/HomeTab";
-
 import figure1 from "./images/bg-figure-1.svg";
 import figure2 from "./images/bg-figure-2.svg";
-import { Currency } from "./components/Dashboard/SideBar/Currency";
-import Media from "react-media";
 
 const Login = lazy(() => import("./pages/LoginPage.jsx"));
 const Registration = lazy(() => import("./pages/RegistrationPage.jsx"));
@@ -40,13 +33,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #root{
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 `;
 
 function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(userSelectors.getIsLoading);
 
   const { token } = useSelector((state) => state.user);
 
@@ -82,17 +76,9 @@ function App() {
               </PublicRoute>
             }
           />
-          <Route
-            path="dashboard"
-            element={
-              <PrivateRoute>
-                <Header />
-                {!isLoading ? <Dashboard /> : <Loader />}
-              </PrivateRoute>
-            }
-          >
-            <Route path="home" element={<HomeTab />} />
-            <Route path="diagram" element={<DiagramTab />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path="dashboard/*" element={<Dashboard />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

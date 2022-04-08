@@ -10,7 +10,10 @@ const initialState = {
   name: "",
   token: "",
   isAuth: false,
+  isFetching: false,
   isLoading: false,
+  error: null,
+  errorMessage: "",
 };
 
 export const userSlice = createSlice({
@@ -21,11 +24,18 @@ export const userSlice = createSlice({
       state.name = "";
       state.token = "";
       state.isAuth = false;
+      state.errorMessage = "";
     },
     [fetchLogin.fulfilled]: (state, action) => {
       state.name = action.payload.user.name;
       state.token = action.payload.token;
       state.isAuth = true;
+    },
+    [fetchLogin.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isFetching = false;
+      state.error = true;
+      state.errorMessage = action.payload.message;
     },
     [fetchCurrentUser.pending]: (state, action) => {
       state.isLoading = true;

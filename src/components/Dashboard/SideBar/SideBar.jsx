@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Currency } from "./Currency";
 import Balance from "./Balance";
-import { Navigation } from "./Navigation";
+import Navigation from "./Navigation";
 import Media from "react-media";
 
 const SideBarWrap = styled.div`
@@ -13,7 +13,7 @@ const SideBarWrap = styled.div`
 
 export const SideBar = () => {
   return (
-    <Media query="(max-width: 767px)">
+    <Media query="(max-width: 480px)">
       {(matches) =>
         matches ? (
           <SideBarWrap>

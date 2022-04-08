@@ -24,6 +24,10 @@ export const LoginForm = () => {
   //   });
 
   const handleSubmit = () => {
+    if (!email || !password) {
+      alert("input email and password");
+      return;
+    }
     dispatch(fetchLogin({ email, password }));
   };
 

@@ -3,4 +3,17 @@ const getFinanceLoading = (state) => state.finance.loading;
 const getFinanceHasError = (state) => state.finance.hasError;
 const getFinanceError = (state) => state.finance.error;
 
-export { getFinance, getFinanceLoading, getFinanceHasError, getFinanceError };
+const getBalance = (state) => {
+  const transactions = getFinance(state);
+  const lastTransaction = transactions[transactions.length - 1];
+  const balance = lastTransaction.balance;
+  return balance;
+};
+
+export {
+  getFinance,
+  getFinanceLoading,
+  getFinanceHasError,
+  getFinanceError,
+  getBalance,
+};

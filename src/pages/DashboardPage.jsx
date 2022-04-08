@@ -1,9 +1,15 @@
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTransactions } from "../redux/operations/financeOperations";
 import { SideBar } from "../components/Dashboard/SideBar/SideBar";
+import { Header } from "../components/Header";
+import { HomeTab } from "../components/Dashboard/HomeTab/HomeTab";
+import { Currency } from "../components/Dashboard/SideBar/Currency";
+import { DiagramTab } from "../components/Dashboard/DiagramTab/DiagramTab";
+
+import useMediaQuery from "../Hooks/useMediaQuery";
 
 const PageWrap = styled.div`
   display: flex;
@@ -28,17 +34,32 @@ const PageWrap = styled.div`
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const matches = useMediaQuery("(min-width: 480px)");
 
   useEffect(() => {
     const getData = () => dispatch(fetchTransactions());
 
     getData();
-  }, []);
+
+    if (matches && pathname === "/dashboard/currency") {
+      navigate("home");
+    }
+  }, [dispatch, pathname, matches, navigate]);
 
   return (
-    <PageWrap>
-      <SideBar />
-      <Outlet />
-    </PageWrap>
+    <>
+      <Header />
+      <PageWrap>
+        <SideBar balance={"0"} />
+        <Routes>
+          <Route index element={<HomeTab />} />
+          <Route path="home" element={<HomeTab />} />
+          <Route path="diagram" element={<DiagramTab />} />
+          <Route path="currency" element={<Currency />} />
+        </Routes>
+      </PageWrap>
+    </>
   );
 }
