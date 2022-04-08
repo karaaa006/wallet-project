@@ -40,6 +40,7 @@ const options = {
 };
 
 export const Chart = ({ statistics }) => {
+  console.log(statistics);
   const balance = String(statistics.totalSum.toFixed(2));
   const sums = statistics.categories.map((item) => item.categorySum);
   const categories = statistics.categories.map((item) => item.category);
