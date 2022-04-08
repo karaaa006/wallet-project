@@ -16,16 +16,27 @@ export const apiTokenConfig = {
 export const api = {
   user: {
     login: async (loginData) => {
-      try {
-        const { data } = await axios.post("/users/login", loginData);
+      const { data } = await axios.post("/users/login", loginData);
 
-        apiTokenConfig.set(data.token);
+      apiTokenConfig.set(data.token);
 
-        return data;
-      } catch (e) {
-        console.log(e);
-      }
+      return data;
     },
+
+    //
+    // login: async (loginData) => {
+    //   try {
+    //     const { data } = await axios.post("/users/login", loginData);
+
+    //     apiTokenConfig.set(data.token);
+
+    //     return data;
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+
+    //
+
     logout: async () => {
       try {
         await axios.get("/users/logout");
@@ -46,13 +57,13 @@ export const api = {
     },
     registration: async (registrationData) => {
       try {
-        const { data } = await axios.post("/users", registrationData)
+        const { data } = await axios.post("/users", registrationData);
 
-        apiTokenConfig.set(data.token)
+        apiTokenConfig.set(data.token);
 
-        return data
+        return data;
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     },
   },
