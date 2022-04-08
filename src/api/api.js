@@ -15,26 +15,25 @@ export const apiTokenConfig = {
 
 export const api = {
   user: {
-    // login: async (loginData) => {
-    //   const { data } = await axios.post("/users/login", loginData);
-
-    //   apiTokenConfig.set(data.token);
-
-    //   return data;
-    // },
-
-    //
     login: async (loginData) => {
-      try {
-        const { data } = await axios.post("/users/login", loginData);
+      const { data } = await axios.post("/users/login", loginData);
 
-        apiTokenConfig.set(data.token);
+      apiTokenConfig.set(data.token);
 
-        return data;
-      } catch (e) {
-        return e;
-      }
+      return data;
     },
+
+    // login: async (loginData) => {
+    //   try {
+    //     const { data } = await axios.post("/users/login", loginData);
+
+    //     apiTokenConfig.set(data.token);
+
+    //     return data;
+    //   } catch (e) {
+    //     return e;
+    //   }
+    // },
 
     logout: async () => {
       try {

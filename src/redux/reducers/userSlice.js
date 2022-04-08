@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast, ToastContainer } from "react-toastify";
+
 import {
   fetchCurrentUser,
   fetchLogin,
@@ -10,7 +12,6 @@ const initialState = {
   name: "",
   token: "",
   isAuth: false,
-  isFetching: false,
   isLoading: false,
   error: null,
   errorMessage: "",
@@ -26,16 +27,22 @@ export const userSlice = createSlice({
       state.isAuth = false;
       state.errorMessage = "";
     },
+    [fetchLogin.pending]: (state, action) => {
+      state.isLoading = true;
+    },
     [fetchLogin.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.name = action.payload.user.name;
       state.token = action.payload.token;
+      state.error = null;
+      state.errorMessage = "";
       state.isAuth = true;
     },
     [fetchLogin.rejected]: (state, action) => {
       state.isLoading = false;
-      state.isFetching = false;
       state.error = true;
-      state.errorMessage = action.payload.message;
+      state.errorMessage = action.payload.response.data.message;
+      toast.error(action.payload.response.data.message);
     },
     [fetchCurrentUser.pending]: (state, action) => {
       state.isLoading = true;

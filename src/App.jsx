@@ -13,6 +13,7 @@ import { fetchCurrentUser } from "./redux/operations/userOperations";
 import { Loader } from "./components/Loader";
 import figure1 from "./images/bg-figure-1.svg";
 import figure2 from "./images/bg-figure-2.svg";
+import { Notify } from "./components/Notify";
 
 const Login = lazy(() => import("./pages/LoginPage.jsx"));
 const Registration = lazy(() => import("./pages/RegistrationPage.jsx"));
@@ -84,6 +85,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <Notify />
     </>
   );
 }

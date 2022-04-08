@@ -8,7 +8,7 @@ import { ButtonsWrap } from "./ButtonsWrap";
 
 import mail from "../images/icons/mail.svg";
 import lock from "../images/icons/lock.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchLogin } from "../redux/operations/userOperations";
 
 export const LoginForm = () => {
@@ -17,6 +17,8 @@ export const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { isLoading } = useSelector((state) => state.user);
 
   //   const loginSchema = Yap.object({
   //     login: Yap.string().required(),
@@ -59,6 +61,7 @@ export const LoginForm = () => {
             h="50px"
             m="0 0 20px 0"
             p="0"
+            isLoading={isLoading}
           >
             Вход
           </Button>

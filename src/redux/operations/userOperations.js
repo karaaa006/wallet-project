@@ -6,11 +6,10 @@ export const fetchLogin = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const data = await api.user.login(userData);
-      console.log(data);
+
       return data;
     } catch (err) {
-      // alert(err.response.data.message);
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err);
     }
   }
 );
