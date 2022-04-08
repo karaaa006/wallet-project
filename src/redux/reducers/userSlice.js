@@ -53,7 +53,12 @@ export const userSlice = createSlice({
       state.isLoading = false;
     },
     [fetchCurrentUser.rejected]: (state, action) => {
+      state.name = "";
+      state.token = "";
+      state.isAuth = false;
       state.isLoading = false;
+      state.error = null;
+      state.errorMessage = "";
     },
     [fetchRegistration.fulfilled]: (state, action) => {
       state.name = action.payload.user.name;

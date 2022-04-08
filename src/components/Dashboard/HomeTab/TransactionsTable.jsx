@@ -93,7 +93,7 @@ const TableTdR = styled.td`
   padding-right: 20px;
 `;
 
-export const TransactionsTable = ({ transactions }) => {
+export const TransactionsTable = ({ transactions = [] }) => {
   const parseDate = (date) => {
     const newDate = new Date(date);
     const finalDate =

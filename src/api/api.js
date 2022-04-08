@@ -41,17 +41,14 @@ export const api = {
 
         apiTokenConfig.unset();
       } catch (e) {
-        console.log(e);
+        return e;
       }
     },
-    getUserData: async () => {
-      try {
-        const { data } = await axios.get("/users/current");
 
-        return data;
-      } catch (e) {
-        console.log(e);
-      }
+    getUserData: async () => {
+      const { data } = await axios.get("/users/current");
+
+      return data;
     },
     registration: async (registrationData) => {
       try {
