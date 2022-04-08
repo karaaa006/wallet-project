@@ -11,12 +11,6 @@ import { useEffect } from "react";
 import { apiTokenConfig } from "./api/api";
 import { fetchCurrentUser } from "./redux/operations/userOperations";
 import { Loader } from "./components/Loader";
-import userSelectors from "./redux/selectors/userSelectors";
-import { Header } from "./components/Header";
-import { DiagramTab } from "./components/Dashboard/DiagramTab/DiagramTab";
-import { HomeTab } from "./components/Dashboard/HomeTab/HomeTab";
-import { Currency } from "../src/components/Dashboard/SideBar/Currency";
-
 import figure1 from "./images/bg-figure-1.svg";
 import figure2 from "./images/bg-figure-2.svg";
 
@@ -47,7 +41,6 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(userSelectors.getIsLoading);
 
   const { token } = useSelector((state) => state.user);
 
@@ -83,19 +76,11 @@ function App() {
               </PublicRoute>
             }
           />
-          <Route
-            path="dashboard"
-            element={
-              <PrivateRoute>
-                <Header />
-                {!isLoading ? <Dashboard /> : <Loader />}
-              </PrivateRoute>
-            }
-          >
-            <Route path="home" element={<HomeTab />} />
-            <Route path="diagram" element={<DiagramTab />} />
-            <Route path="currency" element={<Currency />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path="dashboard/*" element={<Dashboard />} />
           </Route>
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

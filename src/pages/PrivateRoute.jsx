@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function PrivateRoute({ children }) {
+export default function PrivateRoute() {
   const { isAuth } = useSelector((state) => state.user);
 
-  return isAuth ? children : <Navigate to="/" />;
+  return isAuth ? <Outlet /> : <Navigate to="/" />;
 }
