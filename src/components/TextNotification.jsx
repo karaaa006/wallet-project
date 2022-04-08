@@ -5,7 +5,7 @@ const Text = styled.span`
     color: red;
     font-size: 12px;
     margin-left: 10px;
-    visibility: ${({ visibility }) => (visibility ? visibility : "hidden")};
+    display: ${({ visibility }) => (visibility ? visibility : "none")};
 `
 export const TextNotification =({visibility, children}) => {
     return (

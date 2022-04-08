@@ -6,26 +6,25 @@ const Background = styled.div`
     heigth: 0px;
     border: 4px solid #E5F1EF;
     border-radius: 4px;
-    visibility: ${({ visibility }) => (visibility ? visibility : "hidden")};
+    display: ${({ visibility }) => (visibility ? visibility : "none")};
 `
 
 const StyledLine = styled.div`
     position: absolute;
-    width: 50%;
+    width: ${({w}) => ( w ? w : "0%")};
     heigth: 0px;
-    border: 4px solid #24CCA7;
+    border: 4px solid ${({clr}) => (clr ? clr : "red")};
     box-shadow: 0px 1px 8px rgba(36, 204, 167, 0.5);
     border-radius: 4px;
-    visibility: ${({ visibility }) => (visibility ? visibility : "hidden")};
+    display: ${({ visibility }) => (visibility ? visibility : "none")};
 `
 
-export const FormStatusbar = (visibility, {w}) => {
+export const FormStatusbar = ({visibility, w, clr}) => {
     return (
         <>
             <Background visibility={visibility}></Background>
-            <StyledLine w={w} visibility={visibility}></StyledLine>
+            <StyledLine w={w} visibility={visibility} clr={clr}></StyledLine>
         </>
     )
 }
 
-// ${({w}) => ( w ? `${w}%` : "0%")}
