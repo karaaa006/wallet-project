@@ -61,14 +61,22 @@ export const userSlice = createSlice({
       state.errorMessage = "";
     },
     [fetchRegistration.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.name = action.payload.user.name;
       state.token = action.payload.token;
+      state.error = null;
+      state.errorMessage = "";
       state.isAuth = true;
     },
+    [fetchRegistration.pending]: (state, action) => {
+      state.isLoading = true;
+    },
     [fetchRegistration.rejected]: (state, action) => {
+      state.isLoading = false;
       state.name = "";
       state.token = "";
       state.isAuth = false;
+      state.errorMessage = action.payload.response.data.message;
     },
   },
 });
