@@ -2,29 +2,25 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as NavCurrency } from "../../../images/icons/NavCurrency.svg";
 import { ReactComponent as NavDiagram } from "../../../images/icons/NavDiagram.svg";
 import { ReactComponent as NavHome } from "../../../images/icons/NavHome.svg";
+import styled from "styled-components";
+import Media from "react-media";
 
-import styled, { css } from "styled-components";
 
 const NavList = styled.div`
   display: flex;
   justify-content: center;
-  &:not(:last-child):after {
-    margin-right: 38px;
-  }
-
+  margin-bottom: 15px;
   @media screen and (min-width: 480px) {
     flex-direction: column;
+    margin-bottom: 32px;
   }
 `;
 
-const LinkWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  @media screen and (min-width: 480px) {
-    display: flex;
-    flex-direction: row;
-  }
-`;
+const linkStyle = {
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "row",
+};
 
 const PageText = styled.span`
   display: none;
@@ -40,54 +36,92 @@ const PageText = styled.span`
   }
 `;
 
-const svgStyles = () => {
-  return css`
+const IconWrapper = styled.div`
+  svg {
     width: 38px;
     height: 38px;
+    
     & path {
-      fill: #6e78e8;
-    }
+      fill: #6E78E8;      
+    };
+       
     @media screen and (min-width: 480px) {
+      display:block;
       width: 18px;
       height: 18px;
-    }
-  `;
-};
+      margin-right: 25px;    
+    };
+  };
+`;
 
-const HomeSvg = styled(NavHome)`
-  ${(props) => svgStyles(props)}
+const LinkWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  
+  &:hover ${PageText}{
+    font-weight: 700;
+  }
+  &:hover ${IconWrapper}{   
+      & path {
+        fill: #4A56E2;         
+      };
+      filter: drop-shadow(2px 2px 8px rgb(110 120 232 / .7));       
+      };
+  }
+
+
+  
+  &:not(:last-child) {
+    margin-right: 38px;
+  }
+  @media screen and (min-width: 480px) {
+    display: flex;
+    flex-direction: row;
+     &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
 `;
-const DiagramSvg = styled(NavDiagram)`
-  ${(props) => svgStyles(props)}
-`;
-const CurrencySvg = styled(NavCurrency)`
-  ${(props) => svgStyles(props)}
-`;
+
 
 export default function Navigation() {
   return (
+
     <>
-      <NavList>
-        <LinkWrapper>
-          <NavLink to="home">
-            <HomeSvg src={NavHome} />
+    <NavList>
+      <LinkWrapper>
+        <NavLink to="home" style={linkStyle}>
+          <IconWrapper>
+            <NavHome/>
+          </IconWrapper>
+          <Media query="(min-width: 480px)" render={() =>
             <PageText>Главная</PageText>
-          </NavLink>
-        </LinkWrapper>
+          } />
 
-        <LinkWrapper>
-          <NavLink to="diagram">
-            <DiagramSvg src={NavDiagram} />
+        </NavLink>
+      </LinkWrapper>
+
+      <LinkWrapper>
+        <NavLink to="diagram" style={linkStyle} >
+        <IconWrapper>
+            <NavDiagram/>
+          </IconWrapper>
+          <Media query="(min-width: 480px)" render={() =>
             <PageText>Статистика</PageText>
-          </NavLink>
-        </LinkWrapper>
+          } />
+        </NavLink>
+      </LinkWrapper>
 
+      <Media query="(max-width: 479px)" render={() =>
         <LinkWrapper>
           <NavLink to="currency">
-            <CurrencySvg src={NavCurrency} />
+          <IconWrapper>
+            <NavCurrency/>
+          </IconWrapper>
           </NavLink>
-        </LinkWrapper>
-      </NavList>
-    </>
+        </LinkWrapper>} />
+
+    </NavList>
+  </>
   );
 }
