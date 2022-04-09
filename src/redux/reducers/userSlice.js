@@ -73,10 +73,9 @@ export const userSlice = createSlice({
     },
     [fetchRegistration.rejected]: (state, action) => {
       state.isLoading = false;
-      state.name = "";
-      state.token = "";
       state.isAuth = false;
       state.errorMessage = action.payload.response.data.message;
+      toast.error(action.payload.response.data.message);
     },
   },
 });
