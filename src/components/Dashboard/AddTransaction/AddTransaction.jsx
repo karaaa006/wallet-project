@@ -33,8 +33,8 @@ const InputWrap = styled.div`
 const SelectorIcon = styled.img`
 position: absolute;
 pointer-events: none;
-top: 215px;
-left: 425px;
+top: 196px;
+left: 422px;
 z-index: 0;
 cursor: pointer;
 `;
@@ -42,7 +42,7 @@ cursor: pointer;
 const DateIcon = styled.img`
 pointer-events: none;
 position: absolute;
-top: 278px;
+top: 260px;
 left: 412px;
 background-color: #fff;
 cursor: pointer;
