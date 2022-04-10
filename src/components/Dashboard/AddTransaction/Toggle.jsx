@@ -60,10 +60,10 @@ input:checked + .slider:after {
 
 export const Toggle = ({active, onChange}) => {
 return (
-    <ToggleWrap onClick={()=>onChange()} >
+    <ToggleWrap onClick={()=>document.getElementById("toggleTypeTransaction").click()} >
       <TextBeforeToggle active={active}>Доход</TextBeforeToggle>
       <StyledToggle>
-        <input type="checkbox" onChange={(e) => {onChange()}} />
+        <input id="toggleTypeTransaction" type="checkbox" onChange={(e) => {onChange()}} />
         <span className="slider"/>
       </StyledToggle>
       <TextAfterToggle active={active} >Расход</TextAfterToggle>
