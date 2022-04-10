@@ -1,9 +1,8 @@
 import styled from "styled-components"
 
-import { FormNotification } from "./FormNotification";
-
 const Text = styled.span`
     position: absolute;
+    bottom: -22px;
     color: red;
     font-size: 12px;
     margin-left: 10px;
@@ -11,10 +10,8 @@ const Text = styled.span`
 `
 export const TextNotification =({visibility, children}) => {
     return (
-        <FormNotification>
-            <Text visibility={visibility}>
-                {children}
-            </Text>
-        </FormNotification>
+        <Text visibility={visibility}>
+            {children}
+        </Text>
     )
 }

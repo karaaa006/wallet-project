@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-import { FormNotification } from "./FormNotification";
 import { TextNotification } from "./TextNotification";
 
 const Background = styled.div`
   position: absolute;
+  bottom: -16px;
   width: 100%;
   heigth: 0px;
   border: 4px solid #e5f1ef;
@@ -15,12 +15,14 @@ const Background = styled.div`
 
 const StyledLine = styled.div`
   position: absolute;
+  bottom: -16px;
   width: ${({ w }) => (w ? w : "0%")};
   heigh: 0px;
   border: 4px solid ${({ clr }) => (clr ? clr : "red")};
   box-shadow: 0px 1px 8px rgba(36, 204, 167, 0.5);
   border-radius: 4px;
   display: ${({ display }) => (display ? display : "none")};
+  transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 export const FormStatusbar = ({ password, validatePassword }) => {
@@ -171,46 +173,47 @@ export const FormStatusbar = ({ password, validatePassword }) => {
 
     const arr = password.split("");
 
-    const smallLetterCheck = arr.some((simbol) => {
-      return smallLetters.some((letter) => letter === simbol);
+    const smallLetterCheck = arr.some((symbol) => {
+      return smallLetters.some((letter) => letter === symbol);
     });
-    const bigLettersCheck = arr.some((simbol) => {
-      return bigLetters.some((letter) => letter === simbol);
+    const bigLettersCheck = arr.some((symbol) => {
+      return bigLetters.some((letter) => letter === symbol);
     });
-    const nubmersCheck = arr.some((simbol) => {
-      return numbers.some((letter) => letter === simbol);
+    const nubmersCheck = arr.some((symbol) => {
+      return numbers.some((letter) => letter === symbol);
     });
-    const specialsCheck = arr.some((simbol) => {
-      return specials.some((letter) => letter === simbol);
+    const specialsCheck = arr.some((symbol) => {
+      return specials.some((letter) => letter === symbol);
     });
-
-    if (
-      !smallLetterCheck &&
-      !bigLettersCheck &&
-      !nubmersCheck &&
-      !specialsCheck
-    ) {
-      setPasswordError(
-        `Пароль должен содержать буквы латинского алфавита, цифры и символы ${specials}`
-      );
-      setStatusbarVisibility("none");
-      setPasswordNotificationVisibility("block");
-    }
+    const otherSymbolsCheck = arr.some((symbol) => {
+      const check = smallLetters.includes(symbol)
+      if (smallLetters.includes(symbol) || 
+        bigLetters.includes(symbol) ||
+        numbers.includes(symbol) ||
+        specials.includes(symbol)){
+          return false
+        }
+      return true
+    })
 
     let complexityCoeficient = 0;
 
     if (smallLetterCheck) {
-      complexityCoeficient += 3.5;
+      complexityCoeficient += 2.8;
     }
     if (bigLettersCheck) {
-      complexityCoeficient += 3.5;
+      complexityCoeficient += 2.8;
     }
     if (nubmersCheck) {
-      complexityCoeficient += 3.5;
+      complexityCoeficient += 2.8;
     }
     if (specialsCheck) {
-      complexityCoeficient += 3.5;
+      complexityCoeficient += 2.8;
     }
+    if (otherSymbolsCheck){
+      complexityCoeficient += 2.8;
+    }
+  
 
     const passwordComplexity = (password.length - 5) * complexityCoeficient;
 
@@ -230,12 +233,13 @@ export const FormStatusbar = ({ password, validatePassword }) => {
   
 
   return (
-    <FormNotification>
+    <>
       <Background display={statusbarVisibility}></Background>
       <StyledLine w={statusbarWidth} display={statusbarVisibility} clr={statusbarColor}></StyledLine>
       <TextNotification visibility={passwordNotificationVisibility}>
               {passwordError}
-            </TextNotification>
-    </FormNotification>
+        </TextNotification>
+    </>
+
   );
 };
