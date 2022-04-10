@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { secondFontFamily } from "../../../utils/stylesVars";
 import { ReactComponent as NavCurrency } from "../../../images/icons/NavCurrency.svg";
 import { ReactComponent as NavDiagram } from "../../../images/icons/NavDiagram.svg";
 import { ReactComponent as NavHome } from "../../../images/icons/NavHome.svg";
@@ -7,8 +8,9 @@ import styled from "styled-components";
 const HomeSvg = styled(NavHome)`
   width: 38px;
   height: 38px;
+  border-radius: 3px;
   & path {
-    fill: #6e78e8;
+    fill: #6E78E8;
   }
 
   margin-right: 36px;
@@ -28,11 +30,11 @@ const HomeLink = styled.div`
 
 const PageText = styled.span`
   display: none;
-  font-family: "Poppins";
+  font-family: ${secondFontFamily};
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 1, 5;
+  line-height: 1.5;
   color: #000000;
 
   @media screen and (min-width: 480px) {
@@ -43,8 +45,9 @@ const PageText = styled.span`
 const DiagramSvg = styled(NavDiagram)`
   width: 38px;
   height: 38px;
+  border-radius: 3px;
   & path {
-    fill: #6e78e8;
+    fill: #6E78E8;
   }
 
   margin-right: 36px;
@@ -64,8 +67,9 @@ const DiagramLink = styled.div`
 const CurrencySvg = styled(NavCurrency)`
   width: 38px;
   height: 38px;
+  border-radius: 3px;
   & path {
-    fill: #6e78e8;
+    fill: #6E78E8;
   }
 
   @media screen and (min-width: 480px) {
@@ -87,25 +91,56 @@ const NavList = styled.div`
   }
 `;
 
+const StyledNavLink = styled(NavLink)`  
+// &.active ${HomeSvg} path {
+//   fill: #4A56E2;
+// }
+
+&.active ${HomeSvg} {
+  box-shadow: 0px 3px 10px #4A56E2;
+  path {
+  fill: #4A56E2;
+}
+}
+
+&.active ${DiagramSvg} {
+  box-shadow: 0px 3px 10px #4A56E2;
+  path {
+  fill: #4A56E2;
+}
+}
+
+&.active ${CurrencySvg} {
+  box-shadow: 0px 3px 10px #4A56E2;
+  path {
+  fill: #4A56E2;
+}
+}
+
+&.active ${PageText} {
+  font-weight: 700;
+}
+`;
+
 export default function Navigation() {
   return (
     <>
       <NavList>
-        <NavLink to="home">
+        <StyledNavLink to="home">
           <HomeLink>
             <HomeSvg src={NavHome} />
             <PageText>Главная</PageText>
           </HomeLink>
-        </NavLink>
-        <NavLink to="diagram">
+        </StyledNavLink>
+        <StyledNavLink to="diagram">
           <DiagramLink>
             <DiagramSvg src={NavDiagram} />
             <PageText>Статистика</PageText>
           </DiagramLink>
-        </NavLink>
-        <NavLink to="currency">
+        </StyledNavLink>
+        <StyledNavLink to="currency">
           <CurrencySvg src={NavCurrency} />
-        </NavLink>
+        </StyledNavLink>
       </NavList>
     </>
   );
