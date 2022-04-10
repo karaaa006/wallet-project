@@ -10,7 +10,7 @@ const HomeSvg = styled(NavHome)`
   height: 38px;
   border-radius: 3px;
   & path {
-    fill: #6E78E8;
+    fill: #6e78e8;
   }
 
   margin-right: 36px;
@@ -47,7 +47,7 @@ const DiagramSvg = styled(NavDiagram)`
   height: 38px;
   border-radius: 3px;
   & path {
-    fill: #6E78E8;
+    fill: #6e78e8;
   }
 
   margin-right: 36px;
@@ -69,7 +69,7 @@ const CurrencySvg = styled(NavCurrency)`
   height: 38px;
   border-radius: 3px;
   & path {
-    fill: #6E78E8;
+    fill: #6e78e8;
   }
 
   @media screen and (min-width: 480px) {
@@ -91,35 +91,23 @@ const NavList = styled.div`
   }
 `;
 
-const StyledNavLink = styled(NavLink)`  
-// &.active ${HomeSvg} path {
-//   fill: #4A56E2;
-// }
-
-&.active ${HomeSvg} {
-  box-shadow: 0px 3px 10px #4A56E2;
+const StyledNavLink = styled(NavLink)`
   path {
-  fill: #4A56E2;
-}
-}
+    transition: fill ease 250ms;
+  }
 
-&.active ${DiagramSvg} {
-  box-shadow: 0px 3px 10px #4A56E2;
-  path {
-  fill: #4A56E2;
-}
-}
+  &.active ${HomeSvg}, &.active ${DiagramSvg},&.active ${CurrencySvg} {
+    box-shadow: 0px 3px 10px #4a56e2;
+    path {
+      fill: #4a56e2;
+    }
 
-&.active ${CurrencySvg} {
-  box-shadow: 0px 3px 10px #4A56E2;
-  path {
-  fill: #4A56E2;
-}
-}
+    transition: box-shadow ease 250ms;
+  }
 
-&.active ${PageText} {
-  font-weight: 700;
-}
+  &.active ${PageText} {
+    font-weight: 700;
+  }
 `;
 
 export default function Navigation() {

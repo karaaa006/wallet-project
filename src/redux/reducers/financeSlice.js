@@ -12,9 +12,7 @@ const financeSlice = createSlice({
   initialState,
   extraReducers: {
     [fetchTransactions.pending]: (state) => {
-      state.financeData = [];
       state.loading = true;
-      state.hasError = false;
     },
     [fetchTransactions.fulfilled]: (state, action) => {
       state.financeData = action.payload;

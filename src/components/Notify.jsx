@@ -8,10 +8,10 @@ const StyledToastContainer = styled(ToastContainer)`
     backdrop-filter: blur(5px);
   }
   .Toastify__toast-icon svg {
-    fill: #ff6347;
+    fill: #ff6596;
   }
   .Toastify__progress-bar {
-    background-color: #ff6347;
+    background-color: #ff6596;
   }
 `;
 
