@@ -17,11 +17,15 @@ const financeSlice = createSlice({
   name: "finance",
   initialState,
   extraReducers: {
+<<<<<<< HEAD
     [fetchTransactions.pending]: (state) => {
 <<<<<<< Updated upstream
       state.financeData = [];
 =======
 >>>>>>> Stashed changes
+=======
+    [fetchTransactions.pending]: (state) => {  
+>>>>>>> a33acaeb5a395d4f6bde98d7618021c50e3ff3ef
       state.loading = true;
       state.hasError = false;
     },

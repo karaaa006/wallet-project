@@ -15,7 +15,7 @@ const HomeSvg = styled(NavHome)`
 
   margin-right: 36px;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 768px) {
     width: 18px;
     height: 18px;
     margin-right: 23px;
@@ -37,7 +37,7 @@ const PageText = styled.span`
   line-height: 1.5;
   color: #000000;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 768px) {
     display: block;
   }
 `;
@@ -52,7 +52,7 @@ const DiagramSvg = styled(NavDiagram)`
 
   margin-right: 36px;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 768px) {
     width: 18px;
     height: 18px;
     margin-right: 23px;
@@ -72,7 +72,7 @@ const CurrencySvg = styled(NavCurrency)`
     fill: #6e78e8;
   }
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 768px) {
     display: none;
   }
 `;
@@ -80,10 +80,9 @@ const CurrencySvg = styled(NavCurrency)`
 const NavList = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 15px;
-  padding-bottom: 31px;
+ 
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 768px) {
     flex-direction: column;
 
     padding-top: 40px;

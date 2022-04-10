@@ -7,9 +7,26 @@ import { DropDown } from "../../DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
 
+const DiagramTabWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+
 const DropDownWrap = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 20px;
+  max-width: 280px;
   gap: 32px;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const TableWrap = styled.div``;
@@ -73,6 +90,7 @@ export const DiagramTab = () => {
   const { expense, revenue } = useSelector((state) => state.finance.statistics);
 
   return (
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <>
       <Chart statistics={statExpense} />
@@ -80,6 +98,10 @@ export const DiagramTab = () => {
     <DiagramTabWrap>
       {expense && <Chart statistics={currentType ? revenue : expense} />}
 >>>>>>> Stashed changes
+=======
+    <DiagramTabWrap>
+      <Chart statistics={statistics} />
+>>>>>>> a33acaeb5a395d4f6bde98d7618021c50e3ff3ef
       <TableWrap>
         <DropDownWrap>
           <DropDown
@@ -103,6 +125,6 @@ export const DiagramTab = () => {
           />
         )}
       </TableWrap>
-    </>
+    </DiagramTabWrap>
   );
 };
