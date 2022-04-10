@@ -1,3 +1,120 @@
-export const StatisticsTable = () => {
-  return <h2>Я ТАБЛИЦЯ З КАТЕГОРІЯМИ</h2>;
+import styled from "styled-components";
+
+const Table = styled.table`
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+  width: 320px;
+  margin-top: 20px;
+
+  font-size: 16px;
+  line-height: 1.23;
+
+  @media screen and (min-width: 768px) {
+    width: 336px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 395px;
+  }
+`;
+
+const TableHead = styled.thead`
+  height: 58px;
+  font-size: 18px;
+  background-color: white;
+  align-items: center;
+  position: sticky;
+  top: 0;
+`;
+
+const Tableth = styled.th`
+  text-align: left;
+  padding: 0 20px;
+  text-align: ${({ ta }) => (ta ? ta : "left")};
+`;
+
+const TableTr = styled.tr`
+  position: relative;
+  height: 52px;
+
+  vertical-align: middle;
+
+  border-bottom: 1px solid #dcdcdf;
+  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+`;
+
+const TableCat = styled.td`
+  padding-left: 65px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 12px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: ${({ bgc }) => (bgc ? bgc : `purple`)};
+    border-radius: 2px;
+  }
+`;
+
+const TableSum = styled.td`
+  text-align: right;
+  padding-right: 20px;
+`;
+
+const TableFTd = styled.td`
+  font-weight: 700;
+  text-align: ${({ ta }) => (ta ? ta : "left")};
+  height: 40px;
+  padding: 15px 20px 0 20px;
+  color: ${({ c }) => (c ? c : "black")};
+`;
+
+export const StatisticsTable = ({ statistics, sumExpense, sumIncome }) => {
+  return (
+    <Table>
+      <TableHead>
+        <tr>
+          <Tableth
+            style={{ borderTopLeftRadius: 30, borderBottomLeftRadius: 30 }}
+          >
+            Категория
+          </Tableth>
+          <Tableth
+            ta="right"
+            style={{
+              borderTopRightRadius: 30,
+              borderBottomRightRadius: 30,
+            }}
+          >
+            Сумма
+          </Tableth>
+        </tr>
+      </TableHead>
+      <tbody>
+        {statistics.categories.map((stat) => (
+          <TableTr key={stat.category}>
+            <TableCat bgc={stat.color}>{stat.category}</TableCat>
+            <TableSum>{stat.categorySum}</TableSum>
+          </TableTr>
+        ))}
+      </tbody>
+      <tfoot>
+        <tr>
+          <TableFTd>Расходы</TableFTd>
+          <TableFTd c="#FF6596" ta="right">
+            {sumExpense}
+          </TableFTd>
+        </tr>
+        <tr>
+          <TableFTd>Доходы</TableFTd>
+          <TableFTd c="#24CCA7" ta="right">
+            {sumIncome}
+          </TableFTd>
+        </tr>
+      </tfoot>
+    </Table>
+  );
 };
