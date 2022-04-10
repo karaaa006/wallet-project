@@ -40,10 +40,10 @@ const options = {
 };
 
 export const Chart = ({ statistics }) => {
-  const balance = String(statistics.totalSum.toFixed(2));
-  const sums = statistics.categories.map((item) => item.categorySum);
-  const categories = statistics.categories.map((item) => item.category);
-  const colors = statistics.categories.map((item) => item.color);
+  const balance = String(statistics?.totalSum?.toFixed(2));
+  const sums = statistics?.categories?.map((item) => item.categorySum) ?? [];
+  const categories = statistics?.categories?.map((item) => item.category) ?? [];
+  const colors = statistics?.categories?.map((item) => item.color) ?? [];
 
   Legend.defaults.display = false;
   ChartJS.register(ArcElement, Tooltip, Legend);

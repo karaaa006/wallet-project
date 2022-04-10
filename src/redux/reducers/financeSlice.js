@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTransactions, addTransaction } from "../operations/financeOperations";
+import {
+  fetchTransactions,
+  addTransaction,
+  fetchStatistics,
+} from "../operations/financeOperations";
 
 const initialState = {
   financeData: [],
   transactionData: {},
   loading: false,
   hasError: false,
+  statistics: [],
 };
 
 const financeSlice = createSlice({
@@ -13,7 +18,10 @@ const financeSlice = createSlice({
   initialState,
   extraReducers: {
     [fetchTransactions.pending]: (state) => {
+<<<<<<< Updated upstream
       state.financeData = [];
+=======
+>>>>>>> Stashed changes
       state.loading = true;
       state.hasError = false;
     },
@@ -27,10 +35,15 @@ const financeSlice = createSlice({
       state.loading = false;
       state.hasError = true;
     },
+
     [addTransaction.fulfilled]: (state, action) => {
       state.transactionData = action.payload;
       state.loading = false;
       state.hasError = false;
+    },
+
+    [fetchStatistics.fulfilled]: (state, action) => {
+      state.statistics = action.payload;
     },
   },
 });
