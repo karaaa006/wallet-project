@@ -37,7 +37,7 @@ export const RegistrationForm = () => {
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState("")
  
-  const {isLoading, errorMessage} = useSelector
+  const {isLoading, errorMessage} = useSelector((state) => state.user);
 
   const rules = {
     email: "email",
