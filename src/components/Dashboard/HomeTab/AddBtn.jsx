@@ -7,9 +7,9 @@ import { Modal } from "../../Modal";
 const PlusIcon = styled.img``;
 
 const AddButton = styled.button`
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
+  position: sticky;
+  bottom: 20px;
+  align-self: flex-end;
   width: 44px;
   height: 44px;
   display: flex;

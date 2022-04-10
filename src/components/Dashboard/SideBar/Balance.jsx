@@ -5,7 +5,12 @@ import { getBalance } from "../../../redux/selectors/financeSelectors";
 import { mainFontFamily } from "../../../utils/stylesVars";
 import { secondFontFamily } from "../../../utils/stylesVars";
 
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 const BalanceWrapper = styled.div`
+  padding: 8 32 12;
   width: 280px;
   height: 80px;
   background: #ffffff;
@@ -70,10 +75,12 @@ const Balance = () => {
   const balance = useSelector(getBalance);
 
   return (
-    <BalanceWrapper>
-      <BalanceName>ваш баланс</BalanceName>
-      <BalanceValue>{`₴ ${balance}`}</BalanceValue>
-    </BalanceWrapper>
+    <Wrap>
+      <BalanceWrapper>
+        <BalanceName>ваш баланс</BalanceName>
+        <BalanceValue>{`₴ ${balance}`}</BalanceValue>
+      </BalanceWrapper>
+    </Wrap>
   );
 };
 

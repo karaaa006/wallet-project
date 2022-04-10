@@ -4,9 +4,26 @@ import { DropDown } from "../../DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
 
+const DiagramTabWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+
 const DropDownWrap = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 20px;
+  max-width: 280px;
   gap: 32px;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const TableWrap = styled.div``;
@@ -157,8 +174,8 @@ export const DiagramTab = () => {
   const [selectedMounth, setSelectedMounth] = useState({});
   const [selectedYear, setSelectedYear] = useState({});
   return (
-    <>
-      <Chart statistics={statExpense} />
+    <DiagramTabWrap>
+      <Chart statistics={statistics} />
       <TableWrap>
         <DropDownWrap>
           <DropDown
@@ -180,6 +197,6 @@ export const DiagramTab = () => {
           sumIncome={sumIncome}
         />
       </TableWrap>
-    </>
+    </DiagramTabWrap>
   );
 };
