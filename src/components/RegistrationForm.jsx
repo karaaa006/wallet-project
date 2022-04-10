@@ -1,14 +1,15 @@
 import { useState } from "react";
-import {useEffect} from "react"
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { validate } from "indicative/validator";
+import { toast } from "react-toastify";
 
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { StyledForm } from "./StyledForm";
 import { ButtonsWrap } from "./ButtonsWrap";
 import { FormNotificationWrap } from "./FormNotificatinWrap";
-import { FormNotification } from "./FormNotification";
 import { FormStatusbar } from "./FormStatusbar";
 import { TextNotification } from "./TextNotification";
 
@@ -23,74 +24,92 @@ export const RegistrationForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [name, setName] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+ 
   const [registrationPermission, setRegistrationPermission] = useState(false);
-  const [passwordConfirmationNotification, setPasswordConfirmationNotification] = useState("")
-  const [statusbarVisibility, setStatusbarVisibility] = useState("")
-  const [passwordNotificationVisibility, setPasswordNotificationVisibility] = useState("")
-  const [nameNotification, setNameNotification] = useState("")
+  const [
+    passwordConfirmationNotification,
+    setPasswordConfirmationNotification,
+  ] = useState("");
+
+  const [nameNotification, setNameNotification] = useState("");
+  const [emailValidation, setEmailValidation] = useState(false);
+  const [passwordValidation, setPasswordValidation] = useState("")
+ 
+  const {isLoading, errorMessage} = useSelector
+
+  const rules = {
+    email: "email",
+  };
+
+  const validateEmail = async () => {
+    try{
+      await validate({email},rules)
+      setEmailValidation(true)
+    } catch (e) {
+      setEmailValidation(false)
+    }
+  }
+
+  const validatePassword = (result) => {
+    setPasswordValidation(result)
+  }
 
   useEffect(() => {
-    if (password.length === 0){
-      setStatusbarVisibility("hidden")
-      setPasswordNotificationVisibility("hidden")
-      return
-    }
-    if (password.length <6 || password.length >12){
-      setStatusbarVisibility("hidden")
-      setPasswordNotificationVisibility("visible")
-      return
-    }
-    if (password.length >=6 && password.length <= 12 ){
-      setStatusbarVisibility("visible")
-      setPasswordNotificationVisibility("hidden")
-      return
-    }
-  }, [password])
+    validateEmail()
+  }, [email]);
+
 
   useEffect(() => {
-    if (password.length === 0 || passwordConfirmation.length === 0){
-      setPasswordConfirmationNotification("hidden")
-      return
+    if (password.length === 0 || passwordConfirmation.length === 0) {
+      setPasswordConfirmationNotification("none");
+      return;
     }
-    if (password !== passwordConfirmation){
-      setPasswordConfirmationNotification("visible")
-      return
+    if (password !== passwordConfirmation) {
+      setPasswordConfirmationNotification("block");
+      return;
     }
-    setPasswordConfirmationNotification("hidden")
-  }, [password,passwordConfirmation])
+    setPasswordConfirmationNotification("none");
+  }, [password, passwordConfirmation]);
 
   useEffect(() => {
-    if (name.length === 0){
-      setNameNotification("hidden")
-      return
+    if (name.length === 0) {
+      setNameNotification("none");
+      return;
     }
-    if (name.length > 12){
-      setNameNotification("visible")
-      return
+    if (name.length > 12) {
+      setNameNotification("block");
+      return;
     }
-    setNameNotification("hidden")
-  }, [name])
+    setNameNotification("none");
+  }, [name]);
 
   useEffect(() => {
     if (
-      email.length !== 0 &&
-      name.length >= 1 &&
-      nameNotification === "hidden" &&
-      passwordConfirmationNotification === "hidden" &&
-      passwordNotificationVisibility ==="hidden" &&
-      passwordConfirmationNotification === "hidden"
+      email &&
+      emailValidation &&
+      name &&
+      nameNotification === "none" &&
+      password &&
+      passwordValidation === "none" &&
+      passwordConfirmation &&
+      passwordConfirmationNotification === "none"
     ) {
-      setRegistrationPermission(true)
-      return
+      setRegistrationPermission(true);
+      return;
     }
-    setRegistrationPermission(false)
-  })
+    setRegistrationPermission(false);
+  });
 
 
-  const onSubmit = () => {
-    dispatch(fetchRegistration({ name, email, password }))
+  const onSubmit = async () => {
+    try {
+      dispatch(fetchRegistration({ name, email, password }))
+    } catch (e) {
+      e.forEach((item) => toast.error(item.message));
+      console.log(e);
+    }
   };
 
   return (
@@ -114,10 +133,10 @@ export const RegistrationForm = () => {
             value={password}
             setValue={setPassword}
           />
-          <FormNotification>
-            <TextNotification visibility={passwordNotificationVisibility}>Пароль должен содержать от 6 до 12 символов</TextNotification>
-            <FormStatusbar w="50" visibility={statusbarVisibility}></FormStatusbar>
-          </FormNotification>
+          <FormStatusbar
+            password={password}
+            validatePassword={validatePassword}
+          ></FormStatusbar>
         </FormNotificationWrap>
 
         <FormNotificationWrap>
@@ -129,11 +148,11 @@ export const RegistrationForm = () => {
             value={passwordConfirmation}
             setValue={setPasswordConfirmation}
           />
-          <FormNotification>
-            <TextNotification visibility={passwordConfirmationNotification}>Введенные пароли не совпадают</TextNotification>
-          </FormNotification>
+          <TextNotification visibility={passwordConfirmationNotification}>
+            Введенные пароли не совпадают
+          </TextNotification>
         </FormNotificationWrap>
-        
+
         <FormNotificationWrap>
           <Input
             placeholder={"Ваше имя"}
@@ -143,9 +162,9 @@ export const RegistrationForm = () => {
             value={name}
             setValue={setName}
           />
-          <FormNotification>
-              <TextNotification visibility={nameNotification}>Имя должно быть короче 12 символов</TextNotification>
-            </FormNotification>
+          <TextNotification visibility={nameNotification}>
+            Имя должно быть короче 12 символов
+          </TextNotification>
         </FormNotificationWrap>
 
         <ButtonsWrap>
@@ -158,6 +177,7 @@ export const RegistrationForm = () => {
             m="0 0 20px 0"
             p="0"
             disabled={!registrationPermission}
+            isLoading={isLoading}
           >
             Регистрация
           </Button>

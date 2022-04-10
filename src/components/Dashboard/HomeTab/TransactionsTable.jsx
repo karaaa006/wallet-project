@@ -1,3 +1,4 @@
+import moment from "moment";
 import styled from "styled-components";
 
 const MobileTable = styled.table`
@@ -93,42 +94,7 @@ const TableTdR = styled.td`
   padding-right: 20px;
 `;
 
-export const TransactionsTable = ({ mb }) => {
-  const transactions = [
-    {
-      _id: "624d538082620522a63e5389",
-      isExpense: true,
-      category: {
-        _id: "624c80387f49cd7760991931",
-        category: "Нерегулярный доход",
-      },
-      amount: 50,
-      comment: "sdfsafd",
-      balance: 4650,
-      owner: "624beb32abee22d653d9c65f",
-      createdAt: "2022-04-06T08:46:56.420Z",
-      updatedAt: "2022-04-06T08:46:56.420Z",
-    },
-  ];
-  const parseDate = (date) => {
-    const newDate = new Date(date);
-    const finalDate =
-      (newDate.getDate().toString().padStart("0", 2) < 9
-        ? "0" + newDate.getDate().toString().padStart("0", 2)
-        : newDate.getDate().toString().padStart("0", 2)) +
-      "." +
-      (newDate.getMonth() < 9
-        ? "0" + (newDate.getMonth() + 1)
-        : newDate.getMonth() + 1
-      )
-        .toString()
-        .padStart("0", 2) +
-      "." +
-      newDate.getFullYear().toString().slice(-2);
-
-    return finalDate;
-  };
-
+export const TransactionsTable = ({ transactions = [] }) => {
   return (
     <div>
       <ConteinerTable>
@@ -159,11 +125,13 @@ export const TransactionsTable = ({ mb }) => {
             {transactions.map((item) => {
               return (
                 <TableTr key={item._id}>
-                  <TableTdl>{parseDate(item.createdAt)}</TableTdl>
+                  <TableTdl>
+                    {moment(item.createdAt).format("DD.MM.YY")}
+                  </TableTdl>
                   <TableTdl style={{ textAlign: "center" }}>
                     {item.isExpense ? "-" : "+"}
                   </TableTdl>
-                  <TableTdl>{item.category.category}</TableTdl>
+                  <TableTdl>{item.category.name}</TableTdl>
                   <TableTdl>{item.comment}</TableTdl>
 
                   <TableTdR
@@ -185,7 +153,7 @@ export const TransactionsTable = ({ mb }) => {
             <tbody>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Дата</MobileTh>
-                <MobileTd>{parseDate(item.createdAt)}</MobileTd>
+                <MobileTd>{moment(item.createdAt).format("DD.MM.YY")}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Тип</MobileTh>
@@ -193,7 +161,7 @@ export const TransactionsTable = ({ mb }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Категория</MobileTh>
-                <MobileTd>{item.category.category}</MobileTd>
+                <MobileTd>{item.category.name}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Комментарий</MobileTh>

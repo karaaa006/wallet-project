@@ -16,50 +16,71 @@ export const apiTokenConfig = {
 export const api = {
   user: {
     login: async (loginData) => {
-      try {
-        const { data } = await axios.post("/users/login", loginData);
+      const { data } = await axios.post("/users/login", loginData);
 
-        apiTokenConfig.set(data.token);
+      apiTokenConfig.set(data.token);
 
-        return data;
-      } catch (e) {
-        console.log(e);
-      }
+      return data;
     },
+
+    // login: async (loginData) => {
+    //   try {
+    //     const { data } = await axios.post("/users/login", loginData);
+
+    //     apiTokenConfig.set(data.token);
+
+    //     return data;
+    //   } catch (e) {
+    //     return e;
+    //   }
+    // },
+
     logout: async () => {
       try {
         await axios.get("/users/logout");
 
         apiTokenConfig.unset();
       } catch (e) {
-        console.log(e);
+        return e;
       }
     },
-    getUserData: async () => {
-      try {
-        const { data } = await axios.get("/users/current");
 
-        return data;
-      } catch (e) {
-        console.log(e);
-      }
+    getUserData: async () => {
+      const { data } = await axios.get("/users/current");
+
+      return data;
     },
     registration: async (registrationData) => {
-      try {
-        const { data } = await axios.post("/users", registrationData)
+        const { data } = await axios.post("/users", registrationData);
 
-        apiTokenConfig.set(data.token)
+        apiTokenConfig.set(data.token);
 
-        return data
-      } catch (e) {
-        console.log(e)
-      }
-    },
+        return data;
+    }
   },
   transactions: {
     getTransactions: async () => {
       try {
         const { data } = await axios.get("/transactions");
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    addTransaction: async (transactionData) => {
+      try {
+        const { data } = await axios.post("/transactions", transactionData);
+        return data;
+
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  categories: {
+    getCategories: async () => {
+      try {
+        const { data } = await axios.get("/categories");
         return data;
       } catch (e) {
         console.log(e);

@@ -1,9 +1,12 @@
 import styled from "styled-components";
-
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { TransactionsTable } from "./TransactionsTable";
 import { AddBtn } from "./AddBtn";
+import { DropDown } from "../../DropDown";
+import { getFinance } from "../../../redux/selectors/financeSelectors";
+import {AddTransaction} from "../AddTransaction/AddTransaction"
 
 const MainTab = styled.div`
   display: flex;
@@ -15,11 +18,17 @@ export const HomeTab = () => {
   const handleClick = () => {
     setModalIsOpen(true);
   };
+  const closeModal = () => {
+    setModalIsOpen(false);
+  }; 
+  
+  const [selectedOption, setSelectedOption] = useState({});
+  const transactions = useSelector(getFinance);
 
   return (
     <>
       <MainTab>
-        <TransactionsTable />
+        <TransactionsTable transactions={transactions} />
         <AddBtn onClick={handleClick} />
       </MainTab>
       <Modal
@@ -27,7 +36,9 @@ export const HomeTab = () => {
         setIsOpen={setModalIsOpen}
         justify="start"
         title="Добавить транзакцию"
-      ></Modal>
+      >
+        <AddTransaction modalIsOpen={modalIsOpen} closeModal={closeModal}/>
+      </Modal>
     </>
   );
 };

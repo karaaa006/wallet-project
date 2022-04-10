@@ -1,3 +1,4 @@
+import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
 import { accentCl, secondCl } from "../utils/stylesVars";
 
@@ -36,6 +37,14 @@ const StyledButton = styled.button`
   }
 `;
 
+const SpinerWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Button = ({
   m,
   p,
@@ -48,6 +57,7 @@ export const Button = ({
   children,
   onClick,
   type = "button",
+  isLoading,
 }) => {
   return (
     <StyledButton
@@ -60,9 +70,19 @@ export const Button = ({
       accent={accent}
       onClick={onClick}
       type={type}
-      disabled={disabled}
+      disabled={disabled || isLoading}
     >
-      {children}
+      {isLoading ? (
+        <SpinerWrap>
+          <TailSpin
+            color="rgba(0,0,0,0.3)"
+            ariaLabel="loading-indicator"
+            width="35px"
+          />
+        </SpinerWrap>
+      ) : (
+        children
+      )}
     </StyledButton>
   );
 };

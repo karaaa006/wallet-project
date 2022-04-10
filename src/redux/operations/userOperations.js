@@ -6,7 +6,7 @@ export const fetchLogin = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const data = await api.user.login(userData);
-      console.log(data);
+
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -39,13 +39,13 @@ export const fetchCurrentUser = createAsyncThunk(
 );
 
 export const fetchRegistration = createAsyncThunk(
-  "user/registration",
-  async(registrationData, {rejectWithValue}) => {
+  "user/fetchRegistration",
+  async (registrationData, { rejectWithValue }) => {
     try {
-      const data = await api.user.registration(registrationData)
-      return data
+      const data = await api.user.registration(registrationData);
+      return data;
     } catch (err) {
-      return rejectWithValue(err)
+      return rejectWithValue(err);
     }
   }
-)
+);
