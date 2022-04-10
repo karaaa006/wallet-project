@@ -90,18 +90,8 @@ export const DiagramTab = () => {
   const { expense, revenue } = useSelector((state) => state.finance.statistics);
 
   return (
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    <>
-      <Chart statistics={statExpense} />
-=======
     <DiagramTabWrap>
       {expense && <Chart statistics={currentType ? revenue : expense} />}
->>>>>>> Stashed changes
-=======
-    <DiagramTabWrap>
-      <Chart statistics={statistics} />
->>>>>>> a33acaeb5a395d4f6bde98d7618021c50e3ff3ef
       <TableWrap>
         <DropDownWrap>
           <DropDown
