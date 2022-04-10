@@ -6,10 +6,8 @@ import styled from "styled-components";
 import { generateColor } from "../../../utils/generateColor";
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../../api/api";
 axios.defaults.baseURL = BASE_URL;
 
@@ -212,7 +210,7 @@ export const DiagramTab = () => {
       }
     });
 
-    return setCateg(resultCategories);
+    setCateg(resultCategories);
   }
 
   const stat = {
@@ -221,7 +219,6 @@ export const DiagramTab = () => {
   };
   console.log("обэкт статистики", stat);
 
-  // console.log("Статистика в стейті", statistic);
   return (
     <>
       <Chart statistics={stat ?? statistics} />
@@ -265,10 +262,10 @@ export const DiagramTab = () => {
           }}
         >
           <option value="hide">Год</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
           <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
         </SelectYear>
       </DiagramTabWrap>
     </>
