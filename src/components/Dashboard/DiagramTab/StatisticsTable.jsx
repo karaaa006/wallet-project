@@ -9,11 +9,19 @@ const Table = styled.table`
 
   font-size: 16px;
   line-height: 1.23;
+
+  @media screen and (min-width: 768px) {
+    width: 336px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 395px;
+  }
 `;
 
 const TableHead = styled.thead`
   height: 58px;
-
+  font-size: 18px;
   background-color: white;
   align-items: center;
   position: sticky;
@@ -23,19 +31,17 @@ const TableHead = styled.thead`
 const Tableth = styled.th`
   text-align: left;
   padding: 0 20px;
+  text-align: ${({ ta }) => (ta ? ta : "left")};
 `;
-
-const Tablebody = styled.tbody``;
 
 const TableTr = styled.tr`
   position: relative;
   height: 52px;
 
   vertical-align: middle;
-  :not(:last-child) {
-    border-bottom: 1px solid #dcdcdf;
-    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
-  }
+
+  border-bottom: 1px solid #dcdcdf;
+  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
 `;
 
 const TableCat = styled.td`
@@ -58,7 +64,15 @@ const TableSum = styled.td`
   padding-right: 20px;
 `;
 
-export const StatisticsTable = ({ statistics, bgc }) => {
+const TableFTd = styled.td`
+  font-weight: 700;
+  text-align: ${({ ta }) => (ta ? ta : "left")};
+  height: 40px;
+  padding: 15px 20px 0 20px;
+  color: ${({ c }) => (c ? c : "black")};
+`;
+
+export const StatisticsTable = ({ statistics, sumExpense, sumIncome }) => {
   return (
     <Table>
       <TableHead>
@@ -69,6 +83,7 @@ export const StatisticsTable = ({ statistics, bgc }) => {
             Категория
           </Tableth>
           <Tableth
+            ta="right"
             style={{
               borderTopRightRadius: 30,
               borderBottomRightRadius: 30,
@@ -78,14 +93,28 @@ export const StatisticsTable = ({ statistics, bgc }) => {
           </Tableth>
         </tr>
       </TableHead>
-      <Tablebody>
+      <tbody>
         {statistics.categories.map((stat) => (
           <TableTr key={stat.category}>
             <TableCat bgc={stat.color}>{stat.category}</TableCat>
             <TableSum>{stat.categorySum}</TableSum>
           </TableTr>
         ))}
-      </Tablebody>
+      </tbody>
+      <tfoot>
+        <tr>
+          <TableFTd>Расходы</TableFTd>
+          <TableFTd c="#FF6596" ta="right">
+            {sumExpense}
+          </TableFTd>
+        </tr>
+        <tr>
+          <TableFTd>Доходы</TableFTd>
+          <TableFTd c="#24CCA7" ta="right">
+            {sumIncome}
+          </TableFTd>
+        </tr>
+      </tfoot>
     </Table>
   );
 };

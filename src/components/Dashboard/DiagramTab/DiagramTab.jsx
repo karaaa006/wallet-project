@@ -54,53 +54,66 @@ const statistics = {
   totalSum: 10350,
 };
 
-const data = [
-  {
-    isExpense: true,
-    categories: [
-      {
-        category: "Авто",
-        categorySum: 8500,
-      },
-      {
-        category: "Дом",
-        categorySum: 85.5,
-      },
-      {
-        category: "Еда",
-        categorySum: 800,
-      },
-      {
-        category: "Образование",
-        categorySum: 500,
-      },
-    ],
-    totalSum: 9885.5,
-  },
-  {
-    isExpense: false,
-    categories: [
-      {
-        category: "Регулярный доход",
-        categorySum: 15000,
-      },
-    ],
-    totalSum: 15000,
-  },
-];
+// Данные, которые приходят с бэкенда
+// const data = [
+//   {
+//     isExpense: true,
+//     categories: [
+//       {
+//         category: "Авто",
+//         categorySum: 8500,
+//       },
+//       {
+//         category: "Дом",
+//         categorySum: 85.5,
+//       },
+//       {
+//         category: "Еда",
+//         categorySum: 800,
+//       },
+//       {
+//         category: "Образование",
+//         categorySum: 500,
+//       },
+//     ],
+//     totalSum: 9885.5,
+//   },
+//   {
+//     isExpense: false,
+//     categories: [
+//       {
+//         category: "Регулярный доход",
+//         categorySum: 15000,
+//       },
+//     ],
+//     totalSum: 15000,
+//   },
+// ];
 
-let statExpense;
-let statIncome;
+// ------------------ Для ПРОПСОВ
 
-data.map((st) => {
-  if (st.isExpense === true) {
-    st.categories.map((category) => (category["color"] = generateColor()));
-    return (statExpense = st);
-  } else {
-    st.categories.map((category) => (category["color"] = generateColor()));
-    return (statIncome = st);
-  }
-});
+// Данные для отрисовки расходов
+// let statExpense;
+// Данные для отрисовки доходов
+// let statIncome;
+//Сумма всех расходов
+// let sumExpense;
+//Сумма всех доходов
+// let sumIncome;
+
+// ---------------------- Как обработать полученные данные из бэкенда
+// data.map((st) => {
+//   if (st.isExpense === true) {
+//     sumExpense = st.totalSum;
+//     st.categories.map((category) => (category["color"] = generateColor()));
+
+//     return (statExpense = st);
+//   } else {
+//     sumIncome = st.totalSum;
+//     st.categories.map((category) => (category["color"] = generateColor()));
+//     return (statIncome = st);
+//   }
+// });
 
 export const DiagramTab = () => {
   const mounth = [
@@ -153,7 +166,11 @@ export const DiagramTab = () => {
             placeholder="Год"
           />
         </DropDownWrap>
-        <StatisticsTable statistics={statistics} />
+        <StatisticsTable
+          statistics={statExpense}
+          sumExpense={sumExpense}
+          sumIncome={sumIncome}
+        />
       </TableWrap>
     </>
   );
