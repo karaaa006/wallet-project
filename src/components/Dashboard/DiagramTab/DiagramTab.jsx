@@ -8,6 +8,7 @@ import { StatisticsTable } from "./StatisticsTable";
 
 const DiagramTabWrap = styled.div`
  display: flex;
+ flex-direction: column;
  @media screen and (min-width: 768px) {
     
     flex-direction: row;
