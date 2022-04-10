@@ -4,16 +4,12 @@ import { DropDown } from "../../DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
 
-
-
 const DiagramTabWrap = styled.div`
- display: flex;
- flex-direction: column;
- @media screen and (min-width: 768px) {
-    
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
-   
   }
 `;
 
@@ -21,22 +17,37 @@ const DropDownWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: auto;
-  margin-left: auto; 
-  margin-bottom: 20px; 
+  margin-left: auto;
+  margin-bottom: 20px;
   max-width: 280px;
-  gap: 32px; 
+  gap: 32px;
   @media screen and (min-width: 768px) {
-    
     flex-direction: row;
-    
-   
   }
 `;
 
-
-
 const TableWrap = styled.div``;
-
+const generateColor = () => {
+  const colors = [
+    "#2196F3",
+    "#4CAF50",
+    "#FF9800",
+    "#009688",
+    "#795548",
+    "#000080",
+    "#00FFFF",
+    "#FFFF00",
+    "#FF00FF",
+    "#D2691E",
+    "#00FFFF",
+    "#9ACD32",
+    "#FF0000",
+    "#1E90FF",
+    "#FF7F50",
+  ];
+  const indexColor = Math.floor(Math.random() * (colors.length - 1) + 0);
+  return colors[indexColor];
+};
 //  ______________________Для пропсов диаграммы прокидываем объет такого формата,
 //  в котором обязательно должны быть category, categorySum, color, totalSum__________________
 const statistics = {
@@ -59,6 +70,76 @@ const statistics = {
   ],
   totalSum: 10350,
 };
+
+// Данные, которые приходят с бэкенда
+// const data = [
+//   {
+//     isExpense: true,
+//     categories: [
+//       {
+//         category: "Авто",
+//         categorySum: 8500,
+//       },
+//       {
+//         category: "Дом",
+//         categorySum: 85.5,
+//       },
+//       {
+//         category: "Еда",
+//         categorySum: 800,
+//       },
+//       {
+//         category: "Образование",
+//         categorySum: 500,
+//       },
+//     ],
+//     totalSum: 9885.5,
+//   },
+//   {
+//     isExpense: false,
+//     categories: [
+//       {
+//         category: "Регулярный доход",
+//         categorySum: 15000,
+//       },
+//     ],
+//     totalSum: 15000,
+//   },
+// ];
+
+// ------------------ Для ПРОПСОВ
+
+// Данные для отрисовки расходов
+// let statExpense;
+// Данные для отрисовки доходов
+// let statIncome;
+//Сумма всех расходов
+// let sumExpense;
+//Сумма всех доходов
+// // let sumIncome;
+
+// ---------------------- Как обработать полученные данные из бэкенда
+// data.map((st) => {
+//   if (st.isExpense === true) {
+//     sumExpense = st.totalSum.toFixed(2);
+//     st.categories.map((category) => {
+//       category.categorySum = category.categorySum.toFixed(2);
+//       category["color"] = generateColor();
+//       return st.categories;
+//     });
+
+//     return (statExpense = st);
+//   } else {
+//     sumIncome = st.totalSum.toFixed(2);
+//     st.categories.map((category) => {
+//       category.categorySum = category.categorySum.toFixed(2);
+//       category["color"] = generateColor();
+//       return st.categories;
+//     });
+//     return (statIncome = st);
+//   }
+// });
+
 export const DiagramTab = () => {
   const mounth = [
     { name: "Январь", id: 1 },
@@ -110,7 +191,11 @@ export const DiagramTab = () => {
             placeholder="Год"
           />
         </DropDownWrap>
-        <StatisticsTable />
+        <StatisticsTable
+          statistics={statExpense}
+          sumExpense={sumExpense}
+          sumIncome={sumIncome}
+        />
       </TableWrap>
     </DiagramTabWrap>
   );

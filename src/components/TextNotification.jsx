@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 const Text = styled.span`
     position: absolute;
+    bottom: -22px;
     color: red;
     font-size: 12px;
     margin-left: 10px;

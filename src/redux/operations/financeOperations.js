@@ -13,3 +13,15 @@ export const fetchTransactions = createAsyncThunk(
     }
   }
 );
+
+export const addTransaction = createAsyncThunk(
+  "finance/addTransaction",
+  async (transactionData, { rejectWithValue }) => {
+    try {
+      const data = await api.transactions.addTransaction(transactionData);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);

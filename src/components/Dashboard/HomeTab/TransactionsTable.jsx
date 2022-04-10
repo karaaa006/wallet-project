@@ -1,3 +1,4 @@
+import moment from "moment";
 import styled from "styled-components";
 
 const MobileTable = styled.table`
@@ -97,25 +98,6 @@ const TableTdR = styled.td`
 `;
 
 export const TransactionsTable = ({ transactions = [] }) => {
-  const parseDate = (date) => {
-    const newDate = new Date(date);
-    const finalDate =
-      (newDate.getDate().toString().padStart("0", 2) < 9
-        ? "0" + newDate.getDate().toString().padStart("0", 2)
-        : newDate.getDate().toString().padStart("0", 2)) +
-      "." +
-      (newDate.getMonth() < 9
-        ? "0" + (newDate.getMonth() + 1)
-        : newDate.getMonth() + 1
-      )
-        .toString()
-        .padStart("0", 2) +
-      "." +
-      newDate.getFullYear().toString().slice(-2);
-
-    return finalDate;
-  };
-
   return (
     <div>
       <ConteinerTable>
@@ -146,7 +128,9 @@ export const TransactionsTable = ({ transactions = [] }) => {
             {transactions.map((item) => {
               return (
                 <TableTr key={item._id}>
-                  <TableTdl>{parseDate(item.createdAt)}</TableTdl>
+                  <TableTdl>
+                    {moment(item.createdAt).format("DD.MM.YY")}
+                  </TableTdl>
                   <TableTdl style={{ textAlign: "center" }}>
                     {item.isExpense ? "-" : "+"}
                   </TableTdl>
@@ -172,7 +156,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
             <tbody>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Дата</MobileTh>
-                <MobileTd>{parseDate(item.createdAt)}</MobileTd>
+                <MobileTd>{moment(item.createdAt).format("DD.MM.YY")}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Тип</MobileTh>
@@ -180,7 +164,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Категория</MobileTh>
-                <MobileTd>{item.category.category}</MobileTd>
+                <MobileTd>{item.category.name}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Комментарий</MobileTh>

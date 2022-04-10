@@ -51,21 +51,36 @@ export const api = {
       return data;
     },
     registration: async (registrationData) => {
-      try {
         const { data } = await axios.post("/users", registrationData);
 
         apiTokenConfig.set(data.token);
 
         return data;
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    }
   },
   transactions: {
     getTransactions: async () => {
       try {
         const { data } = await axios.get("/transactions");
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    addTransaction: async (transactionData) => {
+      try {
+        const { data } = await axios.post("/transactions", transactionData);
+        return data;
+
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  categories: {
+    getCategories: async () => {
+      try {
+        const { data } = await axios.get("/categories");
         return data;
       } catch (e) {
         console.log(e);

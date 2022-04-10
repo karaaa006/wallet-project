@@ -44,7 +44,10 @@ const CloseIcon = styled.img``;
 const Title = styled.h2`
   font-size: 30px;
   font-weight: 400;
-  margin: 0 0 40px 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: ${({mb}) => mb || '40px'};
   text-align: center;
 `;
 
@@ -55,6 +58,7 @@ export const Modal = ({
   title,
   w,
   h,
+  mb=40,
   justify,
   align,
   direction,
@@ -87,7 +91,7 @@ export const Modal = ({
         <CloseButton onClick={handleClose}>
           <CloseIcon src={close} />
         </CloseButton>
-        {title && <Title>{title}</Title>}
+        {title && <Title mb={mb}>{title}</Title>}
         {children}
       </ModalWrap>
     </Backdrop>
