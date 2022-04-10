@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTransactions } from "../operations/financeOperations";
+import { fetchTransactions, addTransaction } from "../operations/financeOperations";
 
 const initialState = {
   financeData: [],
+  transactionData: {},
   loading: false,
   hasError: false,
 };
@@ -12,7 +13,9 @@ const financeSlice = createSlice({
   initialState,
   extraReducers: {
     [fetchTransactions.pending]: (state) => {
+      state.financeData = [];
       state.loading = true;
+      state.hasError = false;
     },
     [fetchTransactions.fulfilled]: (state, action) => {
       state.financeData = action.payload;
@@ -23,6 +26,11 @@ const financeSlice = createSlice({
       state.financeData = [];
       state.loading = false;
       state.hasError = true;
+    },
+    [addTransaction.fulfilled]: (state, action) => {
+      state.transactionData = action.payload;
+      state.loading = false;
+      state.hasError = false;
     },
   },
 });

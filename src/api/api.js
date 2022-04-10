@@ -67,5 +67,24 @@ export const api = {
         console.log(e);
       }
     },
+    addTransaction: async (transactionData) => {
+      try {
+        const { data } = await axios.post("/transactions", transactionData);
+        return data;
+
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  categories: {
+    getCategories: async () => {
+      try {
+        const { data } = await axios.get("/categories");
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
