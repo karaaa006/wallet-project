@@ -185,6 +185,7 @@ export const DiagramTab = () => {
   const [totalSumExp, setTotalSumExp] = useState(0);
   const [totalSumRev, setTotalSumRev] = useState(0);
 
+  // стейт для дропдаунів
   const [selectedMounth, setSelectedMounth] = useState({});
   const [selectedYear, setSelectedYear] = useState({});
 
