@@ -136,20 +136,23 @@ const statistics = {
 // Досуг-- #24CCA7
 // Другие расходы-- #00AD84
 
+// export const fetchStatistics = createAsyncThunk(
+//   "fetchStatistics",
+
+// );
+
 export const DiagramTab = () => {
-  const [m, setM] = useState(new Date().getMonth() + 1);
-  const [y, setY] = useState(new Date().getFullYear());
+  const [m, setM] = useState();
+  const [y, setY] = useState();
   const [data, setData] = useState();
-  const [revenueCategories, setRevenueCategories] = useState([]);
-  const [expensesCategories, setExpensesCategories] = useState([]);
-  const [totalSumExp, setTotalSumExp] = useState(0);
-  const [totalSumRev, setTotalSumRev] = useState(0);
+  const [categ, setCateg] = useState([]);
+  const [totalExp, setTotalExp] = useState(0);
 
-  //   console.log("тотал розходи", totalSumExp);
-  //   console.log("тотал доходи", totalSumRev);
+  //   const dispatch = useDispatch();
 
-  //   console.log(revenueCategories);
-  //   console.log(expensesCategories);
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1;
 
   const fetchStatistics = async ({ m, y }) => {
     try {
@@ -157,87 +160,68 @@ export const DiagramTab = () => {
         `/transactions/statistics?month=${m}&year=${y}`
       );
 
-      separateStatistics(data);
-
-      setData(data);
+      return setData(data);
     } catch (error) {
-      console.log(error.response.data);
-    }
-  };
-
-  const addColor = (name) => {
-    switch (name) {
-      case "Основные расходы":
-        return "#FED057";
-      case "Еда":
-        return "#FFD8D0";
-      case "Машина":
-        return "#FD9498";
-      case "Развитие":
-        return "#C5BAFF";
-      case "Забота о детях":
-        return "#6E78E8";
-      case "Товары для дома":
-        return "#4A56E2";
-      case "Образование":
-        return "#81E1FF";
-      case "Досуг":
-        return "#24CCA7";
-      case "Остальные":
-        return "#00AD84";
-      default:
-        return generateColor();
-    }
-  };
-  const separateStatistics = (data) => {
-    if (Array.isArray(data)) {
-      setRevenueCategories(
-        data.filter((item) => !item.isExpense)[0].categories
-      );
-      setExpensesCategories(
-        data.filter((item) => item.isExpense)[0].categories
-      );
-
-      setTotalSumRev(data.filter((item) => !item.isExpense)[0].totalSum);
-      setTotalSumExp(data.filter((item) => item.isExpense)[0].totalSum);
-      console.log("data", data);
+      return console.log(error.response.data);
     }
   };
 
   useEffect(() => {
-    const getStatistics = async () => await fetchStatistics({ m, y });
-
+    const getStatistics = () =>
+      fetchStatistics({ m: currentMonth, y: currentYear });
     getStatistics();
   }, []);
+  ////------------------------------------------------------------
+  if (Array.isArray(data)) {
+    // console.log(data);
 
-  useEffect(() => {
-    const newRevenue = revenueCategories?.map((item) => {
-      const color = addColor(item.category);
-      return { ...item, color };
+    const revenueCategories = data[0]?.categories;
+    const expensesCategories = data[1]?.categories;
+
+    // console.log(expensesCategories);
+    const totalRevenue = data[0]?.totalSum;
+    const totalExpenses = data[1]?.totalSum;
+    setTotalExp(totalExpenses);
+    // const balance = totalRevenue - totalExpenses;
+    // console.log(totalRevenue, totalExpenses, balance);
+
+    const resultCategories = expensesCategories.map(function (elem) {
+      switch (elem.category) {
+        case "Основные расходы":
+          return { ...elem, color: "#FED057" };
+        case "Еда":
+          return { ...elem, color: "#FFD8D0" };
+        case "Машина":
+          return { ...elem, color: "#FD9498" };
+        case "Развитие":
+          return { ...elem, color: "#C5BAFF" };
+        case "Забота о детях":
+          return { ...elem, color: "#6E78E8" };
+        case "Товары для дома":
+          return { ...elem, color: "#4A56E2" };
+        case "Образование":
+          return { ...elem, color: "#81E1FF" };
+        case "Досуг":
+          return { ...elem, color: "#24CCA7" };
+        case "Остальные":
+          return { ...elem, color: "#00AD84" };
+        default:
+          return { ...elem, color: generateColor() };
+      }
     });
-    const newExpenses = expensesCategories?.map((item) => {
-      const color = addColor(item.category);
-      return { ...item, color };
-    });
-    setRevenueCategories(newRevenue);
-    setExpensesCategories(newExpenses);
-  }, [data]);
 
-  const expensesStatistics = {
-    categories: [...expensesCategories],
-    totalSum: totalSumExp,
-  };
-  const revenueStatistics = {
-    categories: [...revenueCategories],
-    totalSum: totalSumRev,
-  };
+    setCateg(resultCategories);
+  }
 
-  console.log("обєкт розходи", expensesStatistics);
-  console.log("обєкт доходи", revenueStatistics);
+  const stat = {
+    categories: [...categ],
+    totalSum: totalExp,
+  };
+  console.log("обэкт статистики", stat);
 
   return (
     <>
-      <Chart statistics={revenueStatistics} />
+      <Chart statistics={stat ?? statistics} />
 
       <StatisticsTable />
       <DiagramTabWrap>
@@ -278,10 +262,10 @@ export const DiagramTab = () => {
           }}
         >
           <option value="hide">Год</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
           <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
         </SelectYear>
       </DiagramTabWrap>
     </>
