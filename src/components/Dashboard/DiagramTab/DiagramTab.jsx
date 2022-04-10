@@ -99,18 +99,26 @@ const statistics = {
 //Сумма всех расходов
 // let sumExpense;
 //Сумма всех доходов
-// let sumIncome;
+// // let sumIncome;
 
 // ---------------------- Как обработать полученные данные из бэкенда
 // data.map((st) => {
 //   if (st.isExpense === true) {
-//     sumExpense = st.totalSum;
-//     st.categories.map((category) => (category["color"] = generateColor()));
+//     sumExpense = st.totalSum.toFixed(2);
+//     st.categories.map((category) => {
+//       category.categorySum = category.categorySum.toFixed(2);
+//       category["color"] = generateColor();
+//       return st.categories;
+//     });
 
 //     return (statExpense = st);
 //   } else {
-//     sumIncome = st.totalSum;
-//     st.categories.map((category) => (category["color"] = generateColor()));
+//     sumIncome = st.totalSum.toFixed(2);
+//     st.categories.map((category) => {
+//       category.categorySum = category.categorySum.toFixed(2);
+//       category["color"] = generateColor();
+//       return st.categories;
+//     });
 //     return (statIncome = st);
 //   }
 // });
