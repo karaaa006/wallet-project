@@ -6,8 +6,15 @@ import { StatisticsTable } from "./StatisticsTable";
 
 const DropDownWrap = styled.div`
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto; 
+  margin-bottom: 20px; 
+  max-width: 280px;
+  gap: 32px; 
 `;
+
+
 
 const TableWrap = styled.div``;
 

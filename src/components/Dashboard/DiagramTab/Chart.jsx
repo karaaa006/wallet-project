@@ -5,9 +5,12 @@ import styled from "styled-components";
 
 const ChartWrap = styled.div`
   position: relative;
-
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 32px;
   width: 280px;
   height: 280px;
+  
 
   @media screen and (min-width: 768px) {
     width: 336px;

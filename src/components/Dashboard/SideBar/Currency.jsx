@@ -16,12 +16,14 @@ const SpinerWrap = styled.div`
 `;
 
 const CurrencyWrap = styled.div`
+
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: ${({ w }) => (w ? w : "390px")};
-  height: ${({ h }) => (h ? h : "350px")};
+  align-self: center;
+  max-width: ${({ w }) => (w ? w : "390px")};
+  max-height: ${({ h }) => (h ? h : "350px")};
   border-radius: 30px;
 
   background-color: #4a56e2;
@@ -43,7 +45,6 @@ const CurrencyTable = styled.table`
 const CurrencyHead = styled.thead`
   font-size: 18px;
   font-weight: 700;
-
   background-color: rgba(255, 255, 255, 0.2);
 `;
 

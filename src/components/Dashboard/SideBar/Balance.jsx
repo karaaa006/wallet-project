@@ -10,6 +10,7 @@ const Wrap = styled.div`
   justify-content: center;
 `;
 const BalanceWrapper = styled.div`
+  padding: 8 32 12;
   width: 280px;
   height: 80px;
   background: #ffffff;

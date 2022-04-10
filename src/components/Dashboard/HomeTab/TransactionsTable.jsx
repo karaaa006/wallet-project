@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 const MobileTable = styled.table`
+
   width: 280px;
   background: #ffffff;
   border-radius: 10px;
   font-size: 16px;
   line-height: 1.5;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 8px;
   border-collapse: collapse;
   overflow: hidden;
