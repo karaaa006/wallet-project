@@ -186,8 +186,8 @@ export const DiagramTab = () => {
   const [totalSumRev, setTotalSumRev] = useState(0);
 
   // стейт для дропдаунів
-  const [selectedMounth, setSelectedMounth] = useState({});
-  const [selectedYear, setSelectedYear] = useState({});
+  const [selectedMounth, setSelectedMounth] = useState(m);
+  const [selectedYear, setSelectedYear] = useState(y);
 
   //   console.log("тотал розходи", totalSumExp);
   //   console.log("тотал доходи", totalSumRev);
@@ -267,10 +267,13 @@ export const DiagramTab = () => {
     setExpensesCategories(newExpenses);
   }, [data]);
 
-  // useEffect(() => {
-  //   console.log("changing");
-  //   console.log("елемент дропдаун", DropDown.selectedOption.name);
-  // }, [DropDown]);
+  useEffect(() => {
+    console.log("changing");
+
+    fetchStatistics({ m: selectedMounth.id, y: selectedYear.id });
+    console.log("month", selectedMounth);
+    console.log("year", selectedYear);
+  }, [selectedMounth, selectedYear]);
 
   const expensesStatistics = {
     categories: [...expensesCategories],
