@@ -1,134 +1,106 @@
 import { NavLink } from "react-router-dom";
 import { secondFontFamily } from "../../../utils/stylesVars";
-import { ReactComponent as NavCurrency } from "../../../images/icons/NavCurrency.svg";
-import { ReactComponent as NavDiagram } from "../../../images/icons/NavDiagram.svg";
-import { ReactComponent as NavHome } from "../../../images/icons/NavHome.svg";
 import styled from "styled-components";
+import Media from "react-media";
+import SVG from "react-inlinesvg";
+import NavHome from "../../../images/icons/NavHome.svg";
+import NavDiagram from "../../../images/icons/NavDiagram.svg";
+import NavCurrency from "../../../images/icons/NavCurrency.svg";
 
-const HomeSvg = styled(NavHome)`
+const Svg = styled(SVG)`
   width: 38px;
   height: 38px;
   border-radius: 3px;
   & path {
     fill: #6e78e8;
   }
-
-  margin-right: 36px;
-
   @media screen and (min-width: 768px) {
     width: 18px;
     height: 18px;
-    margin-right: 23px;
   }
 `;
 
-const HomeLink = styled.div`
-  display: flex;
-  align-items: center;
-  padding-bottom: 12px;
-`;
-
 const PageText = styled.span`
-  display: none;
   font-family: ${secondFontFamily};
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 1.5;
   color: #000000;
-
   @media screen and (min-width: 768px) {
     display: block;
-  }
-`;
-
-const DiagramSvg = styled(NavDiagram)`
-  width: 38px;
-  height: 38px;
-  border-radius: 3px;
-  & path {
-    fill: #6e78e8;
-  }
-
-  margin-right: 36px;
-
-  @media screen and (min-width: 768px) {
-    width: 18px;
-    height: 18px;
-    margin-right: 23px;
-  }
-`;
-
-const DiagramLink = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CurrencySvg = styled(NavCurrency)`
-  width: 38px;
-  height: 38px;
-  border-radius: 3px;
-  & path {
-    fill: #6e78e8;
-  }
-
-  @media screen and (min-width: 768px) {
-    display: none;
   }
 `;
 
 const NavList = styled.div`
   display: flex;
   justify-content: center;
- 
+  margin-bottom: 12px;
+  @media (max-width: 767px) {
+    & :not(:last-child) {
+      margin-right: 32px;
+    }
+  }
 
   @media screen and (min-width: 768px) {
+    margin-right: 0;
     flex-direction: column;
 
-    padding-top: 40px;
-    padding-bottom: 28px;
+    & :not(:last-child) {
+      margin-bottom: 12px;
+    }
   }
 `;
 
 const StyledNavLink = styled(NavLink)`
+  display: flex;
   path {
     transition: fill ease 250ms;
   }
 
-  &.active ${HomeSvg}, &.active ${DiagramSvg},&.active ${CurrencySvg} {
+  &.active SVG {
     box-shadow: 0px 3px 10px #4a56e2;
     path {
       fill: #4a56e2;
     }
-
     transition: box-shadow ease 250ms;
   }
-
   &.active ${PageText} {
     font-weight: 700;
+  }
+
+  @media screen and (min-width: 768px) {
+    & :not(:last-child) {
+      margin-right: 20px;
+    }
   }
 `;
 
 export default function Navigation() {
   return (
-    <>
-      <NavList>
-        <StyledNavLink to="home">
-          <HomeLink>
-            <HomeSvg src={NavHome} />
-            <PageText>Главная</PageText>
-          </HomeLink>
-        </StyledNavLink>
-        <StyledNavLink to="diagram">
-          <DiagramLink>
-            <DiagramSvg src={NavDiagram} />
-            <PageText>Статистика</PageText>
-          </DiagramLink>
-        </StyledNavLink>
-        <StyledNavLink to="currency">
-          <CurrencySvg src={NavCurrency} />
-        </StyledNavLink>
-      </NavList>
-    </>
+    <NavList>
+      <StyledNavLink to="home">
+        <Svg src={NavHome} />
+        <Media
+          query="(min-width: 768px)"
+          render={() => <PageText>Главная</PageText>}
+        />
+      </StyledNavLink>
+      <StyledNavLink to="diagram">
+        <Svg src={NavDiagram} />
+
+        <Media
+          query="(min-width: 768px)"
+          render={() => <PageText>Статистика</PageText>}
+        />
+      </StyledNavLink>
+      <Media
+        query="(max-width: 767px)"
+        render={() => (
+          <StyledNavLink to="currency">
+            <Svg src={NavCurrency} />
+          </StyledNavLink>
+        )}
+      />
+    </NavList>
   );
 }

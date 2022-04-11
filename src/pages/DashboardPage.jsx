@@ -21,13 +21,11 @@ const PageWrap = styled.div`
   backdrop-filter: blur(50px);
 
   @media screen and (min-width: 768px) {
-    padding: 0 32px;
+    padding: 32px 32px;
   }
 
   @media screen and (min-width: 1024px) {
-    padding-top: 46px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 46px 16px;
     flex-direction: row;
   }
 `;
@@ -35,11 +33,13 @@ const PageWrap = styled.div`
 const SideBar = styled.div`
   display: flex;
   justify-content: center;
+
   flex-direction: column;
   margin-bottom: 32px;
+
   @media screen and (min-width: 768px) {
-    padding: 0 32px;
     flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
   }
   @media screen and (min-width: 1024px) {
@@ -51,7 +51,12 @@ const SideBar = styled.div`
 const MiddleSideBarWrap = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: column; ;
+  flex-direction: column;
+
+  padding: 0;
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
 `;
 
 export default function DashboardPage() {

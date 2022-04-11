@@ -2,7 +2,6 @@ import moment from "moment";
 import styled from "styled-components";
 
 const MobileTable = styled.table`
-
   width: 280px;
   background: #ffffff;
   border-radius: 10px;
@@ -52,8 +51,8 @@ const TableTransactions = styled.table`
   padding-left: 20px;
   padding-right: 20px;
 
-  @media screen and (min-width: 1280px) {
-    width: 715px;
+  @media screen and (min-width: 1024px) {
+    max-width: 715px;
   }
 `;
 
