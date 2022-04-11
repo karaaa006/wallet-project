@@ -18,7 +18,7 @@ const MobileTable = styled.table`
 `;
 const MobileTr = styled.tr`
   height: 47px;
-  border-left: ${({ mb }) => (!mb ? `5px solid #FF6596` : `5px solid #24CCA7`)};
+  border-left: ${({ mb }) => (mb ? `5px solid #FF6596` : `5px solid #24CCA7`)};
 `;
 
 const MobileTh = styled.th`
@@ -39,12 +39,6 @@ const ConteinerTable = styled.div`
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    max-height: 320px;
-    overflow: scroll;
-    ::-webkit-scrollbar {
-      width: 0px;
-      background: rgba(255, 255, 255, 0);
-    }
   }
 `;
 const TableTransactions = styled.table`
@@ -68,8 +62,6 @@ const TableHead = styled.thead`
   font-size: 18px;
   line-height: 1.5;
   background: #ffffff;
-  position: sticky;
-  top: 0;
 `;
 
 const TableBody = styled.tbody`
@@ -165,7 +157,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Тип</MobileTh>
-                <MobileTd>{item.isExpense ? "+" : "-"}</MobileTd>
+                <MobileTd>{item.isExpense ? "-" : "+"}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Категория</MobileTh>
@@ -177,7 +169,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Сумма</MobileTh>
-                <MobileTd style={{ color: item.isExpense ? `#24CCA7` : `#FF6596` }}>{item.amount.toFixed(2)}</MobileTd>
+                <MobileTd style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}>{item.amount.toFixed(2)}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Баланс</MobileTh>
