@@ -37,8 +37,10 @@ export const fetchStatistics = createAsyncThunk(
       if (data.length > 0) {
         const expense = data.filter((item) => item.isExpense)[0];
         const revenue = data.filter((item) => !item.isExpense)[0];
+
         expense.categories = addCategoryColor(expense.categories);
         revenue.categories = addCategoryColor(revenue.categories);
+
         return { expense, revenue };
       }
       return { expense: {}, revenue: {} };
