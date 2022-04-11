@@ -9,6 +9,7 @@ const ToggleWrap = styled.div`
   align-items: baseline;
   padding-bottom: 22px;
   padding-top: 22px;
+  /* margin-bottom: 20px; */
 `
 
 const TextBeforeToggle = styled.p`
@@ -29,6 +30,7 @@ width: 80px;
 height: 40px;
 border: 1px solid Gray;
 border-radius: 20px;
+pointer-events: none;
 
 input {
 opacity: 0;
