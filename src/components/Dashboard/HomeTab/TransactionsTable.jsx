@@ -54,10 +54,10 @@ const TableTransactions = styled.table`
   padding-left: 20px;
   padding-right: 20px;
   @media screen and (min-width: 768px) {
-    width: 704px;
+    width: 1200px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1280px) {
     max-width: 715px;
   }
 `;
