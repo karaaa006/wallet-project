@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { accentCl } from "../../../utils/stylesVars";
 import plus from "../../../images/icons/plus.svg";
-import { Modal } from "../../Modal";
+import { Modal } from "../../Common/Modal";
 
 const PlusIcon = styled.img``;
 

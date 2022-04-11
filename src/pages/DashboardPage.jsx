@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTransactions } from "../redux/operations/financeOperations";
-import { Header } from "../components/Header";
+import { Header } from "../components/Common/Header";
 import { HomeTab } from "../components/Dashboard/HomeTab/HomeTab";
 import { Currency } from "../components/Dashboard/SideBar/Currency";
 import { DiagramTab } from "../components/Dashboard/DiagramTab/DiagramTab";
@@ -14,22 +14,30 @@ import Media from "react-media";
 
 const PageWrap = styled.div`
   display: flex;
+
   flex-direction: column;
-  min-height: 100vh;
-  height: 100%;
+  justify-content: space-between;
+  /* min-height: 100vh; */
+  height: auto;
+  width: 100%;
   padding: 15px 20px;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(50px);
 
   @media screen and (min-width: 768px) {
-    padding: 0 32px;
+    padding: 32px 32px;
   }
 
   @media screen and (min-width: 1024px) {
-    padding-top: 46px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 0 16px;
     flex-direction: row;
+  }
+`;
+
+const TabContainer = styled.div`
+  @media screen and (min-width: 1024px) {
+    padding-top: 40px;
+    padding-left: 69px;
   }
 `;
 
@@ -37,22 +45,30 @@ const SideBar = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
+
   @media screen and (min-width: 768px) {
-    padding: 0 32px;
     flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
   }
   @media screen and (min-width: 1024px) {
-    padding: 0 32px;
+    padding-top: 40px;
+    padding-right: 69px;
     flex-direction: column;
+    border-right: 1px solid #e7e5f2;
   }
 `;
 
 const MiddleSideBarWrap = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: column; ;
+  flex-direction: column;
+
+  padding: 0;
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
 `;
 
 export default function DashboardPage() {
@@ -78,17 +94,19 @@ export default function DashboardPage() {
         <SideBar>
           <MiddleSideBarWrap>
             <Navigation />
-            <Balance />
+            <Media query="(min-width: 768px)" render={() => <Balance />} />
           </MiddleSideBarWrap>
           <Media query="(min-width: 768px)" render={() => <Currency />} />
         </SideBar>
 
-        <Routes>
-          <Route index element={<HomeTab />} />
-          <Route path="home" element={<HomeTab />} />
-          <Route path="diagram" element={<DiagramTab />} />
-          <Route path="currency" element={<Currency />} />
-        </Routes>
+        <TabContainer>
+          <Routes>
+            <Route index element={<HomeTab />} />
+            <Route path="home" element={<HomeTab />} />
+            <Route path="diagram" element={<DiagramTab />} />
+            <Route path="currency" element={<Currency />} />
+          </Routes>
+        </TabContainer>
       </PageWrap>
     </>
   );

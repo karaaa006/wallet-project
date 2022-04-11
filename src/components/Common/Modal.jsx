@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect } from "react";
-import close from "../images/icons/close.svg";
+import close from "../../images/icons/close.svg";
 
 const Backdrop = styled.div`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};

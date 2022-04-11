@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { fetchStatistics } from "../../../redux/operations/financeOperations";
-import { DropDown } from "../../DropDown";
+import { DropDown } from "../../Common/DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
 

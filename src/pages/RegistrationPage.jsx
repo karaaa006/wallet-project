@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { RegistrationForm } from "../components/RegistrationForm";
+import { RegistrationForm } from "../components/Registration/RegistrationForm";
 
-import illustration from "../images/illustrationRegPage.png"
+import illustration from "../images/illustrationRegPage.png";
 import { secondFontFamily } from "../utils/stylesVars";
 
 const PageWrap = styled.div`
@@ -68,7 +68,7 @@ const FormWrap = styled.div`
 `;
 
 export default function RegistrationPage() {
-  return(
+  return (
     <PageWrap>
       <Illustration>
         <IllustrationImg src={illustration} />
@@ -78,5 +78,5 @@ export default function RegistrationPage() {
         <RegistrationForm />
       </FormWrap>
     </PageWrap>
-  )
+  );
 }

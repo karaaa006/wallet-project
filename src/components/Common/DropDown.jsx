@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-import arrow from "../images/icons/downArrow.svg";
-import { useOutsiteClick } from "../Hooks/useOutsideClick";
+import arrow from "../../images/icons/downArrow.svg";
+import { useOutsiteClick } from "../../Hooks/useOutsideClick";
 
 const DropDownWrap = styled.div`
   position: relative;
