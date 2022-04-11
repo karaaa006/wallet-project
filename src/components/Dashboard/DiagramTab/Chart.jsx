@@ -65,7 +65,6 @@ export const Chart = ({ statistics }) => {
 
   return (
     <ChartWrap>
-      <h2>Статистика</h2>
       <Doughnut data={data} options={options} />
       <Balance>&#8372; {balance}</Balance>
     </ChartWrap>

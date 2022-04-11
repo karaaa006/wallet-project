@@ -16,6 +16,10 @@ const SpinerWrap = styled.div`
 `;
 
 const CurrencyWrap = styled.div`
+  @media screen and (max-width: 767px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   position: relative;
   display: flex;

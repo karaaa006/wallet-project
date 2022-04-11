@@ -36,6 +36,8 @@ const NavList = styled.div`
   justify-content: center;
 
   @media (max-width: 767px) {
+    margin-left: auto;
+    margin-right: auto;
     & :not(:last-child) {
       margin-right: 32px;
     }
@@ -43,6 +45,7 @@ const NavList = styled.div`
 
   @media screen and (min-width: 768px) {
     margin-right: 0;
+    margin-bottom: 28px;
     flex-direction: column;
 
     & :not(:last-child) {

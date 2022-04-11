@@ -13,6 +13,7 @@ import Media from "react-media";
 const MainTab = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   @media screen and (max-width: 767px) {
     & div:first-of-type {
       margin-bottom: 32px;

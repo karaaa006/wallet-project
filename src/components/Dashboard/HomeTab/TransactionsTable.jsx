@@ -37,6 +37,8 @@ const ConteinerTable = styled.div`
   display: none;
   @media screen and (min-width: 768px) {
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
     max-height: 320px;
     overflow: scroll;
     ::-webkit-scrollbar {
@@ -46,10 +48,14 @@ const ConteinerTable = styled.div`
   }
 `;
 const TableTransactions = styled.table`
-  width: 704px;
+  margin-left: auto;
+  margin-right: auto;
   border-collapse: collapse;
   padding-left: 20px;
   padding-right: 20px;
+  @media screen and (min-width: 768px) {
+    width: 704px;
+  }
 
   @media screen and (min-width: 1024px) {
     max-width: 715px;

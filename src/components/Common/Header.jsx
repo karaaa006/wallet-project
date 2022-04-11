@@ -20,7 +20,7 @@ const StyledHeader = styled.header`
     padding: 20px 32px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1024px) {
     padding: 20px 16px;
   }
 `;

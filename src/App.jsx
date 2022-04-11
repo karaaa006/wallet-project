@@ -22,6 +22,7 @@ const Dashboard = lazy(() => import("./pages/DashboardPage.jsx"));
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before{
     box-sizing: border-box;
+ 
   }
 
   body {
@@ -30,7 +31,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: #E7EAF2;
     background-image: url(${figure2}), url(${figure1});
     background-repeat: no-repeat;
+    
+
     background-position: top -200px right -200px, bottom -200px left -200px;
+   
+  }
+    
   }
 
   #root{
