@@ -40,6 +40,21 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const [toggle, setToggle] = useState(true);
   const [categories, setCategories] = useState([]);
 
+  const reset = () => {
+    setSelectedCategory(defaultValueSelected);
+    const refCheckBox = document.getElementById("toggleTypeTransaction");
+    console.log(refCheckBox);
+    if (refCheckBox.checked) {
+      refCheckBox.click();
+      setToggle(true);
+    }
+  }
+
+  const cancelTransaction =() => {
+    reset();
+    closeModal();
+  }
+
   const dispatch = useDispatch();
 
   const onChangeToggle = () => {
@@ -92,7 +107,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       <Formik
         initialValues={{ amount: "", comment: "", date: localDate }}
         validateOnChange
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           if (selectedCategory !== defaultValueSelected) {
             const newTransaction = {
               amount: values.amount,
@@ -102,6 +117,9 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
             };
             dispatch(addTransaction(newTransaction));
             // console.log(newTransaction);
+            resetForm();
+            reset();
+            closeModal();
           } else notify("Выберите категорию");
         }}
         validationSchema={validationSchema}
