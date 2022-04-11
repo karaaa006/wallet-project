@@ -42,19 +42,6 @@ const TableTr = styled.tr`
 
   border-bottom: 1px solid #dcdcdf;
   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
-
-  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    font-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    font-weight 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  :hover,
-  :focus {
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 800;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-    border-radius: 5px;
-  }
 `;
 
 const TableCat = styled.td`
@@ -85,6 +72,22 @@ const TableFTd = styled.td`
   color: ${({ c }) => (c ? c : "black")};
 `;
 
+const TableFTr = styled.tr`
+  height: 52px;
+  vertical-align: middle;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-weight 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  :hover,
+  :focus {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+  }
+`;
 export const StatisticsTable = ({
   statistics,
   sumExpense,
@@ -120,18 +123,18 @@ export const StatisticsTable = ({
         ))}
       </tbody>
       <tfoot>
-        <TableTr onClick={() => handleSetStat(false)}>
+        <TableFTr onClick={() => handleSetStat(false)}>
           <TableFTd>Расходы:</TableFTd>
           <TableFTd c="#FF6596" ta="right">
             {sumExpense}
           </TableFTd>
-        </TableTr>
-        <TableTr onClick={() => handleSetStat(true)}>
+        </TableFTr>
+        <TableFTr onClick={() => handleSetStat(true)}>
           <TableFTd>Доходы:</TableFTd>
           <TableFTd c="#24CCA7" ta="right">
             {sumIncome}
           </TableFTd>
-        </TableTr>
+        </TableFTr>
       </tfoot>
     </Table>
   );

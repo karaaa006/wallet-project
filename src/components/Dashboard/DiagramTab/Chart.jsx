@@ -10,7 +10,6 @@ const ChartWrap = styled.div`
   margin-bottom: 32px;
   width: 280px;
   height: 280px;
-  
 
   @media screen and (min-width: 768px) {
     width: 336px;
