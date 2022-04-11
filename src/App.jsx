@@ -25,6 +25,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     font-family: ${mainFontFamily};
     background-color: #E7EAF2;
@@ -38,6 +40,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     height: 100%;
+    flex-grow: 1;
   }
 `;
 

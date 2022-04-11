@@ -18,11 +18,13 @@ const PageWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   /* min-height: 100vh; */
-  height: auto;
+  /* height: auto; */
   width: 100%;
   padding: 15px 20px;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(50px);
+  flex-grow: 1;
+  height: 100%;
 
   @media screen and (min-width: 768px) {
     padding: 32px 32px;

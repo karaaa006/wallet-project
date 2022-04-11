@@ -28,6 +28,7 @@ const CurrencyWrap = styled.div`
   align-self: center;
   max-width: ${({ w }) => (w ? w : "390px")};
   max-height: ${({ h }) => (h ? h : "350px")};
+  min-height: 350px;
   border-radius: 30px;
 
   background-color: #4a56e2;

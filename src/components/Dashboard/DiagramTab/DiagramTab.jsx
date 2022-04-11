@@ -68,6 +68,8 @@ export const DiagramTab = () => {
   const [selectedYear, setSelectedYear] = useState({});
   const [currentType, setCurrentType] = useState(false);
 
+  const { expense, revenue } = useSelector((state) => state.finance.statistics);
+  
   useEffect(() => {
     dispatch(
       fetchStatistics({
@@ -87,7 +89,6 @@ export const DiagramTab = () => {
       );
     }
   }, [selectedMounth, selectedYear]);
-  const { expense, revenue } = useSelector((state) => state.finance.statistics);
 
   const handleSetStat = (value) => {
     if (currentType !== value) {
