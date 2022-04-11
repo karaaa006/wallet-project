@@ -12,6 +12,7 @@ import { addTransaction } from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
 import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
+import throttle from 'lodash/throttle'
 
 const InputWrap = styled.div`
   display: flex;
@@ -79,7 +80,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       }
   }, [categories]);
 
-  const notify = (text) => toast.warn(text);
+  const notify = throttle((text) => toast.warn(text), 4000);
 
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
