@@ -35,7 +35,7 @@ const SideBar = styled.div`
   justify-content: center;
 
   flex-direction: column;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
 
   @media screen and (min-width: 768px) {
     flex-direction: row;
@@ -82,7 +82,7 @@ export default function DashboardPage() {
         <SideBar>
           <MiddleSideBarWrap>
             <Navigation />
-            <Balance />
+            <Media query="(min-width: 768px)" render={() => <Balance />} />
           </MiddleSideBarWrap>
           <Media query="(min-width: 768px)" render={() => <Currency />} />
         </SideBar>

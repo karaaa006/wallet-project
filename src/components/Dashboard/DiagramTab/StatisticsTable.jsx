@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const Table = styled.table`
+  margin: 20px auto;
   border-collapse: collapse;
   border-spacing: 0;
   border: 0;
   width: 320px;
-  margin-top: 20px;
 
   font-size: 16px;
   line-height: 1.23;

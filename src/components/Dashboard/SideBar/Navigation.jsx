@@ -34,7 +34,7 @@ const PageText = styled.span`
 const NavList = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 12px;
+
   @media (max-width: 767px) {
     & :not(:last-child) {
       margin-right: 32px;

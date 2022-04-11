@@ -7,10 +7,17 @@ import { AddBtn } from "./AddBtn";
 import { DropDown } from "../../Common/DropDown";
 import { getFinance } from "../../../redux/selectors/financeSelectors";
 import { AddTransaction } from "../AddTransaction/AddTransaction";
+import Balance from "../SideBar/Balance";
+import Media from "react-media";
 
 const MainTab = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 767px) {
+    & div:first-of-type {
+      margin-bottom: 32px;
+    }
+  }
 `;
 
 export const HomeTab = () => {
@@ -28,6 +35,7 @@ export const HomeTab = () => {
   return (
     <>
       <MainTab>
+        <Media query="(max-width: 767px)" render={() => <Balance />} />
         <TransactionsTable transactions={transactions} />
         <AddBtn onClick={handleClick} />
       </MainTab>

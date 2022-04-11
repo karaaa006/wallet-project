@@ -10,7 +10,6 @@ const ChartWrap = styled.div`
   margin-bottom: 32px;
   width: 280px;
   height: 280px;
-  
 
   @media screen and (min-width: 768px) {
     width: 336px;
@@ -66,6 +65,7 @@ export const Chart = ({ statistics }) => {
 
   return (
     <ChartWrap>
+      <h2>Статистика</h2>
       <Doughnut data={data} options={options} />
       <Balance>&#8372; {balance}</Balance>
     </ChartWrap>
