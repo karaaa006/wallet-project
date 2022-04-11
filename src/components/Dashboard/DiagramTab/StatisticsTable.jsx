@@ -68,11 +68,32 @@ const TableFTd = styled.td`
   font-weight: 700;
   text-align: ${({ ta }) => (ta ? ta : "left")};
   height: 40px;
-  padding: 15px 20px 0 20px;
+  padding: 0 20px;
   color: ${({ c }) => (c ? c : "black")};
 `;
 
-export const StatisticsTable = ({ statistics, sumExpense, sumIncome }) => {
+const TableFTr = styled.tr`
+  height: 52px;
+  vertical-align: middle;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-weight 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  :hover,
+  :focus {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+  }
+`;
+export const StatisticsTable = ({
+  statistics,
+  sumExpense,
+  sumIncome,
+  handleSetStat,
+}) => {
   return (
     <Table>
       <TableHead>
@@ -102,18 +123,18 @@ export const StatisticsTable = ({ statistics, sumExpense, sumIncome }) => {
         ))}
       </tbody>
       <tfoot>
-        <tr>
-          <TableFTd>Расходы</TableFTd>
+        <TableFTr onClick={() => handleSetStat(false)}>
+          <TableFTd>Расходы:</TableFTd>
           <TableFTd c="#FF6596" ta="right">
             {sumExpense}
           </TableFTd>
-        </tr>
-        <tr>
-          <TableFTd>Доходы</TableFTd>
+        </TableFTr>
+        <TableFTr onClick={() => handleSetStat(true)}>
+          <TableFTd>Доходы:</TableFTd>
           <TableFTd c="#24CCA7" ta="right">
             {sumIncome}
           </TableFTd>
-        </tr>
+        </TableFTr>
       </tfoot>
     </Table>
   );

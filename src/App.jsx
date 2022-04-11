@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    height: 100vh;
+    min-height: 100vh;
     font-family: ${mainFontFamily};
     background-color: #E7EAF2;
     background-image: url(${figure2}), url(${figure1});

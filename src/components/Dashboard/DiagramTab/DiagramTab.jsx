@@ -89,6 +89,13 @@ export const DiagramTab = () => {
   }, [selectedMounth, selectedYear]);
   const { expense, revenue } = useSelector((state) => state.finance.statistics);
 
+  const handleSetStat = (value) => {
+    if (currentType !== value) {
+      setCurrentType(value);
+    } else {
+      return;
+    }
+  };
   return (
     <DiagramTabWrap>
       {expense && <Chart statistics={currentType ? revenue : expense} />}
@@ -112,6 +119,7 @@ export const DiagramTab = () => {
             statistics={currentType ? revenue : expense}
             sumExpense={expense?.totalSum}
             sumIncome={revenue?.totalSum}
+            handleSetStat={handleSetStat}
           />
         )}
       </TableWrap>

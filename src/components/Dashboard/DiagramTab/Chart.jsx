@@ -39,6 +39,7 @@ const options = {
   aspectRatio: 1,
   maintainAspectRatio: true,
   cutout: 90,
+  radius: "98%",
 };
 
 export const Chart = ({ statistics }) => {
