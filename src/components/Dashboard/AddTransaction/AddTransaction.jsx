@@ -12,7 +12,6 @@ import { addTransaction } from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
 import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
-import throttle from 'lodash/throttle'
 
 const InputWrap = styled.div`
   display: flex;
@@ -80,18 +79,19 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       }
   }, [categories]);
 
-  const notify = throttle((text) => toast.warn(text), 4000);
+  const notify = (text) => { toast.warn(text, {
+    toastId: "252"
+    })
+  }
 
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
-      .required(() => notify("Введите сумму"))
-      .min(0.01, () => notify("Сумма должна быть больше 0")),
-    comment: Yup.string().max(20, () =>
-      notify("Ваш комментарий слишком велик")
-    ),
+      .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))  
+      .min(0.01, () => toast.warn("Сумма должна быть больше 0", { toastId: ">0" })),
+    comment: Yup.string().max(20, () => toast.warn("Максимальная длина комментария 20 символов", { toastId: "<20" })),
     date: Yup.date()
-      .required(() => notify("Выберите дату"))
-      .max(localDate, () => notify("Выбранная дата ещё не наступила")),
+      .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
+      .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
   });
 
   return (
