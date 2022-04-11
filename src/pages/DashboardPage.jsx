@@ -16,7 +16,6 @@ const PageWrap = styled.div`
   display: flex;
 
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
   padding: 15px 20px;
   background-color: rgba(255, 255, 255, 0.4);
@@ -25,6 +24,7 @@ const PageWrap = styled.div`
   height: 100%;
 
   @media screen and (min-width: 768px) {
+    justify-content: space-between;
     padding: 32px 32px;
   }
 
