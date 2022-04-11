@@ -72,7 +72,19 @@ const TableFTd = styled.td`
   color: ${({ c }) => (c ? c : "black")};
 `;
 
-export const StatisticsTable = ({ statistics, sumExpense, sumIncome }) => {
+const TfootTr = styled.tr`
+  :hover,
+  :focus {
+    cursor: pointer;
+  }
+`;
+
+export const StatisticsTable = ({
+  statistics,
+  sumExpense,
+  sumIncome,
+  handleSetStat,
+}) => {
   return (
     <Table>
       <TableHead>
@@ -102,18 +114,18 @@ export const StatisticsTable = ({ statistics, sumExpense, sumIncome }) => {
         ))}
       </tbody>
       <tfoot>
-        <tr>
-          <TableFTd>Расходы</TableFTd>
+        <TfootTr onClick={() => handleSetStat(false)}>
+          <TableFTd>Расходы:</TableFTd>
           <TableFTd c="#FF6596" ta="right">
             {sumExpense}
           </TableFTd>
-        </tr>
-        <tr>
-          <TableFTd>Доходы</TableFTd>
+        </TfootTr>
+        <TfootTr onClick={() => handleSetStat(true)}>
+          <TableFTd>Доходы:</TableFTd>
           <TableFTd c="#24CCA7" ta="right">
             {sumIncome}
           </TableFTd>
-        </tr>
+        </TfootTr>
       </tfoot>
     </Table>
   );
