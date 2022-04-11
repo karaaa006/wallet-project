@@ -17,8 +17,6 @@ const PageWrap = styled.div`
 
   flex-direction: column;
   justify-content: space-between;
-  /* min-height: 100vh; */
-  /* height: auto; */
   width: 100%;
   padding: 15px 20px;
   background-color: rgba(255, 255, 255, 0.4);
@@ -59,6 +57,7 @@ const SideBar = styled.div`
     padding-right: 69px;
     flex-direction: column;
     border-right: 1px solid #e7e5f2;
+    justify-content: start;
   }
 `;
 
