@@ -35,7 +35,7 @@ const Balance = styled.span`
 `;
 
 const options = {
-  responsive: false,
+  responsive: true,
   aspectRatio: 1,
   maintainAspectRatio: true,
   cutout: 90,
