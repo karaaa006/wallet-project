@@ -22,7 +22,6 @@ const Dashboard = lazy(() => import("./pages/DashboardPage.jsx"));
 const GlobalStyle = createGlobalStyle`
   *, *::after, *::before{
     box-sizing: border-box;
- 
   }
 
   body {
@@ -32,13 +31,9 @@ const GlobalStyle = createGlobalStyle`
     background-image: url(${figure2}), url(${figure1});
     background-repeat: no-repeat;
     
-
     background-position: top -200px right -200px, bottom -200px left -200px;
-   
   }
     
-  }
-
   #root{
     display: flex;
     flex-direction: column;
@@ -57,6 +52,7 @@ function App() {
 
       dispatch(fetchCurrentUser());
     };
+
     if (token) {
       getUser();
     }

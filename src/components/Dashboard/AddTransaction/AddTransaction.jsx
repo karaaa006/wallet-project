@@ -10,7 +10,7 @@ import { Toggle } from "./Toggle";
 import iconDate from "../../../images/icons/date.svg";
 import { addTransaction } from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
-import { DropDown } from "../../DropDown";
+import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
 
 const InputWrap = styled.div`
