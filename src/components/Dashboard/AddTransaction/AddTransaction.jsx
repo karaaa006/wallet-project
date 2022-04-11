@@ -40,6 +40,21 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const [toggle, setToggle] = useState(true);
   const [categories, setCategories] = useState([]);
 
+  const reset = () => {
+    setSelectedCategory(defaultValueSelected);
+    const refCheckBox = document.getElementById("toggleTypeTransaction");
+    console.log(refCheckBox);
+    if (refCheckBox.checked) {
+      refCheckBox.click();
+      setToggle(true);
+    }
+  }
+
+  const cancelTransaction =() => {
+    reset();
+    closeModal();
+  }
+
   const dispatch = useDispatch();
 
   const onChangeToggle = () => {
@@ -70,7 +85,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
     amount: Yup.number()
       .required(() => notify("Введите сумму"))
       .min(0.01, () => notify("Сумма должна быть больше 0")),
-    comment: Yup.string().max(500, () =>
+    comment: Yup.string().max(20, () =>
       notify("Ваш комментарий слишком велик")
     ),
     date: Yup.date()
@@ -87,12 +102,12 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
         setSelectedOption={setSelectedCategory}
         placeholder="Выберите категорию"
         underline
-        m="0 0 40px 0"
+        mWrap="0 0 40px 0"
       />
       <Formik
         initialValues={{ amount: "", comment: "", date: localDate }}
         validateOnChange
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           if (selectedCategory !== defaultValueSelected) {
             const newTransaction = {
               amount: values.amount,
@@ -102,6 +117,9 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
             };
             dispatch(addTransaction(newTransaction));
             // console.log(newTransaction);
+            resetForm();
+            reset();
+            closeModal();
           } else notify("Выберите категорию");
         }}
         validationSchema={validationSchema}
