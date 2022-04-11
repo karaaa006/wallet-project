@@ -69,7 +69,7 @@ export const DiagramTab = () => {
   const [currentType, setCurrentType] = useState(false);
 
   const { expense, revenue } = useSelector((state) => state.finance.statistics);
-  
+
   useEffect(() => {
     dispatch(
       fetchStatistics({
@@ -121,6 +121,7 @@ export const DiagramTab = () => {
             sumExpense={expense?.totalSum}
             sumIncome={revenue?.totalSum}
             handleSetStat={handleSetStat}
+            currentType={currentType}
           />
         )}
       </TableWrap>

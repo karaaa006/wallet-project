@@ -32,6 +32,16 @@ const Tableth = styled.th`
   text-align: left;
   padding: 0 20px;
   text-align: ${({ ta }) => (ta ? ta : "left")};
+
+  :first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  :last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
 `;
 
 const TableTr = styled.tr`
@@ -69,49 +79,47 @@ const TableFTd = styled.td`
   text-align: ${({ ta }) => (ta ? ta : "left")};
   height: 40px;
   padding: 0 20px;
-  color: ${({ c }) => (c ? c : "black")};
+  color: ${({ c }) => (c ? c : "#000000")};
+  transition: background-color 250ms ease;
+
+  :first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  :last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
 `;
 
 const TableFTr = styled.tr`
   height: 52px;
   vertical-align: middle;
-  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    font-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    font-weight 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  :hover,
-  :focus {
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 800;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-    border-radius: 5px;
+  cursor: pointer;
+
+  ${TableFTd} {
+    background-color: ${({ active }) => (active ? "#ffffff" : "transparent")};
+  }
+
+  :hover ${TableFTd}, :focus ${TableFTd} {
+    background-color: rgba(255, 255, 255, 0.4);
   }
 `;
+
 export const StatisticsTable = ({
   statistics,
   sumExpense,
   sumIncome,
   handleSetStat,
+  currentType,
 }) => {
   return (
     <Table>
       <TableHead>
         <tr>
-          <Tableth
-            style={{ borderTopLeftRadius: 30, borderBottomLeftRadius: 30 }}
-          >
-            Категория
-          </Tableth>
-          <Tableth
-            ta="right"
-            style={{
-              borderTopRightRadius: 30,
-              borderBottomRightRadius: 30,
-            }}
-          >
-            Сумма
-          </Tableth>
+          <Tableth>Категория</Tableth>
+          <Tableth ta="right">Сумма</Tableth>
         </tr>
       </TableHead>
       <tbody>
@@ -123,13 +131,13 @@ export const StatisticsTable = ({
         ))}
       </tbody>
       <tfoot>
-        <TableFTr onClick={() => handleSetStat(false)}>
+        <TableFTr onClick={() => handleSetStat(false)} active={!currentType}>
           <TableFTd>Расходы:</TableFTd>
           <TableFTd c="#FF6596" ta="right">
             {sumExpense}
           </TableFTd>
         </TableFTr>
-        <TableFTr onClick={() => handleSetStat(true)}>
+        <TableFTr onClick={() => handleSetStat(true)} active={currentType}>
           <TableFTd>Доходы:</TableFTd>
           <TableFTd c="#24CCA7" ta="right">
             {sumIncome}
