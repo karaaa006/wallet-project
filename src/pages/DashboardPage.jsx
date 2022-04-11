@@ -12,22 +12,18 @@ import Navigation from "../components/Dashboard/SideBar/Navigation";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import Media from "react-media";
 
-
 const PageWrap = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   padding: 15px 20px;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(50px);
 
   @media screen and (min-width: 768px) {
     padding: 0 32px;
-   
-   
   }
-
-
 
   @media screen and (min-width: 1024px) {
     padding-top: 46px;
@@ -37,34 +33,27 @@ const PageWrap = styled.div`
   }
 `;
 
-
-
 const SideBar = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-bottom: 32px;
-    @media screen and (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     padding: 0 32px;
     flex-direction: row;
     justify-content: space-between;
-   
   }
-     @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1024px) {
     padding: 0 32px;
     flex-direction: column;
-   
-   
   }
 `;
 
 const MiddleSideBarWrap = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: column;
-;
+  flex-direction: column; ;
 `;
-
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
@@ -86,14 +75,12 @@ export default function DashboardPage() {
     <>
       <Header />
       <PageWrap>
-   
         <SideBar>
           <MiddleSideBarWrap>
             <Navigation />
             <Balance />
           </MiddleSideBarWrap>
           <Media query="(min-width: 768px)" render={() => <Currency />} />
-          
         </SideBar>
 
         <Routes>
@@ -102,7 +89,6 @@ export default function DashboardPage() {
           <Route path="diagram" element={<DiagramTab />} />
           <Route path="currency" element={<Currency />} />
         </Routes>
-       
       </PageWrap>
     </>
   );
