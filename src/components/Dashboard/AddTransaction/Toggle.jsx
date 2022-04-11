@@ -10,6 +10,7 @@ const ToggleWrap = styled.div`
   padding-bottom: 22px;
   padding-top: 22px;
   /* margin-bottom: 20px; */
+  cursor: pointer;
 `
 
 const TextBeforeToggle = styled.p`
