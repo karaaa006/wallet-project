@@ -145,9 +145,9 @@ export const TransactionsTable = ({ transactions = [] }) => {
                   <TableTdR
                     style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
                   >
-                    {item.amount}
+                    {item.amount.toFixed(2)}
                   </TableTdR>
-                  <TableTdR>{item.balance}</TableTdR>
+                  <TableTdR>{item.balance.toFixed(2)}</TableTdR>
                 </TableTr>
               );
             })}
@@ -177,14 +177,12 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Сумма</MobileTh>
-                <MobileTd>{item.amount}</MobileTd>
+                <MobileTd style={{ color: item.isExpense ? `#24CCA7` : `#FF6596` }}>{item.amount.toFixed(2)}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Баланс</MobileTh>
-                <MobileTd
-                  style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
-                >
-                  {item.balance}
+                <MobileTd>
+                  {item.balance.toFixed(2)}
                 </MobileTd>
               </MobileTr>
             </tbody>
