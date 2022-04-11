@@ -94,9 +94,13 @@ export const AddTransaction = ({modalIsOpen, closeModal}) => {
           initialValues={{ amount: '', comment: '', date: localDate }}
           validateOnChange
           onSubmit={(values) => {
-            const newTransaction = {amount: values.amount, comment: values.comment, category: selectedCategory._id, "isExpense": selectedCategory.isExpense}
-            dispatch(addTransaction(newTransaction));
-            // console.log(newTransaction);
+            if (selectedCategory !== defaultValueSelected) {
+              const newTransaction = {amount: values.amount, comment: values.comment, category: selectedCategory._id, "isExpense": selectedCategory.isExpense}
+              dispatch(addTransaction(newTransaction));
+              // console.log(newTransaction);
+              }
+            else 
+            notify('Выберите категорию')
           }}
           validationSchema={validationSchema}
           >
