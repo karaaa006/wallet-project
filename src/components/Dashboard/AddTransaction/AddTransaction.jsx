@@ -85,7 +85,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
     amount: Yup.number()
       .required(() => notify("Введите сумму"))
       .min(0.01, () => notify("Сумма должна быть больше 0")),
-    comment: Yup.string().max(500, () =>
+    comment: Yup.string().max(20, () =>
       notify("Ваш комментарий слишком велик")
     ),
     date: Yup.date()

@@ -19,6 +19,7 @@ const AddButton = styled.button`
   border: none;
   border-radius: 50%;
   padding: 0;
+  box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
   cursor: pointer;
 
   :hover,
