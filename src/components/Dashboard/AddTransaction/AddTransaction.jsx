@@ -102,7 +102,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
         setSelectedOption={setSelectedCategory}
         placeholder="Выберите категорию"
         underline
-        m="0 0 40px 0"
+        mWrap="0 0 40px 0"
       />
       <Formik
         initialValues={{ amount: "", comment: "", date: localDate }}

@@ -7,6 +7,7 @@ import { useOutsiteClick } from "../../Hooks/useOutsideClick";
 const DropDownWrap = styled.div`
   position: relative;
   width: ${({ w }) => (w ? w : "100%")};
+  margin: ${({ mWrap }) => (mWrap ? mWrap : "0")};
 `;
 
 const Select = styled.div`
@@ -96,6 +97,7 @@ export const DropDown = ({
   p,
   b,
   br,
+  mWrap,
 
   underline,
 }) => {
@@ -110,7 +112,7 @@ export const DropDown = ({
   };
 
   return (
-    <DropDownWrap w={w} ref={wrapperRef}>
+    <DropDownWrap w={w} mWrap={mWrap} ref={wrapperRef}>
       <Select
         onClick={() => setIsOpen(!isOpen)}
         br={br}
