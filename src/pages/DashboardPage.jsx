@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTransactions } from "../redux/operations/financeOperations";
-import { Header } from "../components/Header";
+import { Header } from "../components/Common/Header";
 import { HomeTab } from "../components/Dashboard/HomeTab/HomeTab";
 import { Currency } from "../components/Dashboard/SideBar/Currency";
 import { DiagramTab } from "../components/Dashboard/DiagramTab/DiagramTab";
@@ -11,7 +11,6 @@ import Balance from "../components/Dashboard/SideBar/Balance";
 import Navigation from "../components/Dashboard/SideBar/Navigation";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import Media from "react-media";
-
 
 const PageWrap = styled.div`
   display: flex;
@@ -23,11 +22,7 @@ const PageWrap = styled.div`
 
   @media screen and (min-width: 768px) {
     padding: 0 32px;
-   
-   
   }
-
-
 
   @media screen and (min-width: 1024px) {
     padding-top: 46px;
@@ -37,34 +32,27 @@ const PageWrap = styled.div`
   }
 `;
 
-
-
 const SideBar = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-bottom: 32px;
-    @media screen and (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     padding: 0 32px;
     flex-direction: row;
     justify-content: space-between;
-   
   }
-     @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1024px) {
     padding: 0 32px;
     flex-direction: column;
-   
-   
   }
 `;
 
 const MiddleSideBarWrap = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: column;
-;
+  flex-direction: column; ;
 `;
-
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
@@ -86,14 +74,12 @@ export default function DashboardPage() {
     <>
       <Header />
       <PageWrap>
-   
         <SideBar>
           <MiddleSideBarWrap>
             <Navigation />
             <Balance />
           </MiddleSideBarWrap>
           <Media query="(min-width: 768px)" render={() => <Currency />} />
-          
         </SideBar>
 
         <Routes>
@@ -102,7 +88,6 @@ export default function DashboardPage() {
           <Route path="diagram" element={<DiagramTab />} />
           <Route path="currency" element={<Currency />} />
         </Routes>
-       
       </PageWrap>
     </>
   );

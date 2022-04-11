@@ -1,6 +1,6 @@
 import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
-import { accentCl, secondCl } from "../utils/stylesVars";
+import { accentCl, secondCl } from "../../utils/stylesVars";
 
 const StyledButton = styled.button`
   margin: ${({ m }) => (m ? m : "0")};

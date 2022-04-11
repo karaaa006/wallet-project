@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { LoginForm } from "../components/LoginForm";
+import { LoginForm } from "../components/Login/LoginForm";
 
 import illustration from "../images/illustration.png";
 import { secondFontFamily } from "../utils/stylesVars";

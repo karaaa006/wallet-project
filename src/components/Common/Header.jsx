@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { secondFontFamily } from "../utils/stylesVars";
+import { secondFontFamily } from "../../utils/stylesVars";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLogout } from "../redux/operations/userOperations";
+import { fetchLogout } from "../../redux/operations/userOperations";
 import { Modal } from "./Modal";
 import { useState } from "react";
 import { Button } from "./Button";
 
-import logo from "../images/logo.svg";
-import exit from "../images/icons/exit.svg";
+import logo from "../../images/logo.svg";
+import exit from "../../images/icons/exit.svg";
 
 const StyledHeader = styled.header`
   display: flex;

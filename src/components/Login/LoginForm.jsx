@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./Button";
-import { Input } from "./Input";
-import { StyledForm } from "./StyledForm";
-import { ButtonsWrap } from "./ButtonsWrap";
+import { Button } from "../Common/Button";
+import { Input } from "../Utils/Input";
+import { StyledForm } from "../Utils/StyledForm";
+import { ButtonsWrap } from "../Utils/ButtonsWrap";
 
-import mail from "../images/icons/mail.svg";
-import lock from "../images/icons/lock.svg";
+import mail from "../../images/icons/mail.svg";
+import lock from "../../images/icons/lock.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLogin } from "../redux/operations/userOperations";
+import { fetchLogin } from "../../redux/operations/userOperations";
 import { validate } from "indicative/validator";
 import { toast } from "react-toastify";
 

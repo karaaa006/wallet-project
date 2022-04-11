@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { secondFontFamily } from "../utils/stylesVars";
+import { secondFontFamily } from "../../utils/stylesVars";
 
-import LogoSVG from "../images/logo.svg";
+import LogoSVG from "../../images/logo.svg";
 
 const FormWrap = styled.div`
   display: flex;

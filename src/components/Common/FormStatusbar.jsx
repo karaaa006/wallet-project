@@ -26,20 +26,18 @@ const StyledLine = styled.div`
 `;
 
 export const FormStatusbar = ({ password, validatePassword }) => {
-
   const [statusbarWidth, setStatusbarWidth] = useState("0");
   const [statusbarColor, setStatusbarColor] = useState("");
   const [statusbarVisibility, setStatusbarVisibility] = useState("none");
   const [passwordError, setPasswordError] = useState("");
   const [passwordNotificationVisibility, setPasswordNotificationVisibility] =
-  useState("");
+    useState("");
 
   useEffect(() => {
-    validatePassword(passwordNotificationVisibility)
-  })
+    validatePassword(passwordNotificationVisibility);
+  });
 
   useEffect(() => {
-    
     if (password.length === 0) {
       setStatusbarVisibility("none");
       setPasswordNotificationVisibility("none");
@@ -186,15 +184,17 @@ export const FormStatusbar = ({ password, validatePassword }) => {
       return specials.some((letter) => letter === symbol);
     });
     const otherSymbolsCheck = arr.some((symbol) => {
-      const check = smallLetters.includes(symbol)
-      if (smallLetters.includes(symbol) || 
+      const check = smallLetters.includes(symbol);
+      if (
+        smallLetters.includes(symbol) ||
         bigLetters.includes(symbol) ||
         numbers.includes(symbol) ||
-        specials.includes(symbol)){
-          return false
-        }
-      return true
-    })
+        specials.includes(symbol)
+      ) {
+        return false;
+      }
+      return true;
+    });
 
     let complexityCoeficient = 0;
 
@@ -210,10 +210,9 @@ export const FormStatusbar = ({ password, validatePassword }) => {
     if (specialsCheck) {
       complexityCoeficient += 2.8;
     }
-    if (otherSymbolsCheck){
+    if (otherSymbolsCheck) {
       complexityCoeficient += 2.8;
     }
-  
 
     const passwordComplexity = (password.length - 5) * complexityCoeficient;
 
@@ -228,18 +227,19 @@ export const FormStatusbar = ({ password, validatePassword }) => {
     if (passwordComplexity >= 60) {
       setStatusbarColor("#24CCA7");
     }
-  }) 
-
-  
+  });
 
   return (
     <>
       <Background display={statusbarVisibility}></Background>
-      <StyledLine w={statusbarWidth} display={statusbarVisibility} clr={statusbarColor}></StyledLine>
+      <StyledLine
+        w={statusbarWidth}
+        display={statusbarVisibility}
+        clr={statusbarColor}
+      ></StyledLine>
       <TextNotification visibility={passwordNotificationVisibility}>
-              {passwordError}
-        </TextNotification>
+        {passwordError}
+      </TextNotification>
     </>
-
   );
 };
