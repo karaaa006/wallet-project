@@ -1,6 +1,6 @@
 import moment from "moment";
 import styled from "styled-components";
-
+import emptyWallet from '../../../images/emptyWallet.png'
 const MobileTable = styled.table`
 
   width: 280px;
@@ -186,6 +186,18 @@ export const TransactionsTable = ({ transactions = [] }) => {
           </MobileTable>
         );
       })}
+      {!transactions.length && (
+        <div style={{ textAlign: "center" }}>
+          <img
+            src={emptyWallet}
+            alt="Empty wallet"
+            height="200px"
+            width="200px"
+          />
+          <h2>Немає даних</h2>
+        </div>
+      )}
+
     </div>
   );
 };
