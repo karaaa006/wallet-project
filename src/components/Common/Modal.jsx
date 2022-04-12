@@ -10,16 +10,18 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   z-index: 2;
-
+  
   background-color: rgba(0, 0, 0, 0.25);
 `;
 const ModalWrap = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 40px 80px;
-  border-radius: 20px;
+  @media screen and (min-width: 768px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 80px;
+    border-radius: 20px;
+  }
   display: flex;
   flex-direction: ${({ direction }) => direction || "column"};
   flex-direction: ${({ align }) => align || "center"};
@@ -27,6 +29,11 @@ const ModalWrap = styled.div`
   width: ${({ w }) => w || "auto"};
   height: ${({ h }) => h || "auto"};
   background-color: #ffffff;
+
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    padding: 20px 20px 40px 20px;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -39,16 +46,26 @@ const CloseButton = styled.button`
 
   cursor: pointer;
 `;
-const CloseIcon = styled.img``;
+const CloseIcon = styled.img`
+  @media screen and (max-width: 767px) {
+    display:none;
+  }
+`
 
 const Title = styled.h2`
   font-size: 30px;
+  line-height: 45px;
   font-weight: 400;
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
   margin-bottom: ${({mb}) => mb || '40px'};
   text-align: center;
+
+  @media screen and (max-width: 767px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
 `;
 
 export const Modal = ({

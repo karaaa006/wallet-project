@@ -27,7 +27,7 @@ const DateIcon = styled.img`
   pointer-events: none;
   position: absolute;
   top: 3px;
-  left:90%;
+  right: 5px;
   background-color: #fff;
   /* cursor: pointer; */
 `;
