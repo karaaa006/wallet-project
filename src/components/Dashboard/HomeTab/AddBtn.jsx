@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { accentCl } from "../../../utils/stylesVars";
+import { accentCl, size } from "../../../utils/stylesVars";
 import plus from "../../../images/icons/plus.svg";
 import { Modal } from "../../Common/Modal";
 

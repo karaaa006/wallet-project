@@ -2,7 +2,7 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
-import { secondFontFamily } from "../../../utils/stylesVars";
+import { secondFontFamily, size } from "../../../utils/stylesVars";
 
 const ChartWrap = styled.div`
   margin-left: auto;

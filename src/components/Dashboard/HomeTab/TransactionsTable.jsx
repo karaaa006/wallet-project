@@ -97,6 +97,12 @@ const TableTh = styled.th`
   padding-left: 20px;
 `;
 
+const TableThPr = styled.th`
+  background: white;
+  text-align: right;
+  padding-right: 20px;
+`;
+
 const TableTdl = styled.td`
   text-align: left;
   padding-left: 20px;
@@ -135,6 +141,8 @@ export const TransactionsTable = ({ transactions = [] }) => {
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
 
+  const reversedTransactions = () => [...transactions].reverse();
+
   return (
     <div>
       <ConteinerTable>
@@ -146,33 +154,44 @@ export const TransactionsTable = ({ transactions = [] }) => {
               >
                 Дата
               </TableTh>
-              <TableTh>Тип</TableTh>
+              <TableTh style={{ textAlign: "center", paddingLeft: 0 }}>
+                Тип
+              </TableTh>
               <TableTh>Категория</TableTh>
               <TableTh>Комментарий</TableTh>
-              <TableTh>Сумма</TableTh>
-              <TableTh
+              <TableThPr>Сумма</TableThPr>
+              <TableThPr
                 style={{
                   borderTopRightRadius: 30,
                   borderBottomRightRadius: 30,
                 }}
               >
                 Баланс
-              </TableTh>
+              </TableThPr>
             </tr>
           </TableHead>
 
           <TableBody>
-            {transactions.map((item) => {
+            {reversedTransactions().map((item) => {
               return (
                 <TableTr key={item._id}>
                   <TableTdl>
                     {moment(item.createdAt).format("DD.MM.YY")}
                   </TableTdl>
-                  <TableTdl style={{ textAlign: "center" }}>
+                  <TableTdl style={{ textAlign: "center", paddingLeft: 0 }}>
                     {item.isExpense ? "-" : "+"}
                   </TableTdl>
                   <TableTdl>{item.category.name}</TableTdl>
-                  <TableTdl>{item.comment}</TableTdl>
+                  <TableTdl
+                    style={{
+                      whiteSpace: "nowrap",
+                      maxWidth: "100px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {item.comment}
+                  </TableTdl>
 
                   <TableTdR
                     style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
@@ -190,7 +209,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
         </TableTransactions>
       </ConteinerTable>
 
-      {transactions.map((item) => {
+      {reversedTransactions().map((item) => {
         return (
           <MobileTable key={item._id}>
             <tbody>
@@ -208,7 +227,16 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Комментарий</MobileTh>
-                <MobileTd>{item.comment}</MobileTd>
+                <MobileTd
+                  style={{
+                    whiteSpace: "nowrap",
+                    maxWidth: "100px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {item.comment}
+                </MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Сумма</MobileTh>

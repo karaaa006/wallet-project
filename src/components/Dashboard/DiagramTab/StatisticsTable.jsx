@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { size } from "../../../utils/stylesVars";
 
 const Table = styled.table`
   margin: 20px auto;

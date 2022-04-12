@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getBalance } from "../../../redux/selectors/financeSelectors";
-import { mainFontFamily } from "../../../utils/stylesVars";
+import { mainFontFamily, size } from "../../../utils/stylesVars";
 import { secondFontFamily } from "../../../utils/stylesVars";
 
 const BalanceWrapper = styled.div`

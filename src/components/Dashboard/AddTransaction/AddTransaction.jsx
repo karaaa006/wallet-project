@@ -12,6 +12,7 @@ import { addTransaction } from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
 import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
+import { size } from "../../../utils/stylesVars";
 
 const InputWrap = styled.div`
   ${size.M} {
