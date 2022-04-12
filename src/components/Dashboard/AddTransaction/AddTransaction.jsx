@@ -96,9 +96,9 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))  
       .min(0.01, () => toast.warn("Сумма должна быть больше 0", { toastId: ">0" })),
     comment: Yup.string().max(20, () => toast.warn("Максимальная длина комментария 20 символов", { toastId: "<20" })),
-    date: Yup.date()
-      .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
-      .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
+    // date: Yup.date()
+    //   .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
+    //   .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
   });
 
   return (
@@ -154,16 +154,17 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               onBlur={handleBlur}
               mb="40px"
               minV="0.01"
-              step="100"
+              step="10"
             />
             <CalendarWrap>
             <Input
               type="text"
               name="date"
               value={values.date}
-              onChange={handleChange}
+              onChange={()=>null}
               onBlur={handleBlur}
               mb="40px"
+              readonly
             />
               <DateIcon src={iconDate} />
             </CalendarWrap>
