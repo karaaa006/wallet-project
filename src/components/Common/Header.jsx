@@ -136,14 +136,10 @@ export const Header = () => {
         title="Вы действительно хотите выйти?"
       >
         <ModalLogout>
-          <Button w="100px" h="100px" onClick={() => dispatch(fetchLogout())}>
+          <Button w="300px" h="50px" accent onClick={() => dispatch(fetchLogout())}>
             Да
           </Button>
-          <Button
-            w="100px"
-            h="100px"
-            accent
-            onClick={() => setModalIsOpen(false)}
+          <Button w="300px" h="50px" onClick={() => setModalIsOpen(false)}
           >
             Нет
           </Button>
