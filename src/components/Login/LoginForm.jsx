@@ -71,7 +71,7 @@ export const LoginForm = () => {
             h="50px"
             m="0 0 20px 0"
             p="0"
-            isLoading={isLoading}
+            // isLoading={isLoading}
             disabled={!email || !password}
           >
             Вход
