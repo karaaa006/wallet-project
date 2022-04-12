@@ -26,6 +26,9 @@ const AddButton = styled.button`
   :focus {
     background-color: #14be99;
   }
+  @media screen and (min-width: 768px) {
+    position: absolute;
+  }
 `;
 
 export const AddBtn = ({ onClick }) => {

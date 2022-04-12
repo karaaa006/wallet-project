@@ -24,18 +24,23 @@ const PageWrap = styled.div`
   height: 100%;
 
   @media screen and (min-width: 768px) {
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding: 32px 32px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1280px) {
     padding: 0 16px;
     flex-direction: row;
   }
 `;
 
 const TabContainer = styled.div`
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    margin-top: 20px;
+  }
+  @media screen and (min-width: 1280px) {
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 40px;
     padding-left: 69px;
   }
@@ -50,9 +55,9 @@ const SideBar = styled.div`
   @media screen and (min-width: 768px) {
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1280px) {
     padding-top: 40px;
     padding-right: 69px;
     flex-direction: column;
@@ -69,6 +74,7 @@ const MiddleSideBarWrap = styled.div`
   padding: 0;
   @media screen and (min-width: 768px) {
     align-items: flex-start;
+    margin-right: 32px;
   }
 `;
 

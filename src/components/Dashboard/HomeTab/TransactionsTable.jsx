@@ -1,6 +1,6 @@
 import moment from "moment";
 import styled from "styled-components";
-import emptyWallet from '../../../images/emptyWallet.png'
+import emptyWallet from "../../../images/emptyWallet.png";
 const MobileTable = styled.table`
   width: 280px;
   background: #ffffff;
@@ -39,6 +39,7 @@ const ConteinerTable = styled.div`
     display: flex;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 60px;
   }
 `;
 const TableTransactions = styled.table`
@@ -169,13 +170,15 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Сумма</MobileTh>
-                <MobileTd style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}>{item.amount.toFixed(2)}</MobileTd>
+                <MobileTd
+                  style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
+                >
+                  {item.amount.toFixed(2)}
+                </MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Баланс</MobileTh>
-                <MobileTd>
-                  {item.balance.toFixed(2)}
-                </MobileTd>
+                <MobileTd>{item.balance.toFixed(2)}</MobileTd>
               </MobileTr>
             </tbody>
           </MobileTable>
@@ -192,7 +195,6 @@ export const TransactionsTable = ({ transactions = [] }) => {
           <h2>Немає даних</h2>
         </div>
       )}
-
     </div>
   );
 };
