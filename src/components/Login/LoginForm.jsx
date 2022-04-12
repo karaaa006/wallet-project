@@ -30,7 +30,6 @@ export const LoginForm = () => {
   };
 
   const switchPasswordVisibility = () => {
-    console.log('ты нажал на кнопку')
     if(!showPassword){
       setShowPassword(true)
       setInputType("text")
