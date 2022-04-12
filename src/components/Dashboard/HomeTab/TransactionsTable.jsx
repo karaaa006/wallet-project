@@ -18,7 +18,7 @@ const MobileTable = styled.table`
 `;
 const MobileTr = styled.tr`
   height: 47px;
-  border-left: ${({ mb }) => (!mb ? `5px solid #FF6596` : `5px solid #24CCA7`)};
+  border-left: ${({ mb }) => (mb ? `5px solid #FF6596` : `5px solid #24CCA7`)};
 `;
 
 const MobileTh = styled.th`
@@ -39,12 +39,6 @@ const ConteinerTable = styled.div`
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    max-height: 320px;
-    overflow: scroll;
-    ::-webkit-scrollbar {
-      width: 0px;
-      background: rgba(255, 255, 255, 0);
-    }
   }
 `;
 const TableTransactions = styled.table`
@@ -54,10 +48,10 @@ const TableTransactions = styled.table`
   padding-left: 20px;
   padding-right: 20px;
   @media screen and (min-width: 768px) {
-    width: 704px;
+    width: 1200px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1280px) {
     max-width: 715px;
   }
 `;
@@ -68,8 +62,6 @@ const TableHead = styled.thead`
   font-size: 18px;
   line-height: 1.5;
   background: #ffffff;
-  position: sticky;
-  top: 0;
 `;
 
 const TableBody = styled.tbody`
@@ -145,9 +137,9 @@ export const TransactionsTable = ({ transactions = [] }) => {
                   <TableTdR
                     style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
                   >
-                    {item.amount}
+                    {item.amount.toFixed(2)}
                   </TableTdR>
-                  <TableTdR>{item.balance}</TableTdR>
+                  <TableTdR>{item.balance.toFixed(2)}</TableTdR>
                 </TableTr>
               );
             })}
@@ -165,7 +157,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Тип</MobileTh>
-                <MobileTd>{item.isExpense ? "+" : "-"}</MobileTd>
+                <MobileTd>{item.isExpense ? "-" : "+"}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Категория</MobileTh>
@@ -177,14 +169,12 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Сумма</MobileTh>
-                <MobileTd>{item.amount}</MobileTd>
+                <MobileTd style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}>{item.amount.toFixed(2)}</MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Баланс</MobileTh>
-                <MobileTd
-                  style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
-                >
-                  {item.balance}
+                <MobileTd>
+                  {item.balance.toFixed(2)}
                 </MobileTd>
               </MobileTr>
             </tbody>
