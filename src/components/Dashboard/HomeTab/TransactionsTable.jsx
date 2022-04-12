@@ -3,7 +3,7 @@ import { useCallback, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { size } from "../../../utils/stylesVars";
 
-import emptyWallet from "../../../images/emptyWallet.png";
+import emptyWallet from "../../../images/wallet.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNextTransactions } from "../../../redux/operations/financeOperations";
 import { TailSpin } from "react-loader-spinner";
@@ -135,10 +135,15 @@ const SpinerWrap = styled.div`
   align-items: center;
 `;
 
-export const TransactionsTable = ({ transactions = [] }) => {
+const EmptyWrap = styled.div`
+  text-align: center;
+`;
+
+// export const TransactionsTable = ({ transactions = [] }) => {
+export const TransactionsTable = () => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width: 768px)");
-
+  const transactions = [];
   const loader = useRef(null);
 
   const { loading } = useSelector((state) => state.finance);
@@ -303,15 +308,10 @@ export const TransactionsTable = ({ transactions = [] }) => {
       )}
 
       {!transactions.length && !loading && (
-        <div style={{ textAlign: "center" }}>
-          <img
-            src={emptyWallet}
-            alt="Empty wallet"
-            height="200px"
-            width="200px"
-          />
+        <EmptyWrap>
           <h2>Нет данных</h2>
-        </div>
+          <img src={emptyWallet} alt="Empty wallet" width="400px" />
+        </EmptyWrap>
       )}
     </div>
   );

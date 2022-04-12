@@ -19,8 +19,8 @@ export const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false)
-  const [inputType, setInputType] = useState("password")
+  const [showPassword, setShowPassword] = useState(false);
+  const [inputType, setInputType] = useState("password");
 
   const { isLoading } = useSelector((state) => state.user);
 
@@ -30,14 +30,14 @@ export const LoginForm = () => {
   };
 
   const switchPasswordVisibility = () => {
-    if(!showPassword){
-      setShowPassword(true)
-      setInputType("text")
-      return
+    if (!showPassword) {
+      setShowPassword(true);
+      setInputType("text");
+      return;
     }
-    setShowPassword(false)
-    setInputType("password")
-  }
+    setShowPassword(false);
+    setInputType("password");
+  };
 
   const handleSubmit = async () => {
     try {
@@ -48,12 +48,6 @@ export const LoginForm = () => {
       e.forEach((item) => toast.error(item.message));
       console.log(e);
     }
-
-    // validate({ email, password }, loginSchema)
-    //   .then(() => {
-    //     dispatch(fetchLogin({ email, password }));
-    //   })
-    //   .catch(console.error);
   };
 
   return (
@@ -77,7 +71,8 @@ export const LoginForm = () => {
         >
           <ShowPasswordButton
             showPassword={showPassword}
-            onClick={switchPasswordVisibility}/>
+            onClick={switchPasswordVisibility}
+          />
         </Input>
         <ButtonsWrap>
           <Button
@@ -88,7 +83,7 @@ export const LoginForm = () => {
             h="50px"
             m="0 0 20px 0"
             p="0"
-            // isLoading={isLoading}
+            isLoading={isLoading}
             disabled={!email || !password}
           >
             Вход
