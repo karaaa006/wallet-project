@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { LoginForm } from "../components/Login/LoginForm";
 
 import illustration from "../images/illustration.png";
-import { secondFontFamily } from "../utils/stylesVars";
+import { secondFontFamily, size } from "../utils/stylesVars";
 
 const PageWrap = styled.div`
   ${size.M} {
