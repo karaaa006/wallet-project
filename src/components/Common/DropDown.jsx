@@ -133,7 +133,7 @@ export const DropDown = ({
         <OptionList>
           {options.map((item) => {
             return (
-              <Option key={item?.id} onClick={() => handleSelect(item)}>
+              <Option key={item?.name} onClick={() => handleSelect(item)}>
                 {item.name}
               </Option>
             );

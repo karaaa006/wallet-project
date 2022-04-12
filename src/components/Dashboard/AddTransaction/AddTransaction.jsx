@@ -14,25 +14,32 @@ import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
 
 const InputWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
 `;
+
+const CalendarWrap = styled.div`
+position: relative;
+`
 
 const DateIcon = styled.img`
   pointer-events: none;
   position: absolute;
-  top: 360px;
-  left: 367px;
+  top: 3px;
+  right: 5px;
   background-color: #fff;
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 
 const defaultValueSelected = "Выберите категорию";
 const optionsIncome = [];
 const optionsExpense = [];
 
-let localDate = new Date().toISOString().split("T")[0];
+let localDate = new Date().toLocaleDateString();
 
 export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const [selectedCategory, setSelectedCategory] =
@@ -79,18 +86,19 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       }
   }, [categories]);
 
-  const notify = (text) => toast.warn(text);
+  const notify = (text) => { toast.warn(text, {
+    toastId: "252"
+    })
+  }
 
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
-      .required(() => notify("Введите сумму"))
-      .min(0.01, () => notify("Сумма должна быть больше 0")),
-    comment: Yup.string().max(20, () =>
-      notify("Ваш комментарий слишком велик")
-    ),
+      .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))  
+      .min(0.01, () => toast.warn("Сумма должна быть больше 0", { toastId: ">0" })),
+    comment: Yup.string().max(20, () => toast.warn("Максимальная длина комментария 20 символов", { toastId: "<20" })),
     date: Yup.date()
-      .required(() => notify("Выберите дату"))
-      .max(localDate, () => notify("Выбранная дата ещё не наступила")),
+      .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
+      .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
   });
 
   return (
@@ -136,6 +144,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
           dirty,
         }) => (
           <>
+          <InputWrap>
             <Input
               type="number"
               name="amount"
@@ -145,17 +154,18 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               onBlur={handleBlur}
               mb="40px"
             />
-
+            <CalendarWrap>
             <Input
-              type="date"
+              type="text"
               name="date"
               value={values.date}
               onChange={handleChange}
               onBlur={handleBlur}
               mb="40px"
             />
-
-            <DateIcon src={iconDate} />
+              <DateIcon src={iconDate} />
+            </CalendarWrap>
+          </InputWrap>
 
             <Input
               type="text"
