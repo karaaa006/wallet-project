@@ -58,6 +58,7 @@ export const Input = ({
   customChangeFunction,
   placeholder,
   type,
+  children,
   autoComplete = "off",
 
   validateSchema,
@@ -105,6 +106,7 @@ export const Input = ({
         autoComplete={autoComplete}
       />
       {icon && <Icon src={icon} />}
+      {children}
     </InputWrap>
   );
 };
