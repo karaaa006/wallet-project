@@ -8,11 +8,33 @@ const getBalance = (state) => {
     const transactions = getFinance(state);
     const lastTransaction = transactions[0];
     const balance = lastTransaction.balance;
-    return balance;
+
+    const balanceToString = balance.toString();
+
+    if (balanceToString.length > 3) {
+      const formatedBalance = BalanceFormater(balanceToString);
+
+      return formatedBalance;
+    }
+    return;
   }
 
   return "0";
 };
+
+function BalanceFormater(value) {
+  const reversedValue = value.toString().split("").reverse().join("");
+
+  const splitedValue = reversedValue.match(/.{1,3}/g).join();
+
+  const formatedValue = splitedValue
+    .split("")
+    .reverse()
+    .join("")
+    .replace(",", " ");
+
+  return formatedValue;
+}
 
 export {
   getFinance,
