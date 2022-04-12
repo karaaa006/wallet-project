@@ -8,19 +8,15 @@ import { secondFontFamily } from "../../../utils/stylesVars";
 const BalanceWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
   margin-left: auto;
   margin-right: auto;
-
   width: 280px;
   height: 80px;
-
   background: #ffffff;
   border-radius: 30px;
   padding-top: 8px;
   padding-bottom: 12px;
   padding-left: 32px;
-
   @media screen and (min-width: 768px) {
     pading-left: 40px;
   }
