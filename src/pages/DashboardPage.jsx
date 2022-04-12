@@ -11,6 +11,7 @@ import Balance from "../components/Dashboard/SideBar/Balance";
 import Navigation from "../components/Dashboard/SideBar/Navigation";
 import useMediaQuery from "../Hooks/useMediaQuery";
 import Media from "react-media";
+import { size } from "../utils/stylesVars";
 
 const PageWrap = styled.div`
   display: flex;
@@ -36,9 +37,10 @@ const PageWrap = styled.div`
 `;
 
 const TabContainer = styled.div`
-  ${size.M} and (max-width: 1279px) {
+  ${size.M} {
     margin-top: 20px;
   }
+
   ${size.L} {
     padding-top: 40px;
     padding-left: 69px;

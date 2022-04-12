@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { secondFontFamily } from "../../../utils/stylesVars";
+import { secondFontFamily, size } from "../../../utils/stylesVars";
 import styled from "styled-components";
 import Media from "react-media";
 import SVG from "react-inlinesvg";

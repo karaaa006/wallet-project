@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondFontFamily } from "../../utils/stylesVars";
+import { secondFontFamily, size } from "../../utils/stylesVars";
 
 import LogoSVG from "../../images/logo.svg";
 
