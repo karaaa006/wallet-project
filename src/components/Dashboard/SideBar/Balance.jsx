@@ -17,14 +17,14 @@ const BalanceWrapper = styled.div`
   padding-top: 8px;
   padding-bottom: 12px;
   padding-left: 32px;
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     pading-left: 40px;
   }
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     width: 336px;
     margin-bottom: 32px;
   }
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     width: 395px;
   } ;
 `;

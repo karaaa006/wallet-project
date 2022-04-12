@@ -9,11 +9,11 @@ const ChartWrap = styled.div`
   margin-right: auto;
   margin-bottom: 40px;
 
-  @media screen and (min-width: 768px) {
-  margin-left: 0;
+  ${size.M} {
+    margin-left: 0;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     margin-left: 0;
     padding-right: 32px;
   }
@@ -31,7 +31,6 @@ const Balance = styled.span`
   font-weight: bold;
   font-size: 18px;
   line-height: 1.5;
-
 `;
 
 const DoughnutBalanceWrapper = styled.div`
@@ -39,35 +38,34 @@ const DoughnutBalanceWrapper = styled.div`
   height: 280px;
   position: relative;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     width: 336px;
     height: 336px;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     width: 288px;
     height: 288px;
   }
 `;
 
 const StatisticName = styled.p`
-margin: 0 auto;
-font-family: ${secondFontFamily};
-font-style: normal;
-font-weight: 400;
-font-size: 30px;
-line-height: 30px;
-display: flex;
-align-items: center;
-text-align: center;
-color: #000000;
-padding-top: 60px;
-padding-bottom: 25px;
+  margin: 0 auto;
+  font-family: ${secondFontFamily};
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+  padding-top: 60px;
+  padding-bottom: 25px;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     padding-top: 0px;
   }
-
 `;
 
 const options = {
@@ -107,7 +105,6 @@ export const Chart = ({ statistics }) => {
         <Doughnut data={data} options={options} />
         <Balance>&#8372; {balance}</Balance>
       </DoughnutBalanceWrapper>
-
     </ChartWrap>
   );
 };

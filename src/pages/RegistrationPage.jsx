@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { RegistrationForm } from "../components/Registration/RegistrationForm";
 
 import illustration from "../images/illustrationRegPage.png";
-import { secondFontFamily } from "../utils/stylesVars";
+import { secondFontFamily, size } from "../utils/stylesVars";
 
 const PageWrap = styled.div`
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     padding: 60px 20px;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     padding: 0;
 
     display: flex;
@@ -24,11 +24,11 @@ const Illustration = styled.div`
   align-items: center;
   margin-bottom: 50px;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     display: flex;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -41,7 +41,7 @@ const IllustrationImg = styled.img`
   width: 250px;
   margin-right: 40px;
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     width: 420px;
     margin-bottom: 28px;
     margin-right: 0;
@@ -54,7 +54,7 @@ const IllustrationText = styled.div`
 `;
 
 const FormWrap = styled.div`
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     height: 100vh;
     width: 100%;
     padding: 20px 100px;

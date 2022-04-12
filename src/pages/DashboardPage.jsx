@@ -23,12 +23,12 @@ const PageWrap = styled.div`
   flex-grow: 1;
   height: 100%;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     /* justify-content: space-between; */
     padding: 32px 32px;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     padding: 0 16px;
     flex-direction: row;
     position: relative;
@@ -36,10 +36,10 @@ const PageWrap = styled.div`
 `;
 
 const TabContainer = styled.div`
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
+  ${size.M} and (max-width: 1279px) {
     margin-top: 20px;
   }
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     padding-top: 40px;
     padding-left: 69px;
     width: 100%;
@@ -52,12 +52,12 @@ const SideBar = styled.div`
   flex-direction: column;
   margin-bottom: 12px;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
   }
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     padding-top: 40px;
     padding-right: 69px;
     flex-direction: column;
@@ -72,7 +72,7 @@ const MiddleSideBarWrap = styled.div`
   flex-direction: column;
 
   padding: 0;
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     align-items: flex-start;
     margin-right: 32px;
   }

@@ -10,11 +10,11 @@ const Table = styled.table`
   font-size: 16px;
   line-height: 1.23;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     width: 336px;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     width: 395px;
   }
 `;
