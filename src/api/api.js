@@ -61,7 +61,7 @@ export const api = {
   transactions: {
     getTransactions: async () => {
       try {
-        const { data } = await axios.get("/transactions");
+        const { data } = await axios.get("/transactions?size=10");
         return data;
       } catch (e) {
         console.log(e);

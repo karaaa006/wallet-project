@@ -1,6 +1,8 @@
 import moment from "moment";
+import { useCallback, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import emptyWallet from '../../../images/emptyWallet.png'
+import useFetch from "../../../Hooks/useFetch";
+import emptyWallet from "../../../images/emptyWallet.png";
 const MobileTable = styled.table`
   width: 280px;
   background: #ffffff;
@@ -95,6 +97,33 @@ const TableTdR = styled.td`
 `;
 
 export const TransactionsTable = ({ transactions = [] }) => {
+  const [page, setPage] = useState(1);
+  const [query, setQuery] = useState(
+    `https://goit-wallet-api.herokuapp.com/api/transactions`
+  );
+
+  const { loading, error, list } = useFetch(query, page);
+
+  const loader = useRef(null);
+
+  const handleObserver = useCallback((entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage((prev) => prev + 1);
+    }
+    console.log("in table", list);
+  }, []);
+
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+  }, [handleObserver]);
+
   return (
     <div>
       <ConteinerTable>
@@ -143,6 +172,9 @@ export const TransactionsTable = ({ transactions = [] }) => {
                 </TableTr>
               );
             })}
+            {loading && <TableTr>Loading...</TableTr>}
+            {error && <TableTr>Error!</TableTr>}
+            <TableTr ref={loader} />
           </TableBody>
         </TableTransactions>
       </ConteinerTable>
@@ -169,13 +201,15 @@ export const TransactionsTable = ({ transactions = [] }) => {
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Сумма</MobileTh>
-                <MobileTd style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}>{item.amount.toFixed(2)}</MobileTd>
+                <MobileTd
+                  style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
+                >
+                  {item.amount.toFixed(2)}
+                </MobileTd>
               </MobileTr>
               <MobileTr mb={item.isExpense}>
                 <MobileTh>Баланс</MobileTh>
-                <MobileTd>
-                  {item.balance.toFixed(2)}
-                </MobileTd>
+                <MobileTd>{item.balance.toFixed(2)}</MobileTd>
               </MobileTr>
             </tbody>
           </MobileTable>
@@ -192,7 +226,6 @@ export const TransactionsTable = ({ transactions = [] }) => {
           <h2>Немає даних</h2>
         </div>
       )}
-
     </div>
   );
 };
