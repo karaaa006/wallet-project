@@ -62,6 +62,9 @@ export const Input = ({
   autoComplete = "off",
   onBlur,
   validateSchema,
+  minV,
+  maxV,
+  step,
   children
 }) => {
   //   const [isValid, setIsValid] = useState(null);
@@ -106,6 +109,9 @@ export const Input = ({
         placeholder={placeholder}
         type={type}
         autoComplete={autoComplete}
+        min={minV}
+        max={maxV}
+        step={step}
       />
       {icon && <Icon src={icon} />}
       {children}

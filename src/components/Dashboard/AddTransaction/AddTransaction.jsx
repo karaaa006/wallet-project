@@ -51,16 +51,10 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const reset = () => {
     setSelectedCategory(defaultValueSelected);
     const refCheckBox = document.getElementById("toggleTypeTransaction");
-    console.log(refCheckBox);
     if (refCheckBox.checked) {
       refCheckBox.click();
       setToggle(true);
     }
-  };
-
-  const cancelTransaction = () => {
-    reset();
-    closeModal();
   };
 
   const dispatch = useDispatch();
@@ -94,20 +88,12 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
 
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
-      .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))
-      .min(0.01, () =>
-        toast.warn("Сумма должна быть больше 0", { toastId: ">0" })
-      ),
-    comment: Yup.string().max(20, () =>
-      toast.warn("Максимальная длина комментария 20 символов", {
-        toastId: "<20",
-      })
-    ),
-    date: Yup.date()
-      .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
-      .max(localDate, () =>
-        toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })
-      ),
+      .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))  
+      .min(0.01, () => toast.warn("Сумма должна быть больше 0", { toastId: ">0" })),
+    comment: Yup.string().max(20, () => toast.warn("Максимальная длина комментария 20 символов", { toastId: "<20" })),
+    // date: Yup.date()
+    //   .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
+    //   .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
   });
 
   return (
@@ -153,28 +139,32 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
           dirty,
         }) => (
           <>
-            <InputWrap>
-              <Input
-                type="number"
-                name="amount"
-                placeholder="0.00"
-                value={values.amount}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                mb="40px"
-              />
-              <CalendarWrap>
-                <Input
-                  type="text"
-                  name="date"
-                  value={values.date}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  mb="40px"
-                />
-                <DateIcon src={iconDate} />
-              </CalendarWrap>
-            </InputWrap>
+
+          <InputWrap>
+            <Input
+              type="number"
+              name="amount"
+              placeholder="0.00"
+              value={values.amount}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              mb="40px"
+              minV="0.01"
+              step="10"
+            />
+            <CalendarWrap>
+            <Input
+              type="text"
+              name="date"
+              value={values.date}
+              onChange={()=>null}
+              onBlur={handleBlur}
+              mb="40px"
+              readonly
+            />
+              <DateIcon src={iconDate} />
+            </CalendarWrap>
+          </InputWrap>
 
             <Input
               type="text"
@@ -199,7 +189,13 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               >
                 ДОБАВИТЬ
               </Button>
-              <Button w="100%" mw="300px" h="50px" onClick={closeModal}>
+              <Button w="100%" mw="300px" h="50px" onClick={() => {
+                  reset();  
+                  handleReset()
+                  closeModal();
+                  }
+                }
+              >
                 ОТМЕНА
               </Button>
             </ButtonsWrap>
