@@ -1,10 +1,13 @@
 import moment from "moment";
-import { useCallback, useRef, useState, useEffect } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import styled from "styled-components";
-import useFetch from "../../../Hooks/useFetch";
 import { size } from "../../../utils/stylesVars";
 
 import emptyWallet from "../../../images/emptyWallet.png";
+import { useDispatch } from "react-redux";
+import { fetchNextTransactions } from "../../../redux/operations/financeOperations";
+import { TailSpin } from "react-loader-spinner";
+import useMediaQuery from "../../../Hooks/useMediaQuery";
 
 const MobileTable = styled.table`
   width: 280px;
@@ -40,18 +43,30 @@ const MobileTd = styled.td`
 `;
 
 const ConteinerTable = styled.div`
-  display: none;
+  max-height: 300px;
+  overflow: auto;
+
+  /* Scrollbar styles */
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    margin: 50px 0 10px 0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #dddddd;
+    border-radius: 10px;
+
+    :hover {
+      background: #cccccc;
+    }
+  }
 
   ${size.M} {
-    display: flex;
     align-items: center;
     margin-bottom: 60px;
-    width: 100%;
-  }
-  ${size.L} {
-    display: block;
-
-    width: 100%;
   }
 `;
 const TableTransactions = styled.table`
@@ -60,16 +75,12 @@ const TableTransactions = styled.table`
   border-collapse: collapse;
   padding-left: 20px;
   padding-right: 20px;
-  ${size.M} {
-    width: 1200px;
-  }
-
-  ${size.L} {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 const TableHead = styled.thead`
+  position: sticky;
+  top: 0;
   height: 58px;
   font-weight: 700;
   font-size: 18px;
@@ -85,6 +96,7 @@ const TableBody = styled.tbody`
 
 const TableTr = styled.tr`
   height: 52px;
+
   :not(:last-child) {
     border-bottom: 1px solid #dcdcdf;
     box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
@@ -113,22 +125,28 @@ const TableTdR = styled.td`
   padding-right: 20px;
 `;
 
-export const TransactionsTable = ({ transactions = [] }) => {
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState(
-    `https://goit-wallet-api.herokuapp.com/api/transactions`
-  );
+const Loader = styled.div``;
 
-  const { loading, error, list } = useFetch(query, page);
+const SpinerWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TransactionsTable = ({ transactions = [] }) => {
+  const dispatch = useDispatch();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const loader = useRef(null);
 
   const handleObserver = useCallback((entries) => {
     const target = entries[0];
+
     if (target.isIntersecting) {
-      setPage((prev) => prev + 1);
+      dispatch(fetchNextTransactions());
     }
-    console.log("in table", list);
   }, []);
 
   useEffect(() => {
@@ -141,119 +159,143 @@ export const TransactionsTable = ({ transactions = [] }) => {
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
 
-  const reversedTransactions = () => [...transactions].reverse();
-
   return (
     <div>
-      <ConteinerTable>
-        <TableTransactions>
-          <TableHead>
-            <tr>
-              <TableTh
-                style={{ borderTopLeftRadius: 30, borderBottomLeftRadius: 30 }}
-              >
-                Дата
-              </TableTh>
-              <TableTh style={{ textAlign: "center", paddingLeft: 0 }}>
-                Тип
-              </TableTh>
-              <TableTh>Категория</TableTh>
-              <TableTh>Комментарий</TableTh>
-              <TableThPr>Сумма</TableThPr>
-              <TableThPr
-                style={{
-                  borderTopRightRadius: 30,
-                  borderBottomRightRadius: 30,
-                }}
-              >
-                Баланс
-              </TableThPr>
-            </tr>
-          </TableHead>
-
-          <TableBody>
-            {reversedTransactions().map((item) => {
-              return (
-                <TableTr key={item._id}>
-                  <TableTdl>
-                    {moment(item.createdAt).format("DD.MM.YY")}
-                  </TableTdl>
-                  <TableTdl style={{ textAlign: "center", paddingLeft: 0 }}>
-                    {item.isExpense ? "-" : "+"}
-                  </TableTdl>
-                  <TableTdl>{item.category.name}</TableTdl>
-                  <TableTdl
-                    style={{
-                      whiteSpace: "nowrap",
-                      maxWidth: "100px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {item.comment}
-                  </TableTdl>
-
-                  <TableTdR
-                    style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
-                  >
-                    {item.amount.toFixed(2)}
-                  </TableTdR>
-                  <TableTdR>{item.balance.toFixed(2)}</TableTdR>
-                </TableTr>
-              );
-            })}
-            {loading && <TableTr>Loading...</TableTr>}
-            {error && <TableTr>Error!</TableTr>}
-            <TableTr ref={loader} />
-          </TableBody>
-        </TableTransactions>
-      </ConteinerTable>
-
-      {reversedTransactions().map((item) => {
-        return (
-          <MobileTable key={item._id}>
-            <tbody>
-              <MobileTr mb={item.isExpense}>
-                <MobileTh>Дата</MobileTh>
-                <MobileTd>{moment(item.createdAt).format("DD.MM.YY")}</MobileTd>
-              </MobileTr>
-              <MobileTr mb={item.isExpense}>
-                <MobileTh>Тип</MobileTh>
-                <MobileTd>{item.isExpense ? "-" : "+"}</MobileTd>
-              </MobileTr>
-              <MobileTr mb={item.isExpense}>
-                <MobileTh>Категория</MobileTh>
-                <MobileTd>{item.category.name}</MobileTd>
-              </MobileTr>
-              <MobileTr mb={item.isExpense}>
-                <MobileTh>Комментарий</MobileTh>
-                <MobileTd
+      {!isMobile && (
+        <ConteinerTable>
+          <TableTransactions>
+            <TableHead>
+              <tr>
+                <TableTh
                   style={{
-                    whiteSpace: "nowrap",
-                    maxWidth: "100px",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    borderTopLeftRadius: 30,
+                    borderBottomLeftRadius: 30,
                   }}
                 >
-                  {item.comment}
-                </MobileTd>
-              </MobileTr>
-              <MobileTr mb={item.isExpense}>
-                <MobileTh>Сумма</MobileTh>
-                <MobileTd
-                  style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
+                  Дата
+                </TableTh>
+                <TableTh style={{ textAlign: "center", paddingLeft: 0 }}>
+                  Тип
+                </TableTh>
+                <TableTh>Категория</TableTh>
+                <TableTh>Комментарий</TableTh>
+                <TableThPr>Сумма</TableThPr>
+                <TableThPr
+                  style={{
+                    borderTopRightRadius: 30,
+                    borderBottomRightRadius: 30,
+                  }}
                 >
-                  {item.amount.toFixed(2)}
-                </MobileTd>
-              </MobileTr>
-              <MobileTr mb={item.isExpense}>
-                <MobileTh>Баланс</MobileTh>
-                <MobileTd>{item.balance.toFixed(2)}</MobileTd>
-              </MobileTr>
-            </tbody>
-          </MobileTable>
-        );
-      })}
+                  Баланс
+                </TableThPr>
+              </tr>
+            </TableHead>
+
+            <TableBody>
+              {transactions.map((item) => {
+                return (
+                  <TableTr key={item._id}>
+                    <TableTdl>
+                      {moment(item.createdAt).format("DD.MM.YY")}
+                    </TableTdl>
+                    <TableTdl style={{ textAlign: "center", paddingLeft: 0 }}>
+                      {item.isExpense ? "-" : "+"}
+                    </TableTdl>
+                    <TableTdl>{item.category.name}</TableTdl>
+                    <TableTdl
+                      style={{
+                        whiteSpace: "nowrap",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {item.comment}
+                    </TableTdl>
+
+                    <TableTdR
+                      style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
+                    >
+                      {item.amount.toFixed(2)}
+                    </TableTdR>
+                    <TableTdR>{item.balance.toFixed(2)}</TableTdR>
+                  </TableTr>
+                );
+              })}
+            </TableBody>
+          </TableTransactions>
+          <Loader ref={loader} />
+          <SpinerWrap>
+            <TailSpin
+              color="rgba(0,0,0,0.3)"
+              ariaLabel="loading-indicator"
+              width="35px"
+            />
+          </SpinerWrap>
+        </ConteinerTable>
+      )}
+
+      {isMobile && (
+        <>
+          {transactions.map((item) => {
+            return (
+              <MobileTable key={item._id}>
+                <tbody>
+                  <MobileTr mb={item.isExpense}>
+                    <MobileTh>Дата</MobileTh>
+                    <MobileTd>
+                      {moment(item.createdAt).format("DD.MM.YY")}
+                    </MobileTd>
+                  </MobileTr>
+                  <MobileTr mb={item.isExpense}>
+                    <MobileTh>Тип</MobileTh>
+                    <MobileTd>{item.isExpense ? "-" : "+"}</MobileTd>
+                  </MobileTr>
+                  <MobileTr mb={item.isExpense}>
+                    <MobileTh>Категория</MobileTh>
+                    <MobileTd>{item.category.name}</MobileTd>
+                  </MobileTr>
+                  <MobileTr mb={item.isExpense}>
+                    <MobileTh>Комментарий</MobileTh>
+                    <MobileTd
+                      style={{
+                        whiteSpace: "nowrap",
+                        maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {item.comment}
+                    </MobileTd>
+                  </MobileTr>
+                  <MobileTr mb={item.isExpense}>
+                    <MobileTh>Сумма</MobileTh>
+                    <MobileTd
+                      style={{ color: item.isExpense ? `#FF6596` : `#24CCA7` }}
+                    >
+                      {item.amount.toFixed(2)}
+                    </MobileTd>
+                  </MobileTr>
+                  <MobileTr mb={item.isExpense}>
+                    <MobileTh>Баланс</MobileTh>
+                    <MobileTd>{item.balance.toFixed(2)}</MobileTd>
+                  </MobileTr>
+                </tbody>
+              </MobileTable>
+            );
+          })}
+
+          <Loader ref={loader} />
+          <SpinerWrap>
+            <TailSpin
+              color="rgba(0,0,0,0.3)"
+              ariaLabel="loading-indicator"
+              width="35px"
+            />
+          </SpinerWrap>
+        </>
+      )}
+
       {!transactions.length && (
         <div style={{ textAlign: "center" }}>
           <img
@@ -262,7 +304,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
             height="200px"
             width="200px"
           />
-          <h2>Немає даних</h2>
+          <h2>Нет данных</h2>
         </div>
       )}
     </div>

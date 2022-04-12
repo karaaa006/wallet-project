@@ -59,9 +59,12 @@ export const api = {
     },
   },
   transactions: {
-    getTransactions: async () => {
+    getTransactions: async (page = 1, size = 5) => {
       try {
-        const { data } = await axios.get("/transactions?size=10");
+        const { data } = await axios.get("/transactions", {
+          params: { page, size },
+        });
+
         return data;
       } catch (e) {
         console.log(e);
@@ -70,6 +73,7 @@ export const api = {
     addTransaction: async (transactionData) => {
       try {
         const { data } = await axios.post("/transactions", transactionData);
+
         return data;
       } catch (e) {
         console.log(e);
@@ -87,6 +91,7 @@ export const api = {
     getCategories: async () => {
       try {
         const { data } = await axios.get("/categories");
+
         return data;
       } catch (e) {
         console.log(e);

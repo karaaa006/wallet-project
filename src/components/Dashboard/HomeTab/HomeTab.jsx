@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Modal } from "../../Common/Modal";
 import { TransactionsTable } from "./TransactionsTable";
 import { AddBtn } from "./AddBtn";
-import { DropDown } from "../../Common/DropDown";
 import { getFinance } from "../../../redux/selectors/financeSelectors";
 import { AddTransaction } from "../AddTransaction/AddTransaction";
 import Balance from "../SideBar/Balance";
@@ -14,6 +13,7 @@ const MainTab = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   @media screen and (max-width: 767px) {
     & div:first-of-type {
       margin-bottom: 32px;
@@ -30,7 +30,6 @@ export const HomeTab = () => {
     setModalIsOpen(false);
   };
 
-  const [selectedOption, setSelectedOption] = useState({});
   const transactions = useSelector(getFinance);
 
   return (
