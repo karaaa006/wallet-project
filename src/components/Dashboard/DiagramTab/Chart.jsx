@@ -5,45 +5,48 @@ import styled from "styled-components";
 import { secondFontFamily } from "../../../utils/stylesVars";
 
 const ChartWrap = styled.div`
-  position: relative;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 40px;
-  width: 280px;
-  /* height: 280px; */
 
   @media screen and (min-width: 768px) {
-    width: 336px;
-    height: 336px;
-    margin-bottom: 40px;
+  margin-left: 0;
   }
 
   @media screen and (min-width: 1280px) {
-    width: 288px;
-    height: 288px;
+    margin-left: 0;
     padding-right: 32px;
   }
 `;
 
 const Balance = styled.span`
-  top: 65%;
+  top: 50%;
   left: 50%;
-  display: block;
+  /* display: block; */
+  display: flex;
   position: absolute;
   transform: translate(-50%, -50%);
-
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   font-size: 18px;
   line-height: 1.5;
 
+`;
+
+const DoughnutBalanceWrapper = styled.div`
+  width: 280px;
+  height: 280px;
+  position: relative;
+
   @media screen and (min-width: 768px) {
-    top: 60%;
-    left: 45%;
+    width: 336px;
+    height: 336px;
   }
 
   @media screen and (min-width: 1280px) {
-    top: 65%;
-    left: 45%;
+    width: 288px;
+    height: 288px;
   }
 `;
 
@@ -71,7 +74,7 @@ const options = {
   responsive: true,
   aspectRatio: 1,
   maintainAspectRatio: true,
-  cutout: 90,
+  cutout: "70%",
   radius: "98%",
 };
 
@@ -100,8 +103,11 @@ export const Chart = ({ statistics }) => {
   return (
     <ChartWrap>
       <StatisticName>Статистика</StatisticName>
-      <Doughnut data={data} options={options} />
-      <Balance>&#8372; {balance}</Balance>
+      <DoughnutBalanceWrapper>
+        <Doughnut data={data} options={options} />
+        <Balance>&#8372; {balance}</Balance>
+      </DoughnutBalanceWrapper>
+
     </ChartWrap>
   );
 };
