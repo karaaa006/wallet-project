@@ -16,16 +16,11 @@ const SpinerWrap = styled.div`
 `;
 
 const CurrencyWrap = styled.div`
-  @media screen and (max-width: 767px) {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-self: center;
+
   max-width: ${({ w }) => (w ? w : "390px")};
   max-height: ${({ h }) => (h ? h : "350px")};
   min-height: 350px;
@@ -38,6 +33,11 @@ const CurrencyWrap = styled.div`
   background-position: bottom center;
 
   overflow: hidden;
+
+  @media screen and (max-width: 1279px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const CurrencyTable = styled.table`
