@@ -139,11 +139,9 @@ const EmptyWrap = styled.div`
   text-align: center;
 `;
 
-// export const TransactionsTable = ({ transactions = [] }) => {
-export const TransactionsTable = () => {
+export const TransactionsTable = ({ transactions = [] }) => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const transactions = [];
   const loader = useRef(null);
 
   const { loading } = useSelector((state) => state.finance);
