@@ -15,6 +15,21 @@ export const fetchTransactions = createAsyncThunk(
   }
 );
 
+export const fetchNextTransactions = createAsyncThunk(
+  "finance/fetchNextTransactions",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const { currentPage } = getState().finance;
+
+      const data = await api.transactions.getTransactions(currentPage + 1, 5);
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const addTransaction = createAsyncThunk(
   "finance/addTransaction",
   async (transactionData, { rejectWithValue }) => {
