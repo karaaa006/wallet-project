@@ -3,7 +3,7 @@ import { useCallback, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { size } from "../../../utils/stylesVars";
 
-import emptyWallet from "../../../images/wallet.png";
+import emptyWallet from "../../../images/empty.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNextTransactions } from "../../../redux/operations/financeOperations";
 import { TailSpin } from "react-loader-spinner";
