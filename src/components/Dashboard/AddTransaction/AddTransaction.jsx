@@ -153,6 +153,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               onChange={handleChange}
               onBlur={handleBlur}
               mb="40px"
+              minV="0.01"
+              step="100"
             />
             <CalendarWrap>
             <Input
