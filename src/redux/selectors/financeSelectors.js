@@ -9,14 +9,14 @@ const getBalance = (state) => {
     const lastTransaction = transactions[0];
     const balance = lastTransaction.balance;
 
-    const balanceToString = balance.toString();
+    // const balanceToString = balance.toString();
 
-    if (balanceToString.length > 3) {
-      const formatedBalance = BalanceFormater(balanceToString);
+    // if (balanceToString.length > 3) {
+    //   const formatedBalance = BalanceFormater(balanceToString);
 
-      return formatedBalance;
-    }
-    return;
+    //   return formatedBalance;
+    // }
+    return balance;
   }
 
   return "0";
