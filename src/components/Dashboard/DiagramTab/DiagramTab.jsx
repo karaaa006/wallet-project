@@ -10,6 +10,7 @@ import { StatisticsTable } from "./StatisticsTable";
 const DiagramTabWrap = styled.div`
   display: flex;
   flex-direction: column;
+
   @media screen and (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
@@ -24,6 +25,7 @@ const DropDownWrap = styled.div`
   margin-bottom: 20px;
   max-width: 280px;
   gap: 32px;
+  
   @media screen and (min-width: 768px) {
     flex-direction: row;
   }
