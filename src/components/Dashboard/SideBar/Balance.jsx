@@ -8,19 +8,15 @@ import { secondFontFamily } from "../../../utils/stylesVars";
 const BalanceWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
   margin-left: auto;
   margin-right: auto;
-
   width: 280px;
   height: 80px;
-
   background: #ffffff;
   border-radius: 30px;
   padding-top: 8px;
   padding-bottom: 12px;
   padding-left: 32px;
-
   @media screen and (min-width: 768px) {
     pading-left: 40px;
   }
@@ -44,9 +40,14 @@ const BalanceName = styled.p`
 const BalanceValue = styled.p`
   display: flex;
   margin: 0;
-
   font-family: ${secondFontFamily};
   font-size: 30px;
+  font-weight: 700;
+`;
+
+const SpanContainer = styled.span`
+  font-weight: 400;
+  margin-right: 10px;
 `;
 
 const Balance = () => {
@@ -55,7 +56,10 @@ const Balance = () => {
   return (
     <BalanceWrapper>
       <BalanceName>ваш баланс</BalanceName>
-      <BalanceValue>{`₴ ${balance}`}</BalanceValue>
+      <BalanceValue>
+        <SpanContainer>₴</SpanContainer>
+        {balance}
+      </BalanceValue>
     </BalanceWrapper>
   );
 };

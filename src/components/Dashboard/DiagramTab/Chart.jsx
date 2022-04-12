@@ -2,28 +2,31 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
+import { secondFontFamily } from "../../../utils/stylesVars";
 
 const ChartWrap = styled.div`
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   width: 280px;
-  height: 280px;
+  /* height: 280px; */
 
   @media screen and (min-width: 768px) {
     width: 336px;
     height: 336px;
+    margin-bottom: 40px;
   }
 
   @media screen and (min-width: 1280px) {
     width: 288px;
     height: 288px;
+    padding-right: 32px;
   }
 `;
 
 const Balance = styled.span`
-  top: 50%;
+  top: 65%;
   left: 50%;
   display: block;
   position: absolute;
@@ -32,6 +35,36 @@ const Balance = styled.span`
   font-weight: bold;
   font-size: 18px;
   line-height: 1.5;
+
+  @media screen and (min-width: 768px) {
+    top: 60%;
+    left: 45%;
+  }
+
+  @media screen and (min-width: 1280px) {
+    top: 65%;
+    left: 45%;
+  }
+`;
+
+const StatisticName = styled.p`
+margin: 0 auto;
+font-family: ${secondFontFamily};
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 30px;
+display: flex;
+align-items: center;
+text-align: center;
+color: #000000;
+padding-top: 60px;
+padding-bottom: 25px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 0px;
+  }
+
 `;
 
 const options = {
@@ -66,6 +99,7 @@ export const Chart = ({ statistics }) => {
 
   return (
     <ChartWrap>
+      <StatisticName>Статистика</StatisticName>
       <Doughnut data={data} options={options} />
       <Balance>&#8372; {balance}</Balance>
     </ChartWrap>
