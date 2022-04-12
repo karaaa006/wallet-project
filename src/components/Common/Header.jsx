@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondFontFamily } from "../../utils/stylesVars";
+import { secondFontFamily, size } from "../../utils/stylesVars";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLogout } from "../../redux/operations/userOperations";
 import { Modal } from "./Modal";
@@ -16,11 +16,11 @@ const StyledHeader = styled.header`
 
   background-color: #ffffff;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     padding: 20px 32px;
   }
 
-  @media screen and (min-width: 1024px) {
+  ${size.L} {
     padding: 20px 16px;
   }
 `;
@@ -34,7 +34,7 @@ const Logo = styled.div`
 const LogoImg = styled.img`
   margin-right: 16px;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     margin-right: 20px;
   }
 `;
@@ -44,7 +44,7 @@ const LogoText = styled.div`
   font-size: 25px;
   font-weight: 700;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     font-size: 30px;
   }
 `;
@@ -62,7 +62,7 @@ const Name = styled.div`
   font-size: 18px;
   color: #bdbdbd;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     padding: 6px 12px 6px 0;
     border-right: 1px solid #bdbdbd;
     margin-right: 12px;
@@ -79,7 +79,7 @@ const ExitButton = styled.button`
 `;
 
 const ExitIcon = styled.img`
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     margin-right: 8px;
   }
 `;
@@ -87,7 +87,7 @@ const ExitIcon = styled.img`
 const ExitText = styled.div`
   display: none;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     display: block;
   }
 `;
@@ -99,7 +99,7 @@ const ModalLogout = styled.div`
   gap: 20px;
   justify-content: space-around;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     flex-direction: row;
   }
 `;
@@ -136,15 +136,15 @@ export const Header = () => {
         title="Вы действительно хотите выйти?"
       >
         <ModalLogout>
-          <Button w="100px" h="100px" onClick={() => dispatch(fetchLogout())}>
+          <Button
+            w="300px"
+            h="50px"
+            accent
+            onClick={() => dispatch(fetchLogout())}
+          >
             Да
           </Button>
-          <Button
-            w="100px"
-            h="100px"
-            accent
-            onClick={() => setModalIsOpen(false)}
-          >
+          <Button w="300px" h="50px" onClick={() => setModalIsOpen(false)}>
             Нет
           </Button>
         </ModalLogout>

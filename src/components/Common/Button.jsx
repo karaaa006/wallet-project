@@ -32,9 +32,6 @@ const StyledButton = styled.button`
   }
 
   transition: border ease 250ms, background-color ease 250ms, color ease 250ms;
-
-  @media screen and (max) {
-  }
 `;
 
 const SpinerWrap = styled.div`

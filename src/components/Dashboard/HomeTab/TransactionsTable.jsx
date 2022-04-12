@@ -2,7 +2,10 @@ import moment from "moment";
 import { useCallback, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import useFetch from "../../../Hooks/useFetch";
+import { size } from "../../../utils/stylesVars";
+
 import emptyWallet from "../../../images/emptyWallet.png";
+
 const MobileTable = styled.table`
   width: 280px;
   background: #ffffff;
@@ -14,7 +17,8 @@ const MobileTable = styled.table`
   margin-bottom: 8px;
   border-collapse: collapse;
   overflow: hidden;
-  @media screen and (min-width: 768px) {
+
+  ${size.M} {
     display: none;
   }
 `;
@@ -37,10 +41,17 @@ const MobileTd = styled.td`
 
 const ConteinerTable = styled.div`
   display: none;
-  @media screen and (min-width: 768px) {
+
+  ${size.M} {
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+    margin-bottom: 60px;
+    width: 100%;
+  }
+  ${size.L} {
+    display: block;
+
+    width: 100%;
   }
 `;
 const TableTransactions = styled.table`
@@ -49,12 +60,12 @@ const TableTransactions = styled.table`
   border-collapse: collapse;
   padding-left: 20px;
   padding-right: 20px;
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     width: 1200px;
   }
 
-  @media screen and (min-width: 1280px) {
-    max-width: 715px;
+  ${size.L} {
+    width: 100%;
   }
 `;
 

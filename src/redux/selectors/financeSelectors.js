@@ -8,6 +8,7 @@ const getBalance = (state) => {
     const transactions = getFinance(state);
     const lastTransaction = transactions[0];
     const balance = lastTransaction.balance;
+
     return balance;
   }
 

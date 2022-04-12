@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { fetchStatistics } from "../../../redux/operations/financeOperations";
+import { size } from "../../../utils/stylesVars";
 import { DropDown } from "../../Common/DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
@@ -10,7 +11,8 @@ import { StatisticsTable } from "./StatisticsTable";
 const DiagramTabWrap = styled.div`
   display: flex;
   flex-direction: column;
-  @media screen and (min-width: 768px) {
+
+  ${size.M} {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -23,9 +25,15 @@ const DropDownWrap = styled.div`
   margin-left: auto;
   margin-bottom: 20px;
   max-width: 280px;
-  gap: 32px;
-  @media screen and (min-width: 768px) {
+  gap: 20px;
+
+  ${size.M} {
+    gap: 16px;
     flex-direction: row;
+  }
+
+  ${size.L} {
+    gap: 32px;
   }
 `;
 
@@ -63,7 +71,6 @@ export const DiagramTab = () => {
     { name: "2011", id: 12 },
   ];
 
-  // Обов'язкові поля для випадаючого списку: name і id
   const [selectedMounth, setSelectedMounth] = useState({});
   const [selectedYear, setSelectedYear] = useState({});
   const [currentType, setCurrentType] = useState(false);

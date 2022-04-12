@@ -9,7 +9,6 @@ import { Button } from "../Common/Button";
 import { Input } from "../Utils/Input";
 import { StyledForm } from "../Utils/StyledForm";
 import { ButtonsWrap } from "../Utils/ButtonsWrap";
-import { FormNotificationWrap } from "../Utils/FormNotificatinWrap";
 import { FormStatusbar } from "../Common/FormStatusbar";
 import { TextNotification } from "../Common/TextNotification";
 
@@ -37,7 +36,7 @@ export const RegistrationForm = () => {
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState("");
 
-  const { isLoading, errorMessage } = useSelector((state) => state.user);
+  const { isLoading} = useSelector((state) => state.user);
 
   const rules = {
     email: "email",
@@ -122,7 +121,7 @@ export const RegistrationForm = () => {
           setValue={setEmail}
         />
 
-        <FormNotificationWrap>
+
           <Input
             placeholder={"Пароль"}
             icon={lock}
@@ -130,14 +129,13 @@ export const RegistrationForm = () => {
             type="password"
             value={password}
             setValue={setPassword}
-          />
-          <FormStatusbar
+          >
+            <FormStatusbar
             password={password}
             validatePassword={validatePassword}
-          ></FormStatusbar>
-        </FormNotificationWrap>
+            ></FormStatusbar>
+          </Input>
 
-        <FormNotificationWrap>
           <Input
             placeholder={"Подтвердите пароль"}
             icon={lock}
@@ -145,13 +143,12 @@ export const RegistrationForm = () => {
             type="password"
             value={passwordConfirmation}
             setValue={setPasswordConfirmation}
-          />
-          <TextNotification visibility={passwordConfirmationNotification}>
+          >
+            <TextNotification visibility={passwordConfirmationNotification}>
             Введенные пароли не совпадают
-          </TextNotification>
-        </FormNotificationWrap>
+            </TextNotification>
+          </Input>
 
-        <FormNotificationWrap>
           <Input
             placeholder={"Ваше имя"}
             icon={account}
@@ -159,11 +156,11 @@ export const RegistrationForm = () => {
             type="text"
             value={name}
             setValue={setName}
-          />
-          <TextNotification visibility={nameNotification}>
-            Имя должно быть короче 12 символов
-          </TextNotification>
-        </FormNotificationWrap>
+          >
+            <TextNotification visibility={nameNotification}>
+              Имя должно быть короче 12 символов
+            </TextNotification>
+          </Input>
 
         <ButtonsWrap>
           <Button
