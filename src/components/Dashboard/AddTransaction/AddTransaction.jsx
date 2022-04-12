@@ -19,20 +19,25 @@ const InputWrap = styled.div`
   align-items: center;
 `;
 
+const CalendarWrap = styled.div`
+position: relative;
+`
+
 const DateIcon = styled.img`
   pointer-events: none;
   position: absolute;
-  top: 360px;
-  left: 367px;
+  top: 3px;
+  left:90%;
   background-color: #fff;
-  cursor: pointer;
+  /* cursor: pointer; */
+  z-index: 99;
 `;
 
 const defaultValueSelected = "Выберите категорию";
 const optionsIncome = [];
 const optionsExpense = [];
 
-let localDate = new Date().toISOString().split("T")[0];
+let localDate = new Date().toLocaleDateString();
 
 export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const [selectedCategory, setSelectedCategory] =
@@ -146,17 +151,19 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               onBlur={handleBlur}
               mb="40px"
             />
-
+            <CalendarWrap>
             <Input
-              type="date"
+              type="text"
               name="date"
               value={values.date}
               onChange={handleChange}
               onBlur={handleBlur}
               mb="40px"
             />
+              <DateIcon src={iconDate} />
+            </CalendarWrap>
 
-            <DateIcon src={iconDate} />
+            {/* <DateIcon src={iconDate} /> */}
 
             <Input
               type="text"
