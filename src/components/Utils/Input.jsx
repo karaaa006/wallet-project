@@ -62,6 +62,7 @@ export const Input = ({
   autoComplete = "off",
   onBlur,
   validateSchema,
+  children
 }) => {
   //   const [isValid, setIsValid] = useState(null);
 
@@ -107,6 +108,7 @@ export const Input = ({
         autoComplete={autoComplete}
       />
       {icon && <Icon src={icon} />}
+      {children}
     </InputWrap>
   );
 };
