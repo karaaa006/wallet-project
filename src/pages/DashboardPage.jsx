@@ -13,7 +13,6 @@ import useMediaQuery from "../Hooks/useMediaQuery";
 import Media from "react-media";
 
 const PageWrap = styled.div`
-  outline: 1px solid black;
   display: flex;
 
   flex-direction: column;
