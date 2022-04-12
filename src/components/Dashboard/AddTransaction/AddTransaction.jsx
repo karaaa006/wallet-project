@@ -56,11 +56,6 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
     }
   }
 
-  const cancelTransaction =() => {
-    reset();
-    closeModal();
-  }
-
   const dispatch = useDispatch();
 
   const onChangeToggle = () => {
@@ -192,7 +187,13 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               >
                 ДОБАВИТЬ
               </Button>
-              <Button w="100%" mw="300px" h="50px" onClick={closeModal}>
+              <Button w="100%" mw="300px" h="50px" onClick={() => {
+                  reset();  
+                  handleReset()
+                  closeModal();
+                  }
+                }
+              >
                 ОТМЕНА
               </Button>
             </ButtonsWrap>
