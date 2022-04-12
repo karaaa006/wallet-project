@@ -65,6 +65,7 @@ export const Input = ({
   minV,
   maxV,
   step,
+  children
 }) => {
   //   const [isValid, setIsValid] = useState(null);
 
@@ -113,6 +114,7 @@ export const Input = ({
         step={step}
       />
       {icon && <Icon src={icon} />}
+      {children}
     </InputWrap>
   );
 };

@@ -14,7 +14,6 @@ import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
 
 const InputWrap = styled.div`
-
   @media screen and (min-width: 768px) {
     display: flex;
     align-items: center;
@@ -23,8 +22,8 @@ const InputWrap = styled.div`
 `;
 
 const CalendarWrap = styled.div`
-position: relative;
-`
+  position: relative;
+`;
 
 const DateIcon = styled.img`
   pointer-events: none;
@@ -36,8 +35,8 @@ const DateIcon = styled.img`
 `;
 
 const defaultValueSelected = "Выберите категорию";
-const optionsIncome = [];
-const optionsExpense = [];
+// const optionsIncome = [];
+// const optionsExpense = [];
 
 let localDate = new Date().toLocaleDateString();
 
@@ -46,6 +45,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
     useState(defaultValueSelected);
   const [toggle, setToggle] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [optionsIncome, setOptionsIncome] = useState([]);
+  const [optionsExpense, setOptionsExpense] = useState([]);
 
   const reset = () => {
     setSelectedCategory(defaultValueSelected);
@@ -54,7 +55,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       refCheckBox.click();
       setToggle(true);
     }
-  }
+  };
 
   const dispatch = useDispatch();
 
@@ -66,24 +67,24 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   useEffect(() => {
     const getCategories = async () => {
       const data = await api.categories.getCategories();
+
+      data.forEach((item) =>
+        item.isExpense
+          ? setOptionsExpense((prev) => [...prev, item])
+          : setOptionsIncome((prev) => [...prev, item])
+      );
+
       setCategories([...data]);
     };
+
     if (categories.length === 0) getCategories();
   }, [modalIsOpen]);
 
-  useEffect(() => {
-    if (categories.length !== 0)
-      for (let i = 0; i < categories.length; i += 1) {
-        categories[i].isExpense
-          ? optionsExpense.push(categories[i])
-          : optionsIncome.push(categories[i]);
-      }
-  }, [categories]);
-
-  const notify = (text) => { toast.warn(text, {
-    toastId: "252"
-    })
-  }
+  const notify = (text) => {
+    toast.warn(text, {
+      toastId: "252",
+    });
+  };
 
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
@@ -138,6 +139,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
           dirty,
         }) => (
           <>
+
           <InputWrap>
             <Input
               type="number"

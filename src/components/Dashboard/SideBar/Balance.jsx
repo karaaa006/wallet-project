@@ -53,12 +53,21 @@ const SpanContainer = styled.span`
 const Balance = () => {
   const balance = useSelector(getBalance);
 
+  const parts = balance.toString().split(".");
+  if (parts.length < 2) {
+    parts[1] = "00";
+  } else if (parts[1].length < 2) {
+    parts[1] = parts[1] + "0";
+  }
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const modifyBalance = parts.join(".");
+
   return (
     <BalanceWrapper>
       <BalanceName>ваш баланс</BalanceName>
       <BalanceValue>
         <SpanContainer>₴</SpanContainer>
-        {balance}
+        {modifyBalance}
       </BalanceValue>
     </BalanceWrapper>
   );
