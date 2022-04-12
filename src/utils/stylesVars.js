@@ -10,6 +10,6 @@ export const backdropCl = "rgba(0, 0, 0, 0.25)";
 export const mainBgCl = "#E5E5E";
 
 export const size = {
-  M: "@media screen and (max-width: 768px)",
-  L: "media screen and (max-width: 1280px)",
+  M: "@media screen and (min-width: 768px)",
+  L: "@media screen and (min-width: 1280px)",
 };

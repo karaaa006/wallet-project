@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import close from "../../images/icons/close.svg";
+import { size } from "../../utils/stylesVars";
 
 const Backdrop = styled.div`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
@@ -10,13 +11,13 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   z-index: 2;
-  
+
   background-color: rgba(0, 0, 0, 0.25);
 `;
 const ModalWrap = styled.div`
   position: absolute;
-  
-  @media screen and (min-width: 768px) {
+
+  ${size.M} {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -49,9 +50,9 @@ const CloseButton = styled.button`
 `;
 const CloseIcon = styled.img`
   @media screen and (max-width: 767px) {
-    display:none;
+    display: none;
   }
-`
+`;
 
 const Title = styled.h2`
   font-size: 30px;
@@ -60,7 +61,7 @@ const Title = styled.h2`
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: ${({mb}) => mb || '40px'};
+  margin-bottom: ${({ mb }) => mb || "40px"};
   text-align: center;
 
   @media screen and (max-width: 767px) {
@@ -76,7 +77,7 @@ export const Modal = ({
   title,
   w,
   h,
-  mb=40,
+  mb = 40,
   justify,
   align,
   direction,

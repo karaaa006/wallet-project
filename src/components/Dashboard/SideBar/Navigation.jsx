@@ -14,7 +14,7 @@ const Svg = styled(SVG)`
   & path {
     fill: #6e78e8;
   }
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     width: 18px;
     height: 18px;
   }
@@ -26,7 +26,7 @@ const PageText = styled.span`
   font-weight: 400;
   font-size: 18px;
   color: #000000;
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     display: block;
   }
 `;
@@ -43,7 +43,7 @@ const NavList = styled.div`
     }
   }
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     margin-right: 0;
     margin-bottom: 28px;
     flex-direction: column;
@@ -71,7 +71,7 @@ const StyledNavLink = styled(NavLink)`
     font-weight: 700;
   }
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     & :not(:last-child) {
       margin-right: 20px;
     }
