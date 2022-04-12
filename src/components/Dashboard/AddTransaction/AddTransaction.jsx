@@ -30,7 +30,6 @@ const DateIcon = styled.img`
   left:90%;
   background-color: #fff;
   /* cursor: pointer; */
-  z-index: 99;
 `;
 
 const defaultValueSelected = "Выберите категорию";
