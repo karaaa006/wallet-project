@@ -50,7 +50,6 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const reset = () => {
     setSelectedCategory(defaultValueSelected);
     const refCheckBox = document.getElementById("toggleTypeTransaction");
-    console.log(refCheckBox);
     if (refCheckBox.checked) {
       refCheckBox.click();
       setToggle(true);
