@@ -15,11 +15,12 @@ const Backdrop = styled.div`
 `;
 const ModalWrap = styled.div`
   position: absolute;
+  
   @media screen and (min-width: 768px) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 40px 80px;
+    padding: 40px 75px;
     border-radius: 20px;
   }
   display: flex;

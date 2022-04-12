@@ -14,9 +14,12 @@ import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
 
 const InputWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
 `;
 
 const CalendarWrap = styled.div`
@@ -141,6 +144,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
           dirty,
         }) => (
           <>
+          <InputWrap>
             <Input
               type="number"
               name="amount"
@@ -161,8 +165,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
             />
               <DateIcon src={iconDate} />
             </CalendarWrap>
-
-            {/* <DateIcon src={iconDate} /> */}
+          </InputWrap>
 
             <Input
               type="text"

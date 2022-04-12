@@ -13,7 +13,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 15px 20px;
-
+  
   background-color: #ffffff;
 
   @media screen and (min-width: 768px) {
