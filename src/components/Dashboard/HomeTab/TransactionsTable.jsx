@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { size } from "../../../utils/stylesVars";
 
 import emptyWallet from "../../../images/emptyWallet.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchNextTransactions } from "../../../redux/operations/financeOperations";
 import { TailSpin } from "react-loader-spinner";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
@@ -141,6 +141,8 @@ export const TransactionsTable = ({ transactions = [] }) => {
 
   const loader = useRef(null);
 
+  const { loading } = useSelector((state) => state.finance);
+
   const handleObserver = useCallback((entries) => {
     const target = entries[0];
 
@@ -225,13 +227,15 @@ export const TransactionsTable = ({ transactions = [] }) => {
             </TableBody>
           </TableTransactions>
           <Loader ref={loader} />
-          <SpinerWrap>
-            <TailSpin
-              color="rgba(0,0,0,0.3)"
-              ariaLabel="loading-indicator"
-              width="35px"
-            />
-          </SpinerWrap>
+          {loading && (
+            <SpinerWrap>
+              <TailSpin
+                color="rgba(0,0,0,0.3)"
+                ariaLabel="loading-indicator"
+                width="35px"
+              />
+            </SpinerWrap>
+          )}
         </ConteinerTable>
       )}
 
@@ -286,17 +290,19 @@ export const TransactionsTable = ({ transactions = [] }) => {
           })}
 
           <Loader ref={loader} />
-          <SpinerWrap>
-            <TailSpin
-              color="rgba(0,0,0,0.3)"
-              ariaLabel="loading-indicator"
-              width="35px"
-            />
-          </SpinerWrap>
+          {loading && (
+            <SpinerWrap>
+              <TailSpin
+                color="rgba(0,0,0,0.3)"
+                ariaLabel="loading-indicator"
+                width="35px"
+              />
+            </SpinerWrap>
+          )}
         </>
       )}
 
-      {!transactions.length && (
+      {!transactions.length && !loading && (
         <div style={{ textAlign: "center" }}>
           <img
             src={emptyWallet}

@@ -30,13 +30,20 @@ const financeSlice = createSlice({
     [fetchTransactions.rejected]: (state, action) => {
       state.financeData = [];
       state.loading = false;
-      state.hasError = action.payload;
+      state.hasError = true;
+    },
+    [fetchNextTransactions.pending]: (state) => {
+      state.loading = true;
     },
     [fetchNextTransactions.fulfilled]: (state, action) => {
       state.financeData = [...state.financeData, ...action.payload];
       state.loading = false;
       state.hasError = false;
       state.currentPage = state.currentPage + 1;
+    },
+    [fetchNextTransactions.rejected]: (state, action) => {
+      state.loading = false;
+      state.hasError = true;
     },
 
     [addTransaction.fulfilled]: (state, action) => {
