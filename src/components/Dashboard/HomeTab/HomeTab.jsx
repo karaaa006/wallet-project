@@ -46,6 +46,7 @@ export const HomeTab = () => {
         justify="start"
         title="Добавить транзакцию"
         mb="20px"
+        w="540px"
       >
         <AddTransaction modalIsOpen={modalIsOpen} closeModal={closeModal} />
       </Modal>

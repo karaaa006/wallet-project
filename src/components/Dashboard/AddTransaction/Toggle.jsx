@@ -7,8 +7,8 @@ const ToggleWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: baseline;
-  padding-bottom: 22px;
-  padding-top: 22px;
+  padding-bottom: 20px;
+  padding-top: 20px;
   /* margin-bottom: 20px; */
   cursor: pointer;
 `
