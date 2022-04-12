@@ -13,6 +13,7 @@ import useMediaQuery from "../Hooks/useMediaQuery";
 import Media from "react-media";
 
 const PageWrap = styled.div`
+  outline: 1px solid black;
   display: flex;
 
   flex-direction: column;
@@ -31,6 +32,7 @@ const PageWrap = styled.div`
   @media screen and (min-width: 1280px) {
     padding: 0 16px;
     flex-direction: row;
+    position: relative;
   }
 `;
 
@@ -39,10 +41,9 @@ const TabContainer = styled.div`
     margin-top: 20px;
   }
   @media screen and (min-width: 1280px) {
-    margin-left: auto;
-    margin-right: auto;
     padding-top: 40px;
     padding-left: 69px;
+    width: 100%;
   }
 `;
 

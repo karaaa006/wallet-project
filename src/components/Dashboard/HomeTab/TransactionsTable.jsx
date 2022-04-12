@@ -35,11 +35,17 @@ const MobileTd = styled.td`
 
 const ConteinerTable = styled.div`
   display: none;
+
   @media screen and (min-width: 768px) {
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
     margin-bottom: 60px;
+    width: 100%;
+  }
+  @media screen and (min-width: 1280px) {
+    display: block;
+
+    width: 100%;
   }
 `;
 const TableTransactions = styled.table`
@@ -53,7 +59,7 @@ const TableTransactions = styled.table`
   }
 
   @media screen and (min-width: 1280px) {
-    max-width: 715px;
+    width: 100%;
   }
 `;
 
