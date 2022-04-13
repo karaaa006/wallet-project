@@ -92,6 +92,14 @@ export const Modal = ({
     return () => window.removeEventListener("keydown", close);
   }, []);
 
+  useEffect(() => {
+     if (isOpen && document.documentElement.clientWidth < 768) {
+       document.body.style.overflow = 'hidden';
+       window.scrollTo(0,0);
+     }
+     return ()=> document.body.style.overflow = 'unset';
+  }, [isOpen]);
+
   const handleClose = () => {
     setIsOpen(false);
   };
