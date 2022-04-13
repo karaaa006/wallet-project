@@ -10,7 +10,6 @@ const Table = styled.table`
   font-size: 16px;
   line-height: 1.23;
 
-
   ${size.M} {
     width: 336px;
   }
@@ -34,7 +33,6 @@ const Tableth = styled.th`
   text-align: left;
   padding: 0 20px;
   text-align: ${({ ta }) => (ta ? ta : "left")};
-  
 
   :first-child {
     border-top-left-radius: 30px;
@@ -117,8 +115,9 @@ export const StatisticsTable = ({
   handleSetStat,
   currentType,
 }) => {
+  console.log(statistics);
   return (
-      <Table>
+    <Table>
       <TableHead>
         <tr>
           <Tableth>Категория</Tableth>
@@ -126,12 +125,13 @@ export const StatisticsTable = ({
         </tr>
       </TableHead>
       <tbody>
-        {statistics.categories.map((stat) => (
-          <TableTr key={stat.category}>
-            <TableCat bgc={stat.color}>{stat.category}</TableCat>
-            <TableSum>{stat.categorySum}</TableSum>
-          </TableTr>
-        ))}
+        {statistics.categories &&
+          statistics?.categories?.map((stat) => (
+            <TableTr key={stat.category}>
+              <TableCat bgc={stat.color}>{stat.category}</TableCat>
+              <TableSum>{stat.categorySum}</TableSum>
+            </TableTr>
+          ))}
       </tbody>
       <tfoot>
         <TableFTr onClick={() => handleSetStat(false)} active={!currentType}>
@@ -148,6 +148,5 @@ export const StatisticsTable = ({
         </TableFTr>
       </tfoot>
     </Table>
-
   );
 };

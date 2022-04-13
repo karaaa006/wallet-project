@@ -13,33 +13,23 @@ const DiagramTabWrap = styled.div`
   display: flex;
   flex-direction: column;
 
-
-
-
   ${size.M} {
     flex-direction: row;
-    justify-content: space-between;
-  }
-
-    ${size.M} {
-
+    justify-content: center;
   }
 `;
 
 const DropDownWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: auto;
-  margin-left: auto;
   margin-bottom: 20px;
   max-width: 280px;
   gap: 20px;
 
-
   ${size.M} {
     gap: 16px;
     flex-direction: row;
-      max-width: 280px;
+    max-width: 280px;
   }
 
   ${size.L} {
@@ -97,9 +87,10 @@ export const DiagramTab = () => {
   const [selectedMounth, setSelectedMounth] = useState({});
   const [selectedYear, setSelectedYear] = useState({});
   const [currentType, setCurrentType] = useState(false);
-  const [dataAvalible, setDataAvalible] = useState(false)
 
-  const { expense, revenue } = useSelector((state) => state.finance.statistics);
+  const { expense = {}, revenue = {} } = useSelector(
+    (state) => state.finance.statistics
+  );
   const { loading } = useSelector((state) => state.finance);
 
   useEffect(() => {
@@ -122,14 +113,6 @@ export const DiagramTab = () => {
     }
   }, [selectedMounth, selectedYear]);
 
-  useState(() => {
-    if (expense || revenue){
-      setDataAvalible(true)
-      return
-    }
-    setDataAvalible(false)
-  })
-
   const handleSetStat = (value) => {
     if (currentType !== value) {
       setCurrentType(value);
@@ -138,51 +121,47 @@ export const DiagramTab = () => {
     }
   };
   return (
-    // <EmptyWrap/> : 
     <>
-    {!dataAvalible? <EmptyWrap/> :     <>
-      <DiagramTabWrap>
-      {expense && <Chart statistics={currentType ? revenue : expense} />}
-      <TableWrap>
-        <DropDownWrap>
-          <DropDown
-            options={mounth}
-            selectedOption={selectedMounth}
-            setSelectedOption={setSelectedMounth}
-            placeholder="Месяц"
+      {loading ? (
+        <SpinerWrap>
+          <TailSpin
+            color="rgba(0,0,0,0.3)"
+            ariaLabel="loading-indicator"
+            width="80px"
           />
-          <DropDown
-            options={years}
-            selectedOption={selectedYear}
-            setSelectedOption={setSelectedYear}
-            placeholder="Год"
-          />
-        </DropDownWrap>
-        {expense && (
-          <StatisticsTable
-            statistics={currentType ? revenue : expense}
-            sumExpense={expense?.totalSum}
-            sumIncome={revenue?.totalSum}
-            handleSetStat={handleSetStat}
-            currentType={currentType}
-          />
-        )}
-      </TableWrap>
-    </DiagramTabWrap>
-    <Loader ref={loader} />
-          {loading && (
-            <SpinerWrap>
-              <TailSpin
-                color="rgba(0,0,0,0.3)"
-                ariaLabel="loading-indicator"
-                width="35px"
+        </SpinerWrap>
+      ) : Object.keys(expense).length > 0 || Object.keys(revenue).length > 0 ? (
+        <DiagramTabWrap>
+          {expense && <Chart statistics={currentType ? revenue : expense} />}
+          <TableWrap>
+            <DropDownWrap>
+              <DropDown
+                options={mounth}
+                selectedOption={selectedMounth}
+                setSelectedOption={setSelectedMounth}
+                placeholder="Месяц"
               />
-            </SpinerWrap>
-          )}
-    </>}
+              <DropDown
+                options={years}
+                selectedOption={selectedYear}
+                setSelectedOption={setSelectedYear}
+                placeholder="Год"
+              />
+            </DropDownWrap>
+            {expense && (
+              <StatisticsTable
+                statistics={currentType ? revenue : expense}
+                sumExpense={expense?.totalSum}
+                sumIncome={revenue?.totalSum}
+                handleSetStat={handleSetStat}
+                currentType={currentType}
+              />
+            )}
+          </TableWrap>
+        </DiagramTabWrap>
+      ) : (
+        <EmptyWrap />
+      )}
     </>
-
-
-
   );
 };

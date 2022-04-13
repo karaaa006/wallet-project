@@ -68,6 +68,7 @@ const Balance = () => {
       <BalanceValue>
         <SpanContainer>₴</SpanContainer>
         {modifyBalance}
+        {/* {balance.toLocaleString()} */}
       </BalanceValue>
     </BalanceWrapper>
   );
