@@ -135,10 +135,10 @@ const SpinerWrap = styled.div`
   align-items: center;
 `;
 
-
 export const TransactionsTable = ({ transactions = [] }) => {
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isNotMobile = useMediaQuery("(min-width: 768px)");
   const loader = useRef(null);
 
   const { loading } = useSelector((state) => state.finance);
@@ -163,7 +163,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
 
   return (
     <div>
-      {!isMobile && (
+      {isNotMobile && (
         <ConteinerTable>
           <TableTransactions>
             <TableHead>
@@ -302,9 +302,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
         </>
       )}
 
-      {!transactions.length && !loading && (
-        <EmptyWrap/>
-      )}
+      {!transactions.length && !loading && <EmptyWrap />}
     </div>
   );
 };
