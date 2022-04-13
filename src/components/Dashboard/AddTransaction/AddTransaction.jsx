@@ -8,7 +8,7 @@ import { ButtonsWrap } from "../../Utils/ButtonsWrap";
 import { Input } from "../../Utils/Input";
 import { Toggle } from "./Toggle";
 import iconDate from "../../../images/icons/date.svg";
-import { addTransaction } from "../../../redux/operations/financeOperations";
+import { addTransaction, fetchTransactions } from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
 import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
@@ -36,8 +36,6 @@ const DateIcon = styled.img`
 `;
 
 const defaultValueSelected = "Выберите категорию";
-// const optionsIncome = [];
-// const optionsExpense = [];
 
 let localDate = new Date().toLocaleDateString();
 
@@ -125,25 +123,25 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               category: selectedCategory._id,
               isExpense: selectedCategory.isExpense,
             };
-            dispatch(addTransaction(newTransaction));
-            // console.log(newTransaction);
+
+            async function AddTtansaction () {
             resetForm();
             reset();
             closeModal();
+            await dispatch(addTransaction(newTransaction)).unwrap();
+            await dispatch(fetchTransactions()).unwrap();
+            }
+            AddTtansaction();
           } else notify("Выберите категорию");
         }}
         validationSchema={validationSchema}
       >
         {({
           values,
-          errors,
-          touched,
           handleChange,
           handleBlur,
-          isValid,
           handleSubmit,
           handleReset,
-          dirty,
         }) => (
           <>
             <InputWrap>
