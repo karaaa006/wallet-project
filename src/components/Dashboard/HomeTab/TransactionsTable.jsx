@@ -8,6 +8,7 @@ import { fetchNextTransactions } from "../../../redux/operations/financeOperatio
 import { TailSpin } from "react-loader-spinner";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
 import { EmptyWrap } from "../../Common/EmptyWrap";
+import { clearPage } from "../../../redux/reducers/financeSlice";
 
 const MobileTable = styled.table`
   width: 280px;
@@ -160,7 +161,9 @@ export const TransactionsTable = ({ transactions = [] }) => {
     const observer = new IntersectionObserver(handleObserver, option);
     if (loader.current) observer.observe(loader.current);
 
-    return () => {};
+    return () => {
+      dispatch(clearPage());
+    };
   }, [handleObserver]);
 
   return (

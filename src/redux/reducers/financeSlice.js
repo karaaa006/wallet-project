@@ -69,4 +69,6 @@ const financeSlice = createSlice({
   },
 });
 
+export const { clearPage } = financeSlice.actions;
+
 export default financeSlice.reducer;
