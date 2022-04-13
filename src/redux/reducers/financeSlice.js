@@ -29,6 +29,7 @@ const financeSlice = createSlice({
     },
     [fetchTransactions.fulfilled]: (state, action) => {
       state.financeData = action.payload;
+      state.currentPage = initialState.currentPage;
       state.loading = false;
       state.hasError = false;
     },
