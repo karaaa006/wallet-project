@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
 import illustration from "../../../images/currency-illustration.svg";
+import { size } from "../../../utils/stylesVars";
 
 const SpinerWrap = styled.div`
   position: absolute;
@@ -69,8 +70,11 @@ const Tr = styled.tr`
 `;
 
 const Th = styled.th`
-  padding: 17px 25px;
-  font-weight: inherit;
+padding: 17px 10px;
+ font-weight: inherit;
+${size.M} {
+  padding: 17px 0;
+} 
 `;
 
 const ExchangeWrap = styled.div`
