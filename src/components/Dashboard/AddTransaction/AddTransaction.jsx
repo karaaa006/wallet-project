@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../Common/Button";
@@ -8,7 +8,10 @@ import { ButtonsWrap } from "../../Utils/ButtonsWrap";
 import { Input } from "../../Utils/Input";
 import { Toggle } from "./Toggle";
 import iconDate from "../../../images/icons/date.svg";
-import { addTransaction, fetchTransactions } from "../../../redux/operations/financeOperations";
+import {
+  addTransaction,
+  fetchTransactions,
+} from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
 import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
@@ -57,6 +60,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   };
 
   const dispatch = useDispatch();
+
+  const { loading } = useSelector((state) => state.finance);
 
   const onChangeToggle = () => {
     setToggle(!toggle);
@@ -124,25 +129,21 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               isExpense: selectedCategory.isExpense,
             };
 
-            async function AddTtansaction () {
-            resetForm();
-            reset();
-            closeModal();
-            await dispatch(addTransaction(newTransaction)).unwrap();
-            await dispatch(fetchTransactions()).unwrap();
+            async function AddTtansaction() {
+              await dispatch(addTransaction(newTransaction)).unwrap();
+              await dispatch(fetchTransactions()).unwrap();
+              if (!loading) {
+                resetForm();
+                reset();
+                closeModal();
+              }
             }
             AddTtansaction();
           } else notify("Выберите категорию");
         }}
         validationSchema={validationSchema}
       >
-        {({
-          values,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          handleReset,
-        }) => (
+        {({ values, handleChange, handleBlur, handleSubmit, handleReset }) => (
           <>
             <InputWrap>
               <Input
@@ -190,6 +191,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                 m="0 0 20px 0"
                 p="0"
                 onClick={handleSubmit}
+                isLoading={loading}
               >
                 ДОБАВИТЬ
               </Button>
