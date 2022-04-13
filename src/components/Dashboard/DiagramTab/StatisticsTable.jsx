@@ -27,6 +27,7 @@ const TableHead = styled.thead`
   align-items: center;
   position: sticky;
   top: 0;
+  z-index: 2;
 `;
 
 const Tableth = styled.th`
@@ -115,7 +116,6 @@ export const StatisticsTable = ({
   handleSetStat,
   currentType,
 }) => {
-  console.log(statistics);
   return (
     <Table>
       <TableHead>
@@ -129,7 +129,7 @@ export const StatisticsTable = ({
           statistics?.categories?.map((stat) => (
             <TableTr key={stat.category}>
               <TableCat bgc={stat.color}>{stat.category}</TableCat>
-              <TableSum>{stat.categorySum}</TableSum>
+              <TableSum>{stat.categorySum.toFixed(2)}</TableSum>
             </TableTr>
           ))}
       </tbody>
@@ -137,13 +137,13 @@ export const StatisticsTable = ({
         <TableFTr onClick={() => handleSetStat(false)} active={!currentType}>
           <TableFTd>Расходы:</TableFTd>
           <TableFTd c="#FF6596" ta="right">
-            {sumExpense}
+            {sumExpense.toFixed(2)}
           </TableFTd>
         </TableFTr>
         <TableFTr onClick={() => handleSetStat(true)} active={currentType}>
           <TableFTd>Доходы:</TableFTd>
           <TableFTd c="#24CCA7" ta="right">
-            {sumIncome}
+            {sumIncome.toFixed(2)}
           </TableFTd>
         </TableFTr>
       </tfoot>

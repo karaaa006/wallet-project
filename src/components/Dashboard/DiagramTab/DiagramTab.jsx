@@ -12,6 +12,10 @@ import { TailSpin } from "react-loader-spinner";
 const DiagramTabWrap = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  gap: 20px;
+  align-items: center;
 
   ${size.M} {
     flex-direction: row;
@@ -25,7 +29,8 @@ const DropDownWrap = styled.div`
   margin-bottom: 20px;
   max-width: 280px;
   gap: 20px;
-
+  margin-right: auto;
+  margin-left: auto;
   ${size.M} {
     gap: 16px;
     flex-direction: row;
@@ -160,7 +165,24 @@ export const DiagramTab = () => {
           </TableWrap>
         </DiagramTabWrap>
       ) : (
-        <EmptyWrap />
+        <>
+          <DropDownWrap>
+            <DropDown
+              options={mounth}
+              selectedOption={selectedMounth}
+              setSelectedOption={setSelectedMounth}
+              placeholder="Месяц"
+            />
+            <DropDown
+              options={years}
+              selectedOption={selectedYear}
+              setSelectedOption={setSelectedYear}
+              placeholder="Год"
+            />
+          </DropDownWrap>
+
+          <EmptyWrap />
+        </>
       )}
     </>
   );
