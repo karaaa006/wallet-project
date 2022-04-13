@@ -61,7 +61,7 @@ const SideBar = styled.div`
   }
   ${size.L} {
     padding-top: 40px;
-    padding-right: 69px;
+    padding-right: 39px;
     flex-direction: column;
     border-right: 1px solid #e7e5f2;
     justify-content: start;
