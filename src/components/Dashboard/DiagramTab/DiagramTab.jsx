@@ -13,9 +13,16 @@ const DiagramTabWrap = styled.div`
   display: flex;
   flex-direction: column;
 
+
+
+
   ${size.M} {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+    ${size.M} {
+
   }
 `;
 
@@ -28,13 +35,17 @@ const DropDownWrap = styled.div`
   max-width: 280px;
   gap: 20px;
 
+
   ${size.M} {
     gap: 16px;
     flex-direction: row;
+      max-width: 280px;
   }
 
   ${size.L} {
     gap: 32px;
+    max-width: 395px;
+    margin-top: 57px;
   }
 `;
 

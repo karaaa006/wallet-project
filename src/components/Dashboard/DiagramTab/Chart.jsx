@@ -14,15 +14,14 @@ const ChartWrap = styled.div`
   }
 
   ${size.L} {
-    margin-left: 0;
-    padding-right: 32px;
+
   }
 `;
 
 const Balance = styled.span`
   top: 50%;
   left: 50%;
-  /* display: block; */
+
   display: flex;
   position: absolute;
   transform: translate(-50%, -50%);
