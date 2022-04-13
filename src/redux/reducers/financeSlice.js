@@ -45,13 +45,19 @@ const financeSlice = createSlice({
       state.loading = false;
       state.hasError = true;
     },
-
+    [addTransaction.pending]: (state) => {
+      state.loading = true;
+    },
     [addTransaction.fulfilled]: (state, action) => {
       state.transactionData = action.payload;
       state.loading = false;
       state.hasError = false;
     },
-
+    [addTransaction.rejected]: (state, action) => {
+      state.financeData = {};
+      state.loading = false;
+      state.hasError = true;
+    },
     [fetchStatistics.fulfilled]: (state, action) => {
       state.statistics = action.payload;
     },

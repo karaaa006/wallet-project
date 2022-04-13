@@ -6,10 +6,10 @@ const Table = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
   border: 0;
-  width: 320px;
-
+  width: 280px;
   font-size: 16px;
   line-height: 1.23;
+
 
   ${size.M} {
     width: 336px;
@@ -22,6 +22,7 @@ const Table = styled.table`
 
 const TableHead = styled.thead`
   height: 58px;
+  width: 280px;
   font-size: 18px;
   background-color: white;
   align-items: center;
@@ -33,6 +34,7 @@ const Tableth = styled.th`
   text-align: left;
   padding: 0 20px;
   text-align: ${({ ta }) => (ta ? ta : "left")};
+  
 
   :first-child {
     border-top-left-radius: 30px;
@@ -116,7 +118,7 @@ export const StatisticsTable = ({
   currentType,
 }) => {
   return (
-    <Table>
+      <Table>
       <TableHead>
         <tr>
           <Tableth>Категория</Tableth>
@@ -146,5 +148,6 @@ export const StatisticsTable = ({
         </TableFTr>
       </tfoot>
     </Table>
+
   );
 };

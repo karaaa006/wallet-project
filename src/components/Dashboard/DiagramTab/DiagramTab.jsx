@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { fetchStatistics } from "../../../redux/operations/financeOperations";
@@ -7,14 +6,23 @@ import { size } from "../../../utils/stylesVars";
 import { DropDown } from "../../Common/DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
+import { EmptyWrap } from "../../Common/EmptyWrap";
+import { TailSpin } from "react-loader-spinner";
 
 const DiagramTabWrap = styled.div`
   display: flex;
   flex-direction: column;
 
+
+
+
   ${size.M} {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+    ${size.M} {
+
   }
 `;
 
@@ -27,20 +35,35 @@ const DropDownWrap = styled.div`
   max-width: 280px;
   gap: 20px;
 
+
   ${size.M} {
     gap: 16px;
     flex-direction: row;
+      max-width: 280px;
   }
 
   ${size.L} {
     gap: 32px;
+    max-width: 395px;
+    margin-top: 57px;
   }
+`;
+
+const Loader = styled.div``;
+
+const SpinerWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TableWrap = styled.div``;
 
 export const DiagramTab = () => {
   const dispatch = useDispatch();
+  const loader = useRef(null);
 
   const mounth = [
     { name: "Январь", id: 1 },
@@ -74,8 +97,10 @@ export const DiagramTab = () => {
   const [selectedMounth, setSelectedMounth] = useState({});
   const [selectedYear, setSelectedYear] = useState({});
   const [currentType, setCurrentType] = useState(false);
+  const [dataAvalible, setDataAvalible] = useState(false)
 
   const { expense, revenue } = useSelector((state) => state.finance.statistics);
+  const { loading } = useSelector((state) => state.finance);
 
   useEffect(() => {
     dispatch(
@@ -97,6 +122,14 @@ export const DiagramTab = () => {
     }
   }, [selectedMounth, selectedYear]);
 
+  useState(() => {
+    if (expense || revenue){
+      setDataAvalible(true)
+      return
+    }
+    setDataAvalible(false)
+  })
+
   const handleSetStat = (value) => {
     if (currentType !== value) {
       setCurrentType(value);
@@ -105,7 +138,10 @@ export const DiagramTab = () => {
     }
   };
   return (
-    <DiagramTabWrap>
+    // <EmptyWrap/> : 
+    <>
+    {!dataAvalible? <EmptyWrap/> :     <>
+      <DiagramTabWrap>
       {expense && <Chart statistics={currentType ? revenue : expense} />}
       <TableWrap>
         <DropDownWrap>
@@ -133,5 +169,20 @@ export const DiagramTab = () => {
         )}
       </TableWrap>
     </DiagramTabWrap>
+    <Loader ref={loader} />
+          {loading && (
+            <SpinerWrap>
+              <TailSpin
+                color="rgba(0,0,0,0.3)"
+                ariaLabel="loading-indicator"
+                width="35px"
+              />
+            </SpinerWrap>
+          )}
+    </>}
+    </>
+
+
+
   );
 };

@@ -3,11 +3,11 @@ import { useCallback, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { size } from "../../../utils/stylesVars";
 
-import emptyWallet from "../../../images/empty.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNextTransactions } from "../../../redux/operations/financeOperations";
 import { TailSpin } from "react-loader-spinner";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
+import { EmptyWrap } from "../../Common/EmptyWrap";
 
 const MobileTable = styled.table`
   width: 280px;
@@ -135,9 +135,6 @@ const SpinerWrap = styled.div`
   align-items: center;
 `;
 
-const EmptyWrap = styled.div`
-  text-align: center;
-`;
 
 export const TransactionsTable = ({ transactions = [] }) => {
   const dispatch = useDispatch();
@@ -306,10 +303,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
       )}
 
       {!transactions.length && !loading && (
-        <EmptyWrap>
-          <h2>Нет данных</h2>
-          <img src={emptyWallet} alt="Empty wallet" width="400px" />
-        </EmptyWrap>
+        <EmptyWrap/>
       )}
     </div>
   );
