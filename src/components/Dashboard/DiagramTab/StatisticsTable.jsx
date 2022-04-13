@@ -116,7 +116,7 @@ export const StatisticsTable = ({
   currentType,
 }) => {
   return (
-    <Table>
+      <Table>
       <TableHead>
         <tr>
           <Tableth>Категория</Tableth>
@@ -146,5 +146,6 @@ export const StatisticsTable = ({
         </TableFTr>
       </tfoot>
     </Table>
+
   );
 };
