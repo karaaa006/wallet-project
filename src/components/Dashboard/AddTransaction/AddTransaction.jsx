@@ -17,6 +17,9 @@ import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
 import { size } from "../../../utils/stylesVars";
 
+
+import { getBalance } from "../../../redux/selectors/financeSelectors";
+
 const InputWrap = styled.div`
   ${size.M} {
     display: flex;
@@ -50,6 +53,9 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
   const [optionsIncome, setOptionsIncome] = useState([]);
   const [optionsExpense, setOptionsExpense] = useState([]);
 
+  const balance = useSelector(getBalance);
+
+  
   const reset = () => {
     setSelectedCategory(defaultValueSelected);
     const refCheckBox = document.getElementById("toggleTypeTransaction");
@@ -95,6 +101,9 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))
       .min(0.01, () =>
         toast.warn("Сумма должна быть больше 0", { toastId: ">0" })
+      )
+      .max(balance, () =>
+        toast.warn("Недостаточно средств на счету", { toastId: "max" })
       ),
     comment: Yup.string().max(20, () =>
       toast.warn("Максимальная длина комментария 20 символов", {

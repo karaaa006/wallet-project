@@ -18,7 +18,7 @@ const BalanceWrapper = styled.div`
   padding-bottom: 12px;
   padding-left: 32px;
   ${size.M} {
-    pading-left: 40px;
+    padding-left: 40px;
   }
   ${size.M} {
     width: 336px;
