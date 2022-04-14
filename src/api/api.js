@@ -67,7 +67,7 @@ export const api = {
 
         return data;
       } catch (e) {
-        console.log(e);
+        return e;
       }
     },
     addTransaction: async (transactionData) => {
@@ -76,7 +76,7 @@ export const api = {
 
         return data;
       } catch (e) {
-        console.log(e);
+        return e;
       }
     },
     getStatistics: async ({ month, year }) => {
@@ -94,7 +94,7 @@ export const api = {
 
         return data;
       } catch (e) {
-        console.log(e);
+        return e;
       }
     },
   },
