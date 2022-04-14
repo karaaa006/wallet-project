@@ -34,6 +34,7 @@ const ModalWrap = styled.div`
 
   @media screen and (max-width: 767px) {
     width: 100vw;
+    height: 100%;
     padding: 20px 20px 40px 20px;
   }
 `;
