@@ -14,7 +14,8 @@ const InputWrap = styled.div`
 const StyledInput = styled.input`
   width: 100%;
   padding: ${({ p }) => (p ? p : "8px")};
-  padding-left: ${({ icon }) => (icon ? "52px" : "8px")};
+  padding-left: ${({ icon }) => (icon && "52px")};
+  padding-left: ${({ pl }) => (pl)};
   color: ${({ c }) => (c ? c : "#000000")};
   border: none;
   border-bottom: 1px solid #e0e0e0;
@@ -46,6 +47,7 @@ export const Input = ({
   mr,
   mb,
   p,
+  pl,
   ta,
   w,
   h,
@@ -102,6 +104,7 @@ export const Input = ({
         name={name}
         value={value}
         p={p}
+        pl={pl}
         ta={ta}
         h={h}
         icon={icon}
