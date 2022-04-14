@@ -35,7 +35,7 @@ const Arrow = styled.img`
 
 const OptionList = styled.ul`
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   top: calc(100% + 4px);
   width: 100%;
   max-height: 300px;

@@ -18,12 +18,18 @@ const initialState = {
 const financeSlice = createSlice({
   name: "finance",
   initialState,
+  reducers: {
+    clearPage: (state) => {
+      state.currentPage = initialState.currentPage;
+    },
+  },
   extraReducers: {
     [fetchTransactions.pending]: (state) => {
       state.loading = true;
     },
     [fetchTransactions.fulfilled]: (state, action) => {
       state.financeData = action.payload;
+      state.currentPage = initialState.currentPage;
       state.loading = false;
       state.hasError = false;
     },
@@ -63,5 +69,7 @@ const financeSlice = createSlice({
     },
   },
 });
+
+export const { clearPage } = financeSlice.actions;
 
 export default financeSlice.reducer;

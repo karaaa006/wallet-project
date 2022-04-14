@@ -10,7 +10,6 @@ const Table = styled.table`
   font-size: 16px;
   line-height: 1.23;
 
-
   ${size.M} {
     width: 336px;
   }
@@ -28,13 +27,13 @@ const TableHead = styled.thead`
   align-items: center;
   position: sticky;
   top: 0;
+  z-index: 2;
 `;
 
 const Tableth = styled.th`
   text-align: left;
   padding: 0 20px;
   text-align: ${({ ta }) => (ta ? ta : "left")};
-  
 
   :first-child {
     border-top-left-radius: 30px;
@@ -118,7 +117,7 @@ export const StatisticsTable = ({
   currentType,
 }) => {
   return (
-      <Table>
+    <Table>
       <TableHead>
         <tr>
           <Tableth>Категория</Tableth>
@@ -126,28 +125,28 @@ export const StatisticsTable = ({
         </tr>
       </TableHead>
       <tbody>
-        {statistics.categories.map((stat) => (
-          <TableTr key={stat.category}>
-            <TableCat bgc={stat.color}>{stat.category}</TableCat>
-            <TableSum>{stat.categorySum}</TableSum>
-          </TableTr>
-        ))}
+        {statistics.categories &&
+          statistics?.categories?.map((stat) => (
+            <TableTr key={stat.category}>
+              <TableCat bgc={stat.color}>{stat.category}</TableCat>
+              <TableSum>{stat.categorySum.toFixed(2)}</TableSum>
+            </TableTr>
+          ))}
       </tbody>
       <tfoot>
         <TableFTr onClick={() => handleSetStat(false)} active={!currentType}>
           <TableFTd>Расходы:</TableFTd>
           <TableFTd c="#FF6596" ta="right">
-            {sumExpense}
+            {sumExpense.toFixed(2)}
           </TableFTd>
         </TableFTr>
         <TableFTr onClick={() => handleSetStat(true)} active={currentType}>
           <TableFTd>Доходы:</TableFTd>
           <TableFTd c="#24CCA7" ta="right">
-            {sumIncome}
+            {sumIncome.toFixed(2)}
           </TableFTd>
         </TableFTr>
       </tfoot>
     </Table>
-
   );
 };

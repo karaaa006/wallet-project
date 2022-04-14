@@ -8,6 +8,7 @@ import { fetchNextTransactions } from "../../../redux/operations/financeOperatio
 import { TailSpin } from "react-loader-spinner";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
 import { EmptyWrap } from "../../Common/EmptyWrap";
+import { clearPage } from "../../../redux/reducers/financeSlice";
 
 const MobileTable = styled.table`
   width: 280px;
@@ -45,7 +46,7 @@ const MobileTd = styled.td`
 const ConteinerTable = styled.div`
   max-height: 300px;
   overflow: auto;
-
+  max-width: 1000px;
   /* Scrollbar styles */
 
   ::-webkit-scrollbar {
@@ -159,6 +160,10 @@ export const TransactionsTable = ({ transactions = [] }) => {
     };
     const observer = new IntersectionObserver(handleObserver, option);
     if (loader.current) observer.observe(loader.current);
+
+    return () => {
+      dispatch(clearPage());
+    };
   }, [handleObserver]);
 
   return (

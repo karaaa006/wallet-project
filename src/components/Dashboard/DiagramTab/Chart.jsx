@@ -4,19 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
 import { secondFontFamily, size } from "../../../utils/stylesVars";
 
-const ChartWrap = styled.div`
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
-
-  ${size.M} {
-    margin-left: 0;
-  }
-
-  ${size.L} {
-
-  }
-`;
+const ChartWrap = styled.div``;
 
 const Balance = styled.span`
   top: 50%;
