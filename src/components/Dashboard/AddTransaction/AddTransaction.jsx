@@ -132,16 +132,16 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                 const resAdd = await dispatch(addTransaction(newTransaction));
                 await dispatch(fetchTransactions());
                 if (resAdd.payload?.response?.status === 400) throw new Error(resAdd.payload.response.data.message);
+                if (!loading && !hasError) {
+                  resetForm();
+                  reset();
+                  closeModal();
+                }
               } catch (e) {
                 (e.message === "Insufficient funds") 
                 ? toast.error("Не хватает средств", { toastId: "Insufficient funds" })
                 : toast.error("Ошибка на сервере", { toastId: "Error on server" })
               } 
-              if (!loading && !hasError) {
-                resetForm();
-                reset();
-                closeModal();
-              }
             }
             AddTtansaction();
 
