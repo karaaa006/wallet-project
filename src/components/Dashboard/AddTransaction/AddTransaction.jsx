@@ -16,6 +16,7 @@ import { api } from "../../../api/api";
 import { DropDown } from "../../Common/DropDown";
 import { toast } from "react-toastify";
 import { size } from "../../../utils/stylesVars";
+import * as Selector from "../../../redux/selectors/financeSelectors"
 
 const InputWrap = styled.div`
   ${size.M} {
@@ -61,7 +62,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
 
   const dispatch = useDispatch();
 
-  const { loading } = useSelector((state) => state.finance);
+  const loading = useSelector(Selector.getFinanceLoading);
+  const hasError = useSelector(Selector.getFinanceHasError);
 
   const onChangeToggle = () => {
     setToggle(!toggle);
@@ -84,27 +86,21 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
     if (categories.length === 0) getCategories();
   }, [modalIsOpen]);
 
-  const notify = (text) => {
-    toast.warn(text, {
-      toastId: "252",
-    });
-  };
-
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
-      .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))
-      .min(0.01, () =>
-        toast.warn("Сумма должна быть больше 0", { toastId: ">0" })
-      ),
-    comment: Yup.string().max(20, () =>
-      toast.warn("Максимальная длина комментария 20 символов", {
-        toastId: "<20",
-      })
-    ),
+      .required(() => notify("Введите сумму"))
+      .min(0.01, () => notify("Сумма должна быть больше 0")),
+    comment: Yup.string().max(20, () => notify("Максимальная длина комментария 20 символов")),
     // date: Yup.date()
-    //   .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
-    //   .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
+    //   .required(() => notify("Выберите дату"))
+    //   .max(localDate, () => notify("Выбранная дата ещё не наступила")),
   });
+
+  const notify = (text) => {
+    toast.warn(text, {
+      toastId: text,
+    });
+  };
 
   return (
     <>
@@ -119,8 +115,10 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
       />
       <Formik
         initialValues={{ amount: "", comment: "", date: localDate }}
-        validateOnChange
+        validateOnChange={false}
+        validateOnBlur={false}
         onSubmit={(values, { resetForm }) => {
+          if (values.amount > 0)
           if (selectedCategory !== defaultValueSelected) {
             const newTransaction = {
               amount: values.amount,
@@ -128,18 +126,26 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               category: selectedCategory._id,
               isExpense: selectedCategory.isExpense,
             };
-
+            
             async function AddTtansaction() {
-              await dispatch(addTransaction(newTransaction)).unwrap();
-              await dispatch(fetchTransactions()).unwrap();
-              if (!loading) {
+              try {
+                const resAdd = await dispatch(addTransaction(newTransaction));
+                await dispatch(fetchTransactions());
+                if (resAdd.payload?.response?.status === 400) throw new Error(resAdd.payload.response.data.message);
+              } catch (e) {
+                (e.message === "Insufficient funds") 
+                ? toast.error("Не хватает средств", { toastId: "Insufficient funds" })
+                : toast.error("Ошибка на сервере", { toastId: "Error on server" })
+              } 
+              if (!loading && !hasError) {
                 resetForm();
                 reset();
                 closeModal();
               }
             }
             AddTtansaction();
-          } else notify("Выберите категорию");
+
+          } else toast.warn("Выберите категорию", { toastId: "Select category" });
         }}
         validationSchema={validationSchema}
       >

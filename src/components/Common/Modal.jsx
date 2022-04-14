@@ -13,6 +13,10 @@ const Backdrop = styled.div`
   z-index: 2;
 
   background-color: rgba(0, 0, 0, 0.25);
+
+  @media screen and (max-width: 767px) {
+    background-color: #ffffff;
+  }
 `;
 const ModalWrap = styled.div`
   position: absolute;
@@ -34,6 +38,8 @@ const ModalWrap = styled.div`
 
   @media screen and (max-width: 767px) {
     width: 100vw;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
     padding: 20px 20px 40px 20px;
   }
 `;
