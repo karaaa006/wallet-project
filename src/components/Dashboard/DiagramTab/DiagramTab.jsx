@@ -6,7 +6,7 @@ import { size } from "../../../utils/stylesVars";
 import { DropDown } from "../../Common/DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
-import { EmptyWrap } from "../../Common/EmptyWrap";
+import { Empty } from "../../Common/Empty";
 import { TailSpin } from "react-loader-spinner";
 
 const DiagramTabWrap = styled.div`
@@ -181,7 +181,7 @@ export const DiagramTab = () => {
             />
           </DropDownWrap>
 
-          <EmptyWrap />
+          <Empty />
         </>
       )}
     </>

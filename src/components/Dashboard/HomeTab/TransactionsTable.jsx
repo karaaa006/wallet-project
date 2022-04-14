@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchNextTransactions } from "../../../redux/operations/financeOperations";
 import { TailSpin } from "react-loader-spinner";
 import useMediaQuery from "../../../Hooks/useMediaQuery";
-import { EmptyWrap } from "../../Common/EmptyWrap";
+import { Empty } from "../../Common/Empty";
 import { clearPage } from "../../../redux/reducers/financeSlice";
 
 const MobileTable = styled.table`
@@ -307,7 +307,7 @@ export const TransactionsTable = ({ transactions = [] }) => {
         </>
       )}
 
-      {!transactions.length && !loading && <EmptyWrap />}
+      {!transactions.length && !loading && <Empty />}
     </div>
   );
 };
