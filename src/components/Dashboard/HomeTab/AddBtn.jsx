@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 import { accentCl, size } from "../../../utils/stylesVars";
 import plus from "../../../images/icons/plus.svg";
-import { Modal } from "../../Common/Modal";
 
 const PlusIcon = styled.img``;
 
 const AddButton = styled.button`
   position: sticky;
   bottom: 20px;
+  right: 20px;
   align-self: flex-end;
   width: 44px;
   height: 44px;
@@ -26,8 +26,11 @@ const AddButton = styled.button`
   :focus {
     background-color: #14be99;
   }
+
   ${size.M} {
     position: absolute;
+    bottom: 40px;
+    right: 40px;
   }
 `;
 
