@@ -117,7 +117,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
         initialValues={{ amount: "", comment: "", date: localDate }}
         validateOnChange={false}
         validateOnBlur={false}
-        onSubmit={(values, { resetForm, isValid }) => {
+        onSubmit={(values, { resetForm }) => {
+          if (values.amount > 0)
           if (selectedCategory !== defaultValueSelected) {
             const newTransaction = {
               amount: values.amount,
@@ -142,13 +143,13 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                 closeModal();
               }
             }
-            if (isValid) AddTtansaction();
-          
+            AddTtansaction();
+
           } else toast.warn("Выберите категорию", { toastId: "Select category" });
         }}
         validationSchema={validationSchema}
       >
-        {({ values, handleChange, handleBlur, handleSubmit, handleReset, isValid }) => (
+        {({ values, handleChange, handleBlur, handleSubmit, handleReset }) => (
           <>
             <InputWrap>
               <Input
