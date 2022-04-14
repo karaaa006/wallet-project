@@ -1,6 +1,6 @@
 import { TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
-import { accentCl, secondCl } from "../utils/stylesVars";
+import { accentCl, secondCl } from "../../utils/stylesVars";
 
 const StyledButton = styled.button`
   margin: ${({ m }) => (m ? m : "0")};
@@ -32,9 +32,6 @@ const StyledButton = styled.button`
   }
 
   transition: border ease 250ms, background-color ease 250ms, color ease 250ms;
-
-  @media screen and (max) {
-  }
 `;
 
 const SpinerWrap = styled.div`

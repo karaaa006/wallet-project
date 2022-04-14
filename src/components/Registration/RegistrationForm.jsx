@@ -5,18 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { validate } from "indicative/validator";
 import { toast } from "react-toastify";
 
-import { Button } from "./Button";
-import { Input } from "./Input";
-import { StyledForm } from "./StyledForm";
-import { ButtonsWrap } from "./ButtonsWrap";
-import { FormNotificationWrap } from "./FormNotificatinWrap";
-import { FormStatusbar } from "./FormStatusbar";
-import { TextNotification } from "./TextNotification";
+import { Button } from "../Common/Button";
+import { Input } from "../Utils/Input";
+import { StyledForm } from "../Utils/StyledForm";
+import { ButtonsWrap } from "../Utils/ButtonsWrap";
+import { FormStatusbar } from "../Common/FormStatusbar";
+import { TextNotification } from "../Common/TextNotification";
 
-import mail from "../images/icons/mail.svg";
-import lock from "../images/icons/lock.svg";
-import account from "../images/icons/account.svg";
-import { fetchRegistration } from "../redux/operations/userOperations";
+import mail from "../../images/icons/mail.svg";
+import lock from "../../images/icons/lock.svg";
+import account from "../../images/icons/account.svg";
+import { fetchRegistration } from "../../redux/operations/userOperations";
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ export const RegistrationForm = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
- 
+
   const [registrationPermission, setRegistrationPermission] = useState(false);
   const [
     passwordConfirmationNotification,
@@ -35,31 +34,30 @@ export const RegistrationForm = () => {
 
   const [nameNotification, setNameNotification] = useState("");
   const [emailValidation, setEmailValidation] = useState(false);
-  const [passwordValidation, setPasswordValidation] = useState("")
- 
-  const {isLoading, errorMessage} = useSelector
+  const [passwordValidation, setPasswordValidation] = useState("");
+
+  const { isLoading} = useSelector((state) => state.user);
 
   const rules = {
     email: "email",
   };
 
   const validateEmail = async () => {
-    try{
-      await validate({email},rules)
-      setEmailValidation(true)
+    try {
+      await validate({ email }, rules);
+      setEmailValidation(true);
     } catch (e) {
-      setEmailValidation(false)
+      setEmailValidation(false);
     }
-  }
+  };
 
   const validatePassword = (result) => {
-    setPasswordValidation(result)
-  }
+    setPasswordValidation(result);
+  };
 
   useEffect(() => {
-    validateEmail()
+    validateEmail();
   }, [email]);
-
 
   useEffect(() => {
     if (password.length === 0 || passwordConfirmation.length === 0) {
@@ -102,10 +100,9 @@ export const RegistrationForm = () => {
     setRegistrationPermission(false);
   });
 
-
   const onSubmit = async () => {
     try {
-      dispatch(fetchRegistration({ name, email, password }))
+      dispatch(fetchRegistration({ name, email, password }));
     } catch (e) {
       e.forEach((item) => toast.error(item.message));
       console.log(e);
@@ -124,7 +121,7 @@ export const RegistrationForm = () => {
           setValue={setEmail}
         />
 
-        <FormNotificationWrap>
+
           <Input
             placeholder={"Пароль"}
             icon={lock}
@@ -132,14 +129,13 @@ export const RegistrationForm = () => {
             type="password"
             value={password}
             setValue={setPassword}
-          />
-          <FormStatusbar
+          >
+            <FormStatusbar
             password={password}
             validatePassword={validatePassword}
-          ></FormStatusbar>
-        </FormNotificationWrap>
+            ></FormStatusbar>
+          </Input>
 
-        <FormNotificationWrap>
           <Input
             placeholder={"Подтвердите пароль"}
             icon={lock}
@@ -147,13 +143,12 @@ export const RegistrationForm = () => {
             type="password"
             value={passwordConfirmation}
             setValue={setPasswordConfirmation}
-          />
-          <TextNotification visibility={passwordConfirmationNotification}>
+          >
+            <TextNotification visibility={passwordConfirmationNotification}>
             Введенные пароли не совпадают
-          </TextNotification>
-        </FormNotificationWrap>
+            </TextNotification>
+          </Input>
 
-        <FormNotificationWrap>
           <Input
             placeholder={"Ваше имя"}
             icon={account}
@@ -161,11 +156,11 @@ export const RegistrationForm = () => {
             type="text"
             value={name}
             setValue={setName}
-          />
-          <TextNotification visibility={nameNotification}>
-            Имя должно быть короче 12 символов
-          </TextNotification>
-        </FormNotificationWrap>
+          >
+            <TextNotification visibility={nameNotification}>
+              Имя должно быть короче 12 символов
+            </TextNotification>
+          </Input>
 
         <ButtonsWrap>
           <Button

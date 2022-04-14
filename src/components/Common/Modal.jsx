@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
-import close from "../images/icons/close.svg";
+import close from "../../images/icons/close.svg";
+import { size } from "../../utils/stylesVars";
 
 const Backdrop = styled.div`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
@@ -15,11 +16,14 @@ const Backdrop = styled.div`
 `;
 const ModalWrap = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 40px 80px;
-  border-radius: 20px;
+
+  ${size.M} {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 75px;
+    border-radius: 20px;
+  }
   display: flex;
   flex-direction: ${({ direction }) => direction || "column"};
   flex-direction: ${({ align }) => align || "center"};
@@ -27,6 +31,11 @@ const ModalWrap = styled.div`
   width: ${({ w }) => w || "auto"};
   height: ${({ h }) => h || "auto"};
   background-color: #ffffff;
+
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    padding: 20px 20px 40px 20px;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -39,13 +48,26 @@ const CloseButton = styled.button`
 
   cursor: pointer;
 `;
-const CloseIcon = styled.img``;
+const CloseIcon = styled.img`
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+`;
 
 const Title = styled.h2`
   font-size: 30px;
+  line-height: 45px;
   font-weight: 400;
-  margin: 0 0 40px 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: ${({ mb }) => mb || "40px"};
   text-align: center;
+
+  @media screen and (max-width: 767px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
 `;
 
 export const Modal = ({
@@ -55,6 +77,7 @@ export const Modal = ({
   title,
   w,
   h,
+  mb = 40,
   justify,
   align,
   direction,
@@ -68,6 +91,14 @@ export const Modal = ({
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
   }, []);
+
+  useEffect(() => {
+     if (isOpen && document.documentElement.clientWidth < 768) {
+       document.body.style.overflow = 'hidden';
+       window.scrollTo(0,0);
+     }
+     return ()=> document.body.style.overflow = 'unset';
+  }, [isOpen]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -87,7 +118,7 @@ export const Modal = ({
         <CloseButton onClick={handleClose}>
           <CloseIcon src={close} />
         </CloseButton>
-        {title && <Title>{title}</Title>}
+        {title && <Title mb={mb}>{title}</Title>}
         {children}
       </ModalWrap>
     </Backdrop>

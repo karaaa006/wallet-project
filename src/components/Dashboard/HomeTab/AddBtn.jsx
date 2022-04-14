@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-import { accentCl } from "../../../utils/stylesVars";
+import { accentCl, size } from "../../../utils/stylesVars";
 import plus from "../../../images/icons/plus.svg";
-import { Modal } from "../../Modal";
+import { Modal } from "../../Common/Modal";
 
 const PlusIcon = styled.img``;
 
 const AddButton = styled.button`
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
+  position: sticky;
+  bottom: 20px;
+  align-self: flex-end;
   width: 44px;
   height: 44px;
   display: flex;
@@ -19,11 +19,15 @@ const AddButton = styled.button`
   border: none;
   border-radius: 50%;
   padding: 0;
+  box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
   cursor: pointer;
 
   :hover,
   :focus {
     background-color: #14be99;
+  }
+  ${size.M} {
+    position: absolute;
   }
 `;
 

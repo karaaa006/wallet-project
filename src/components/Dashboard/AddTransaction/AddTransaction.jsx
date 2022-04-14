@@ -1,184 +1,214 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Button } from "../../Button";
-import { ButtonsWrap } from "../../ButtonsWrap";
-import { Input } from "../../Input";
+import { useDispatch } from "react-redux";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { Button } from "../../Common/Button";
+import { ButtonsWrap } from "../../Utils/ButtonsWrap";
+import { Input } from "../../Utils/Input";
 import { Toggle } from "./Toggle";
-import { Select } from "./Select";
-import iconDate from '../../../images/icons/date.svg'
-import iconSelect from '../../../images/icons/select.svg'
-import { addTransaction } from '../../../redux/operations/financeOperations'
+import iconDate from "../../../images/icons/date.svg";
+import { addTransaction, fetchTransactions } from "../../../redux/operations/financeOperations";
 import { api } from "../../../api/api";
-import { DropDown } from "../../DropDown";
-
-const SchemaYup = Yup.object({
-  // selected: Yup.number('Выберите категорию').required('Выберите категорию'),
-  amount: Yup.number('Введите сумму').required('Введите сумму'),
-  comment: Yup.string('Коментарий')
-    .max(10, 'Ваш комментарий слишком велик')
-});
-
-const Calendar = styled(Input)`
-`
+import { DropDown } from "../../Common/DropDown";
+import { toast } from "react-toastify";
+import { size } from "../../../utils/stylesVars";
 
 const InputWrap = styled.div`
+  ${size.M} {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 30px;
+  }
 `;
 
-const SelectorIcon = styled.img`
-position: absolute;
-pointer-events: none;
-top: 215px;
-left: 425px;
-z-index: 0;
-cursor: pointer;
+const CalendarWrap = styled.div`
+  position: relative;
 `;
 
 const DateIcon = styled.img`
-pointer-events: none;
-position: absolute;
-top: 278px;
-left: 412px;
-background-color: #fff;
-cursor: pointer;
+  pointer-events: none;
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  background-color: #fff;
+  /* cursor: pointer; */
 `;
 
 const defaultValueSelected = "Выберите категорию";
-const optionsIncome = [];
-const optionsExpense = [];
 
-let localDate = new Date().toISOString().split('T')[0];
+let localDate = new Date().toLocaleDateString();
 
-export const AddTransaction = ({modalIsOpen, closeModal}) => {
-    const [amount, setAmount] = useState();
-    const [comment, setComment] = useState("");
-    const [date, setDate] = useState(localDate);
-    const [selected, setSelected] = useState(defaultValueSelected);
-    const [toggle, setToggle] = useState(true);
-    const [categories, setCategories] = useState([]);
+export const AddTransaction = ({ modalIsOpen, closeModal }) => {
+  const [selectedCategory, setSelectedCategory] =
+    useState(defaultValueSelected);
+  const [toggle, setToggle] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [optionsIncome, setOptionsIncome] = useState([]);
+  const [optionsExpense, setOptionsExpense] = useState([]);
 
-    const dispatch = useDispatch();
-
-    const onChangeToggle = () => {
-      setToggle(!toggle);
-      setSelected(defaultValueSelected);
-    };
-    const onChangeSelected = (event) => setSelected(event.target.value)
-    
-    const onSubmit = event => {
-      event.preventDefault();
-      console.log(newTransaction);
-      dispatch(addTransaction(newTransaction));
-      closeModal();
-    };
-
-    const newTransaction = {
-      "isExpense": toggle,
-      "category": selected,
-      "amount": Number.parseFloat(amount),
-      comment,
+  const reset = () => {
+    setSelectedCategory(defaultValueSelected);
+    const refCheckBox = document.getElementById("toggleTypeTransaction");
+    if (refCheckBox.checked) {
+      refCheckBox.click();
+      setToggle(true);
     }
+  };
 
-    useEffect(() => {
-      const getCategories = async () => {
-        const data = await api.categories.getCategories()
-        console.log("add", data);
-        setCategories([...data]);
-      };
-      if (categories.length===0) getCategories();
+  const dispatch = useDispatch();
 
-    }, [modalIsOpen]);
+  const onChangeToggle = () => {
+    setToggle(!toggle);
+    setSelectedCategory(defaultValueSelected);
+  };
 
-    useEffect(() => {
-      if (categories.length!==0)
-      for (let i=0; i<categories.length; i+=1)
-        {
-          (categories[i].isExpense)
-          ? optionsExpense.push(categories[i]) 
-          : optionsIncome.push(categories[i])
-        }
-    }, [categories]);
+  useEffect(() => {
+    const getCategories = async () => {
+      const data = await api.categories.getCategories();
 
+      data.forEach((item) =>
+        item.isExpense
+          ? setOptionsExpense((prev) => [...prev, item])
+          : setOptionsIncome((prev) => [...prev, item])
+      );
 
-    return (
-        <>
-        <Toggle active={toggle} onChange={onChangeToggle} />
-        <Select 
-          defaultValue={defaultValueSelected}
-          options={toggle ? optionsExpense : optionsIncome} 
-          categories={categories} 
-          onChange={onChangeSelected} 
-          required
-        /> 
-        <SelectorIcon src={iconSelect}/>
-        {/* <DropDown
-          options={toggle ? optionsExpense : optionsIncome} 
-          selectedOption={selected}
-          setSelectedOption={setSelected}
-          placeholder="Выберите категорию"
-          underline
-        /> */}
-        
-        <form onSubmit={onSubmit}>
-        <InputWrap>
-          <Input
-          placeholder="0.00"
-          w="181px"
-          mb="40px"
-          type="number"
-          name="amount"
-          value={amount}
-          setValue={setAmount}
-          required
-          />
+      setCategories([...data]);
+    };
 
-          <Calendar
-          w="181px"
-          mb="40px"
-          type="date"
-          name="date"
-          value={date}
-          setValue={setDate}
-          required
-          /> 
-          <DateIcon src={iconDate}/>
+    if (categories.length === 0) getCategories();
+  }, [modalIsOpen]);
 
-        </InputWrap>
-        <Input
-          placeholder="Комментарий"
-          mb="40px"
-          type="text"
-          name="comment"
-          value={comment}
-          setValue={setComment}
-        />
-        <ButtonsWrap>
-          <Button
-            type="submit"
-            accent
-            w="100%"
-            mw="300px"
-            h="50px"
-            m="0 0 20px 0"
-            p="0"
-          >
-            ДОБАВИТЬ
-          </Button>
-          <Button
-            w="100%"
-            mw="300px"
-            h="50px"
-            onClick={closeModal}
-          >
-            ОТМЕНА
-          </Button>
-        </ButtonsWrap>        
-        </form>
-      </>
-    )
-}
+  const notify = (text) => {
+    toast.warn(text, {
+      toastId: "252",
+    });
+  };
+
+  const validationSchema = Yup.object().shape({
+    amount: Yup.number()
+      .required(() => toast.warn("Введите сумму", { toastId: "Sum" }))
+      .min(0.01, () =>
+        toast.warn("Сумма должна быть больше 0", { toastId: ">0" })
+      ),
+    comment: Yup.string().max(20, () =>
+      toast.warn("Максимальная длина комментария 20 символов", {
+        toastId: "<20",
+      })
+    ),
+    // date: Yup.date()
+    //   .required(() => toast.warn("Выберите дату", { toastId: "select date" }))
+    //   .max(localDate, () => toast.warn("Выбранная дата ещё не наступила", { toastId: "future" })),
+  });
+
+  return (
+    <>
+      <Toggle active={toggle} onChange={onChangeToggle} />
+      <DropDown
+        options={toggle ? optionsExpense : optionsIncome}
+        selectedOption={selectedCategory}
+        setSelectedOption={setSelectedCategory}
+        placeholder="Выберите категорию"
+        underline
+        mWrap="0 0 40px 0"
+      />
+      <Formik
+        initialValues={{ amount: "", comment: "", date: localDate }}
+        validateOnChange
+        onSubmit={(values, { resetForm }) => {
+          if (selectedCategory !== defaultValueSelected) {
+            const newTransaction = {
+              amount: values.amount,
+              comment: values.comment,
+              category: selectedCategory._id,
+              isExpense: selectedCategory.isExpense,
+            };
+
+            async function AddTtansaction () {
+            resetForm();
+            reset();
+            closeModal();
+            await dispatch(addTransaction(newTransaction)).unwrap();
+            await dispatch(fetchTransactions()).unwrap();
+            }
+            AddTtansaction();
+          } else notify("Выберите категорию");
+        }}
+        validationSchema={validationSchema}
+      >
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          handleReset,
+        }) => (
+          <>
+            <InputWrap>
+              <Input
+                type="number"
+                name="amount"
+                placeholder="0.00"
+                value={values.amount}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                mb="40px"
+                minV="0.01"
+                step="10"
+              />
+              <CalendarWrap>
+                <Input
+                  type="text"
+                  name="date"
+                  value={values.date}
+                  onChange={() => null}
+                  onBlur={handleBlur}
+                  mb="40px"
+                  readonly
+                />
+                <DateIcon src={iconDate} />
+              </CalendarWrap>
+            </InputWrap>
+
+            <Input
+              type="text"
+              name="comment"
+              placeholder="Комментарий"
+              value={values.comment}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              mb="40px"
+            />
+
+            <ButtonsWrap>
+              <Button
+                type="submit"
+                accent
+                w="100%"
+                mw="300px"
+                h="50px"
+                m="0 0 20px 0"
+                p="0"
+                onClick={handleSubmit}
+              >
+                ДОБАВИТЬ
+              </Button>
+              <Button
+                w="100%"
+                mw="300px"
+                h="50px"
+                onClick={() => {
+                  reset();
+                  handleReset();
+                  closeModal();
+                }}
+              >
+                ОТМЕНА
+              </Button>
+            </ButtonsWrap>
+          </>
+        )}
+      </Formik>
+    </>
+  );
+};

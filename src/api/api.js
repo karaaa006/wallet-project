@@ -51,17 +51,20 @@ export const api = {
       return data;
     },
     registration: async (registrationData) => {
-        const { data } = await axios.post("/users", registrationData);
+      const { data } = await axios.post("/users", registrationData);
 
-        apiTokenConfig.set(data.token);
+      apiTokenConfig.set(data.token);
 
-        return data;
-    }
+      return data;
+    },
   },
   transactions: {
-    getTransactions: async () => {
+    getTransactions: async (page = 1, size = 5) => {
       try {
-        const { data } = await axios.get("/transactions");
+        const { data } = await axios.get("/transactions", {
+          params: { page, size },
+        });
+
         return data;
       } catch (e) {
         console.log(e);
@@ -70,17 +73,25 @@ export const api = {
     addTransaction: async (transactionData) => {
       try {
         const { data } = await axios.post("/transactions", transactionData);
-        return data;
 
+        return data;
       } catch (e) {
         console.log(e);
       }
+    },
+    getStatistics: async ({ month, year }) => {
+      const { data } = await axios.get("/transactions/statistics", {
+        params: { month, year },
+      });
+
+      return data;
     },
   },
   categories: {
     getCategories: async () => {
       try {
         const { data } = await axios.get("/categories");
+
         return data;
       } catch (e) {
         console.log(e);

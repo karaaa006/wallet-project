@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { secondFontFamily } from "../utils/stylesVars";
+import { secondFontFamily, size } from "../../utils/stylesVars";
 
-import LogoSVG from "../images/logo.svg";
+import LogoSVG from "../../images/logo.svg";
 
 const FormWrap = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const FormWrap = styled.div`
 
   background-color: #ffffff;
 
-  @media screen and (min-width: 768px) {
+  ${size.M} {
     width: 550px;
     height: auto;
     border-radius: 20px;
@@ -38,7 +38,7 @@ const LogoImg = styled.img`
   height: 30px;
   margin-right: 15px;
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     width: 40px;
     height: 40px;
     margin-right: 20px;
@@ -50,7 +50,7 @@ const LogoText = styled.div`
   font-weight: 700;
   font-size: 25px;
 
-  @media screen and (min-width: 1280px) {
+  ${size.L} {
     font-size: 30px;
   }
 `;

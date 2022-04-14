@@ -1,16 +1,24 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { Modal } from "../../../components/Modal";
+import { Modal } from "../../Common/Modal";
 import { TransactionsTable } from "./TransactionsTable";
 import { AddBtn } from "./AddBtn";
-import { DropDown } from "../../DropDown";
 import { getFinance } from "../../../redux/selectors/financeSelectors";
-import {AddTransaction} from "../AddTransaction/AddTransaction"
+import { AddTransaction } from "../AddTransaction/AddTransaction";
+import Balance from "../SideBar/Balance";
+import Media from "react-media";
 
 const MainTab = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
+  @media screen and (max-width: 767px) {
+    & div:first-of-type {
+      margin-bottom: 32px;
+    }
+  }
 `;
 
 export const HomeTab = () => {
@@ -20,14 +28,14 @@ export const HomeTab = () => {
   };
   const closeModal = () => {
     setModalIsOpen(false);
-  }; 
-  
-  const [selectedOption, setSelectedOption] = useState({});
+  };
+
   const transactions = useSelector(getFinance);
 
   return (
     <>
       <MainTab>
+        <Media query="(max-width: 767px)" render={() => <Balance />} />
         <TransactionsTable transactions={transactions} />
         <AddBtn onClick={handleClick} />
       </MainTab>
@@ -36,8 +44,10 @@ export const HomeTab = () => {
         setIsOpen={setModalIsOpen}
         justify="start"
         title="Добавить транзакцию"
+        mb="20px"
+        w="540px"
       >
-        <AddTransaction modalIsOpen={modalIsOpen} closeModal={closeModal}/>
+        <AddTransaction modalIsOpen={modalIsOpen} closeModal={closeModal} />
       </Modal>
     </>
   );

@@ -7,6 +7,10 @@ const ToggleWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: baseline;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  /* margin-bottom: 20px; */
+  cursor: pointer;
 `
 
 const TextBeforeToggle = styled.p`
@@ -20,7 +24,6 @@ const TextAfterToggle = styled.p`
 const StyledToggle = styled.label`
 margin-left: 20px;
 margin-right: 20px;
-margin-bottom: 44px;
 position: relative;
 top: -10px;
 display: inline-block;
@@ -28,6 +31,7 @@ width: 80px;
 height: 40px;
 border: 1px solid Gray;
 border-radius: 20px;
+pointer-events: none;
 
 input {
 opacity: 0;
@@ -59,10 +63,10 @@ input:checked + .slider:after {
 
 export const Toggle = ({active, onChange}) => {
 return (
-    <ToggleWrap>
+    <ToggleWrap onClick={()=>document.getElementById("toggleTypeTransaction").click()} >
       <TextBeforeToggle active={active}>Доход</TextBeforeToggle>
       <StyledToggle>
-        <input type="checkbox" onChange={(e) => {onChange()}} />
+        <input id="toggleTypeTransaction" type="checkbox" onChange={(e) => {onChange()}} />
         <span className="slider"/>
       </StyledToggle>
       <TextAfterToggle active={active} >Расход</TextAfterToggle>

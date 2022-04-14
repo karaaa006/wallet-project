@@ -1,11 +1,26 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
-import { DropDown } from "../../DropDown";
+import { fetchStatistics } from "../../../redux/operations/financeOperations";
+import { size } from "../../../utils/stylesVars";
+import { DropDown } from "../../Common/DropDown";
 import { Chart } from "./Chart";
 import { StatisticsTable } from "./StatisticsTable";
+import { EmptyWrap } from "../../Common/EmptyWrap";
+import { TailSpin } from "react-loader-spinner";
+
+const DiagramTabWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  ${size.M} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  ${size.M} {
+  }
+`;
 
 import { generateColor } from "../../../utils/generateColor";
 
@@ -16,152 +31,87 @@ axios.defaults.baseURL = BASE_URL;
 // --------------Стилі
 const DropDownWrap = styled.div`
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 20px;
+  max-width: 280px;
+  gap: 20px;
+
+  ${size.M} {
+    gap: 16px;
+    flex-direction: row;
+    max-width: 280px;
+  }
+
+  ${size.L} {
+    gap: 32px;
+    max-width: 395px;
+    margin-top: 57px;
+  }
+`;
+
+const Loader = styled.div``;
+
+const SpinerWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TableWrap = styled.div``;
 
-//  ______________________Для пропсов диаграммы прокидываем объет такого формата,
-//  в котором обязательно должны быть category, categorySum, color, totalSum__________________
-// const statistics = {
-//   categories: [
-//     {
-//       category: "Продукты",
-//       categorySum: 2050,
-//       color: " rgba(254, 208, 87, 1)",
-//     },
-//     {
-//       category: "Ежемесячные расходы",
-//       categorySum: 500,
-//       color: "rgba(253, 148, 152, 1)",
-//     },
-//     {
-//       category: "Авто",
-//       categorySum: 7800,
-//       color: "rgba(36, 204, 167, 1)",
-//     },
-//   ],
-//   totalSum: 10350,
-// };
-
-// Основные расходы-- #FED057
-// Продукты-- #FFD8D0
-// Машина-- #FD9498
-// Забота о себе-- #C5BAFF
-// Забота о детях-- #6E78E8
-// Товары для дома-- #4A56E2
-// Образование-- #81E1FF
-// Досуг-- #24CCA7
-// Другие расходы-- #00AD84
-
-const mounth = [
-  { name: "Январь", id: 1 },
-  { name: "Февраль", id: 2 },
-  { name: "Март", id: 3 },
-  { name: "Апрель", id: 4 },
-  { name: "Май", id: 5 },
-  { name: "Июнь", id: 6 },
-  { name: "Июль", id: 7 },
-  { name: "Август", id: 8 },
-  { name: "Сентябрь", id: 9 },
-  { name: "Октябрь", id: 10 },
-  { name: "Ноябрь", id: 11 },
-  { name: "Декабрь", id: 12 },
-];
-
-const years = [
-  { name: "2022", id: 2022 },
-  { name: "2021", id: 2021 },
-  { name: "2020", id: 2020 },
-  { name: "2019", id: 2019 },
-  { name: "2018", id: 2018 },
-  { name: "2017", id: 2017 },
-  { name: "2016", id: 2016 },
-  { name: "2015", id: 2015 },
-  { name: "2014", id: 2014 },
-  { name: "2013", id: 2013 },
-  { name: "2012", id: 2012 },
-  { name: "2011", id: 2011 },
-];
-
 export const DiagramTab = () => {
-  const [m, setM] = useState(new Date().getMonth() + 1);
-  const [y, setY] = useState(new Date().getFullYear());
+  const dispatch = useDispatch();
+  const loader = useRef(null);
 
-  const [revenueCategories, setRevenueCategories] = useState([]);
-  const [expensesCategories, setExpensesCategories] = useState([]);
-  const [totalSumExp, setTotalSumExp] = useState(0);
-  const [totalSumRev, setTotalSumRev] = useState(0);
+  const mounth = [
+    { name: "Январь", id: 1 },
+    { name: "Февраль", id: 2 },
+    { name: "Март", id: 3 },
+    { name: "Апрель", id: 4 },
+    { name: "Май", id: 5 },
+    { name: "Июнь", id: 6 },
+    { name: "Июль", id: 7 },
+    { name: "Август", id: 8 },
+    { name: "Сентябрь", id: 9 },
+    { name: "Октябрь", id: 10 },
+    { name: "Ноябрь", id: 11 },
+    { name: "Декабрь", id: 12 },
+  ];
+  const years = [
+    { name: "2022", id: 1 },
+    { name: "2021", id: 2 },
+    { name: "2020", id: 3 },
+    { name: "2019", id: 4 },
+    { name: "2018", id: 5 },
+    { name: "2017", id: 6 },
+    { name: "2016", id: 7 },
+    { name: "2015", id: 8 },
+    { name: "2014", id: 9 },
+    { name: "2013", id: 10 },
+    { name: "2012", id: 11 },
+    { name: "2011", id: 12 },
+  ];
 
   // стейт для дропдаунів
   const [selectedMounth, setSelectedMounth] = useState({});
   const [selectedYear, setSelectedYear] = useState({});
+  const [currentType, setCurrentType] = useState(false);
+  const [dataAvalible, setDataAvalible] = useState(false);
 
-  const fetchStatistics = async ({ m, y }) => {
-    try {
-      const { data } = await axios.get(
-        `/transactions/statistics?month=${m}&year=${y}`
-      );
-      separateStatistics(data);
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
-
-  const addColor = (name) => {
-    switch (name) {
-      case "Основные расходы":
-        return "#FED057";
-      case "Еда":
-        return "#FFD8D0";
-      case "Машина":
-        return "#FD9498";
-      case "Развитие":
-        return "#C5BAFF";
-      case "Забота о детях":
-        return "#6E78E8";
-      case "Товары для дома":
-        return "#4A56E2";
-      case "Образование":
-        return "#81E1FF";
-      case "Досуг":
-        return "#24CCA7";
-      case "Остальные":
-        return "#00AD84";
-      default:
-        return generateColor();
-    }
-  };
-
-  const separateStatistics = (data) => {
-    if (Array.isArray(data)) {
-      setRevenueCategories(
-        data.filter((item) => !item.isExpense)[0].categories
-      );
-      setExpensesCategories(
-        data.filter((item) => item.isExpense)[0].categories
-      );
-      setTotalSumRev(data.filter((item) => !item.isExpense)[0].totalSum);
-      setTotalSumExp(data.filter((item) => item.isExpense)[0].totalSum);
-    }
-  };
+  const { expense, revenue } = useSelector((state) => state.finance.statistics);
+  const { loading } = useSelector((state) => state.finance);
 
   useEffect(() => {
-    const getStatistics = async () => await fetchStatistics({ m, y });
-    getStatistics();
-  }, []);
-
-  useEffect(() => {
-    const newRevenue = revenueCategories?.map((item) => {
-      const color = addColor(item.category);
-      return { ...item, color };
-    });
-    const newExpenses = expensesCategories?.map((item) => {
-      const color = addColor(item.category);
-      return { ...item, color };
-    });
-    setRevenueCategories(newRevenue);
-    setExpensesCategories(newExpenses);
+    dispatch(
+      fetchStatistics({
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear(),
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -169,42 +119,74 @@ export const DiagramTab = () => {
       Object.keys(selectedMounth).length > 0 &&
       Object.keys(selectedYear).length > 0
     ) {
-      fetchStatistics({ m: selectedMounth.id, y: selectedYear.id });
-      console.log("month", selectedMounth.id);
-      console.log("year", selectedYear.id);
+      dispatch(
+        fetchStatistics({ month: selectedMounth.id, year: selectedYear.name })
+      );
     }
-  }, [selectedMounth.id, selectedYear.id]);
+  }, [selectedMounth, selectedYear]);
 
-  const expensesStatistics = {
-    categories: [...expensesCategories],
-    totalSum: totalSumExp,
-  };
-  const revenueStatistics = {
-    categories: [...revenueCategories],
-    totalSum: totalSumRev,
-  };
+  useState(() => {
+    if (expense || revenue) {
+      setDataAvalible(true);
+      return;
+    }
+    setDataAvalible(false);
+  });
 
+  const handleSetStat = (value) => {
+    if (currentType !== value) {
+      setCurrentType(value);
+    } else {
+      return;
+    }
+  };
   return (
+    // <EmptyWrap/> :
     <>
-      <Chart statistics={expensesStatistics} />
-
-      <TableWrap>
-        <DropDownWrap>
-          <DropDown
-            options={mounth}
-            selectedOption={selectedMounth}
-            setSelectedOption={setSelectedMounth}
-            placeholder="Месяц"
-          />
-          <DropDown
-            options={years}
-            selectedOption={selectedYear}
-            setSelectedOption={setSelectedYear}
-            placeholder="Год"
-          />
-        </DropDownWrap>
-        <StatisticsTable />
-      </TableWrap>
+      {!dataAvalible ? (
+        <EmptyWrap />
+      ) : (
+        <>
+          <DiagramTabWrap>
+            {expense && <Chart statistics={currentType ? revenue : expense} />}
+            <TableWrap>
+              <DropDownWrap>
+                <DropDown
+                  options={mounth}
+                  selectedOption={selectedMounth}
+                  setSelectedOption={setSelectedMounth}
+                  placeholder="Месяц"
+                />
+                <DropDown
+                  options={years}
+                  selectedOption={selectedYear}
+                  setSelectedOption={setSelectedYear}
+                  placeholder="Год"
+                />
+              </DropDownWrap>
+              {expense && (
+                <StatisticsTable
+                  statistics={currentType ? revenue : expense}
+                  sumExpense={expense?.totalSum}
+                  sumIncome={revenue?.totalSum}
+                  handleSetStat={handleSetStat}
+                  currentType={currentType}
+                />
+              )}
+            </TableWrap>
+          </DiagramTabWrap>
+          <Loader ref={loader} />
+          {loading && (
+            <SpinerWrap>
+              <TailSpin
+                color="rgba(0,0,0,0.3)"
+                ariaLabel="loading-indicator"
+                width="35px"
+              />
+            </SpinerWrap>
+          )}
+        </>
+      )}
     </>
   );
 };

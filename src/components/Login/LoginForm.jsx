@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./Button";
-import { Input } from "./Input";
-import { StyledForm } from "./StyledForm";
-import { ButtonsWrap } from "./ButtonsWrap";
+import { Button } from "../Common/Button";
+import { Input } from "../Utils/Input";
+import { StyledForm } from "../Utils/StyledForm";
+import { ButtonsWrap } from "../Utils/ButtonsWrap";
+import { ShowPasswordButton } from "../Common/ShowPasswordButton";
 
-import mail from "../images/icons/mail.svg";
-import lock from "../images/icons/lock.svg";
+import mail from "../../images/icons/mail.svg";
+import lock from "../../images/icons/lock.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLogin } from "../redux/operations/userOperations";
+import { fetchLogin } from "../../redux/operations/userOperations";
 import { validate } from "indicative/validator";
 import { toast } from "react-toastify";
 
@@ -18,12 +19,24 @@ export const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [inputType, setInputType] = useState("password");
 
   const { isLoading } = useSelector((state) => state.user);
 
   const loginSchema = {
     email: "required|email",
     password: "required|min:6|max:12",
+  };
+
+  const switchPasswordVisibility = () => {
+    if (!showPassword) {
+      setShowPassword(true);
+      setInputType("text");
+      return;
+    }
+    setShowPassword(false);
+    setInputType("password");
   };
 
   const handleSubmit = async () => {
@@ -35,12 +48,6 @@ export const LoginForm = () => {
       e.forEach((item) => toast.error(item.message));
       console.log(e);
     }
-
-    // validate({ email, password }, loginSchema)
-    //   .then(() => {
-    //     dispatch(fetchLogin({ email, password }));
-    //   })
-    //   .catch(console.error);
   };
 
   return (
@@ -58,10 +65,15 @@ export const LoginForm = () => {
           placeholder={"Пароль"}
           icon={lock}
           mb="40px"
-          type="password"
+          type={inputType}
           value={password}
           setValue={setPassword}
-        />
+        >
+          <ShowPasswordButton
+            showPassword={showPassword}
+            onClick={switchPasswordVisibility}
+          />
+        </Input>
         <ButtonsWrap>
           <Button
             type="submit"

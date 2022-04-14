@@ -51,7 +51,8 @@ export const Input = ({
   h,
   icon,
   c,
-
+  onChange,
+  name,
   value,
   setValue,
   customInputFunction,
@@ -59,8 +60,12 @@ export const Input = ({
   placeholder,
   type,
   autoComplete = "off",
-
+  onBlur,
   validateSchema,
+  minV,
+  maxV,
+  step,
+  children
 }) => {
   //   const [isValid, setIsValid] = useState(null);
 
@@ -91,9 +96,10 @@ export const Input = ({
   return (
     <InputWrap w={w} m={m} mt={mt} mb={mb} ml={ml} mr={mr}>
       <StyledInput
-        onChange={handleChange}
-        // onBlur={handleBlur}
+        onChange={onChange ? onChange : handleChange}
+        onBlur={onBlur}
         onInput={onInput}
+        name={name}
         value={value}
         p={p}
         ta={ta}
@@ -103,8 +109,12 @@ export const Input = ({
         placeholder={placeholder}
         type={type}
         autoComplete={autoComplete}
+        min={minV}
+        max={maxV}
+        step={step}
       />
       {icon && <Icon src={icon} />}
+      {children}
     </InputWrap>
   );
 };

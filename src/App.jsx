@@ -10,10 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { apiTokenConfig } from "./api/api";
 import { fetchCurrentUser } from "./redux/operations/userOperations";
-import { Loader } from "./components/Loader";
+import { Loader } from "./components/Common/Loader";
 import figure1 from "./images/bg-figure-1.svg";
 import figure2 from "./images/bg-figure-2.svg";
-import { Notify } from "./components/Notify";
+import { Notify } from "./components/Common/Notify";
 
 const Login = lazy(() => import("./pages/LoginPage.jsx"));
 const Registration = lazy(() => import("./pages/RegistrationPage.jsx"));
@@ -25,18 +25,22 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: ${mainFontFamily};
     background-color: #E7EAF2;
     background-image: url(${figure2}), url(${figure1});
     background-repeat: no-repeat;
+    
     background-position: top -200px right -200px, bottom -200px left -200px;
   }
-
+    
   #root{
     display: flex;
     flex-direction: column;
     height: 100%;
+    flex-grow: 1;
   }
 `;
 
@@ -51,6 +55,7 @@ function App() {
 
       dispatch(fetchCurrentUser());
     };
+
     if (token) {
       getUser();
     }

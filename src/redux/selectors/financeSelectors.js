@@ -6,8 +6,9 @@ const getFinanceError = (state) => state.finance.error;
 const getBalance = (state) => {
   if (state?.finance?.financeData?.length > 0) {
     const transactions = getFinance(state);
-    const lastTransaction = transactions[transactions.length - 1];
+    const lastTransaction = transactions[0];
     const balance = lastTransaction.balance;
+
     return balance;
   }
 

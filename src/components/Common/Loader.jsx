@@ -1,4 +1,4 @@
-import { Circles } from "react-loader-spinner";
+import { Circles, TailSpin } from "react-loader-spinner";
 import styled from "styled-components";
 
 const LoaderThumb = styled.div`
@@ -16,7 +16,7 @@ const LoaderThumb = styled.div`
 export const Loader = () => {
   return (
     <LoaderThumb>
-      <Circles color="#24CCA7" height={80} width={80} />
+      <Circles color="rgba(0,0,0,0.3)" height={80} width={80} />
     </LoaderThumb>
   );
 };
