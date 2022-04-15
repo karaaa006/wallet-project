@@ -9,6 +9,9 @@ const ToggleWrap = styled.div`
   align-items: baseline;
   padding-bottom: 20px;
   padding-top: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
   /* margin-bottom: 20px; */
   cursor: pointer;
 `
@@ -25,7 +28,7 @@ const StyledToggle = styled.label`
 margin-left: 20px;
 margin-right: 20px;
 position: relative;
-top: -10px;
+top: -8px;
 display: inline-block;
 width: 80px;
 height: 40px;

@@ -16,6 +16,8 @@ const StyledInput = styled.input`
   padding: ${({ p }) => (p ? p : "8px")};
   padding-left: ${({ icon }) => (icon && "52px")};
   color: ${({ c }) => (c ? c : "#000000")};
+  font-size: ${({ fs }) => (fs)};
+  line-height: ${({ lh }) => (lh)};
   border: none;
   border-bottom: 1px solid #e0e0e0;
 
@@ -51,6 +53,8 @@ export const Input = ({
   h,
   icon,
   c,
+  fs,
+  lh,
   onChange,
   name,
   value,
@@ -94,7 +98,7 @@ export const Input = ({
   //   };
 
   return (
-    <InputWrap w={w} m={m} mt={mt} mb={mb} ml={ml} mr={mr}>
+    <InputWrap w={w} m={m} mt={mt} mb={mb} ml={ml} mr={mr} fs={fs} lh={lh}>
       <StyledInput
         onChange={onChange ? onChange : handleChange}
         onBlur={onBlur}

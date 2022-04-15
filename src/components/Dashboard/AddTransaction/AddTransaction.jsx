@@ -112,6 +112,10 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
         placeholder="Выберите категорию"
         underline
         mWrap="0 0 40px 0"
+        p="14px 14px 8px 14px"
+        fs="18px"
+        lh="26px"
+        iconPosTop="60%"
       />
       <Formik
         initialValues={{ amount: "", comment: "", date: localDate }}
@@ -163,6 +167,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                 minV="0.01"
                 step="10"
                 p="8px 8px 8px 16px"
+                fs="18px"
+                lh="26px"
               />
               <CalendarWrap>
                 <Input
@@ -173,6 +179,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                   onBlur={handleBlur}
                   mb="40px"
                   p="8px 8px 8px 16px"
+                  fs="18px"
+                  lh="26px"
                   readonly
                 />
                 <DateIcon src={iconDate} />
@@ -188,6 +196,8 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               onBlur={handleBlur}
               mb="40px"
               p="8px 8px 8px 16px"
+              fs="18px"
+              lh="26px"
             />
 
             <ButtonsWrap>

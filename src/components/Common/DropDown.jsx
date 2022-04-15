@@ -8,6 +8,8 @@ const DropDownWrap = styled.div`
   position: relative;
   width: ${({ w }) => (w ? w : "100%")};
   margin: ${({ mWrap }) => (mWrap ? mWrap : "0")};
+  font-size: ${({ fs }) => (fs)};
+  line-height: ${({ lh }) => (lh)};
 `;
 
 const Select = styled.div`
@@ -28,7 +30,7 @@ const Select = styled.div`
 const Arrow = styled.img`
   position: absolute;
   right: 8px;
-  top: 50%;
+  top: ${({ iconPosTop }) => (iconPosTop ? iconPosTop : "50%")};
 
   transform: translateY(-50%);
 `;
@@ -70,7 +72,7 @@ const OptionList = styled.ul`
 `;
 
 const Option = styled.li`
-  padding: 20px;
+  padding: 9px;
 
   cursor: pointer;
 
@@ -98,6 +100,9 @@ export const DropDown = ({
   b,
   br,
   mWrap,
+  fs,
+  lh,
+  iconPosTop,
 
   underline,
 }) => {
@@ -112,13 +117,14 @@ export const DropDown = ({
   };
 
   return (
-    <DropDownWrap w={w} mWrap={mWrap} ref={wrapperRef}>
+    <DropDownWrap w={w} mWrap={mWrap} ref={wrapperRef} fs={fs} lh={lh}>
       <Select
         onClick={() => setIsOpen(!isOpen)}
         br={br}
         m={m}
         p={p}
         b={b}
+
         underline={underline}
       >
         {selectedOption.name ? (
@@ -126,7 +132,7 @@ export const DropDown = ({
         ) : (
           <Placeholder underline={underline}>{placeholder}</Placeholder>
         )}
-        <Arrow src={arrow} />
+        <Arrow src={arrow} iconPosTop={iconPosTop}/>
       </Select>
 
       {isOpen && (
