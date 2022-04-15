@@ -11,11 +11,11 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   z-index: 2;
+  background-color: #ffffff;
 
-  background-color: rgba(0, 0, 0, 0.25);
-
-  @media screen and (max-width: 767px) {
-    background-color: #ffffff;
+  ${size.M} { 
+    top: -80px;
+    background-color: rgba(0, 0, 0, 0.25);
   }
 `;
 const ModalWrap = styled.div`
