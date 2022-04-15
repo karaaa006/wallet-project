@@ -162,7 +162,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                 mb="40px"
                 minV="0.01"
                 step="10"
-                pl="16px"
+                p="8px 8px 8px 16px"
               />
               <CalendarWrap>
                 <Input
@@ -172,7 +172,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
                   onChange={() => null}
                   onBlur={handleBlur}
                   mb="40px"
-                  pl="16px"
+                  p="8px 8px 8px 16px"
                   readonly
                 />
                 <DateIcon src={iconDate} />
@@ -187,7 +187,7 @@ export const AddTransaction = ({ modalIsOpen, closeModal }) => {
               onChange={handleChange}
               onBlur={handleBlur}
               mb="40px"
-              pl="16px"
+              p="8px 8px 8px 16px"
             />
 
             <ButtonsWrap>
