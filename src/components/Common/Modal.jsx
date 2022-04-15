@@ -61,8 +61,8 @@ const CloseIcon = styled.img`
 `;
 
 const Title = styled.h2`
-  font-size: 30px;
-  line-height: 45px;
+  font-size: 24px;
+  line-height: 36px;
   font-weight: 400;
   margin-top: 0;
   margin-left: 0;
