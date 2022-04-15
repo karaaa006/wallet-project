@@ -4,7 +4,7 @@ import close from "../../images/icons/close.svg";
 import { size } from "../../utils/stylesVars";
 
 const Backdrop = styled.div`
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   position: fixed;
   top: 0;
   bottom: 0;
@@ -13,7 +13,7 @@ const Backdrop = styled.div`
   z-index: 2;
   background-color: #ffffff;
 
-  ${size.M} { 
+  ${size.M} {
     top: -80px;
     background-color: rgba(0, 0, 0, 0.25);
   }
@@ -99,11 +99,11 @@ export const Modal = ({
   }, []);
 
   useEffect(() => {
-     if (isOpen && document.documentElement.clientWidth < 768) {
-       document.body.style.overflow = 'hidden';
-       window.scrollTo(0,0);
-     }
-     return ()=> document.body.style.overflow = 'unset';
+    if (isOpen && document.documentElement.clientWidth < 768) {
+      document.body.style.overflow = "hidden";
+      window.scrollTo(0, 0);
+    }
+    return () => (document.body.style.overflow = "unset");
   }, [isOpen]);
 
   const handleClose = () => {
