@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLogin } from "../../redux/operations/userOperations";
 import { validate } from "indicative/validator";
 import { toast } from "react-toastify";
+import { TestData } from "./TestData";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,11 @@ export const LoginForm = () => {
     }
   };
 
+  const handleTestDataClick = () => {
+    setEmail("testuser@test.com");
+    setPassword("testtest");
+  };
+
   return (
     <>
       <StyledForm submitFunction={handleSubmit}>
@@ -60,7 +66,9 @@ export const LoginForm = () => {
           type="email"
           value={email}
           setValue={setEmail}
-        />
+        >
+          <TestData onClick={handleTestDataClick} />
+        </Input>
         <Input
           placeholder={"Пароль"}
           icon={lock}

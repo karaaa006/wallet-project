@@ -23,6 +23,8 @@ const FormWrap = styled.div`
 const Form = styled.form.attrs(() => {
   return { novalidate: true };
 })`
+  position: relative;
+
   width: 100%;
 `;
 
